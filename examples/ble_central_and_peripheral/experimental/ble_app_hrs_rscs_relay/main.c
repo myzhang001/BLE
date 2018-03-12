@@ -103,7 +103,7 @@
 
 
 #include "ble_nus_c.h"
-
+#include "ble_nus.h"
 
 #define PERIPHERAL_ADVERTISING_LED      BSP_BOARD_LED_2
 #define PERIPHERAL_CONNECTED_LED        BSP_BOARD_LED_3
@@ -145,6 +145,8 @@
 
 
 BLE_NUS_C_ARRAY_DEF(m_ble_nus_c,2);  
+BLE_NUS_DEF(m_nus);   
+
 
 
 /**@brief   Priority of the application BLE event handler.
@@ -1094,8 +1096,10 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
     // Based on the role this device plays in the connection, dispatch to the right handler.
     if (role == BLE_GAP_ROLE_PERIPH || ble_evt_is_advertising_timeout(p_ble_evt))
     {
-        ble_hrs_on_ble_evt(p_ble_evt, &m_hrs);
-        ble_rscs_on_ble_evt(p_ble_evt, &m_rscs);
+        //ble_hrs_on_ble_evt(p_ble_evt, &m_hrs);
+        // ble_rscs_on_ble_evt(p_ble_evt, &m_rscs);
+        
+       // ble_nus_on_ble_evt(p_ble_evt, &m_nus);
         on_ble_peripheral_evt(p_ble_evt);
     }
     else if ((role == BLE_GAP_ROLE_CENTRAL) || (p_ble_evt->header.evt_id == BLE_GAP_EVT_ADV_REPORT))
@@ -1441,7 +1445,6 @@ static void power_manage(void)
 }
 
 
-
 static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t const * p_ble_nus_evt)
 {
     ret_code_t err_code;
@@ -1486,9 +1489,62 @@ static void nus_c_init(void)
     }
 }
 
+static void nus_data_handler(ble_nus_evt_t * p_evt)
+{
+
+    if (p_evt->type == BLE_NUS_EVT_RX_DATA)
+    {
+        uint32_t err_code;
+
+        NRF_LOG_INFO("Received data from BLE NUS. Writing data on UART.");
+        NRF_LOG_HEXDUMP_DEBUG(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
+
+        #if 0
+        for (uint32_t i = 0; i < p_evt->params.rx_data.length; i++)
+        {
+            NRF_LOG_INFO("%d",p_evt->params.rx_data.p_data[i]);
+        }
+        #endif
+        
+        //NRF_LOG_INFO("\r\n :hello");
+        
+        #if 0
+        for (uint32_t i = 0; i < p_evt->params.rx_data.length; i++)
+        {
+            printf("%d",p_evt->params.rx_data.p_data[i]);
+            
+            do
+            {
+                //err_code = app_uart_put(p_evt->params.rx_data.p_data[i]);
+                if ((err_code != NRF_SUCCESS) && (err_code != NRF_ERROR_BUSY))
+                {
+                    NRF_LOG_ERROR("Failed receiving NUS message. Error 0x%x. ", err_code);
+                    APP_ERROR_CHECK(err_code);
+                }
+            } while (err_code == NRF_ERROR_BUSY);
+        }
+        if (p_evt->params.rx_data.p_data[p_evt->params.rx_data.length-1] == '\r')
+        {
+            //while (app_uart_put('\n') == NRF_ERROR_BUSY);
+        }
+        #endif
+    }
+
+}
 
 
+static void services_nus_init(void)
+{
+    uint32_t       err_code;
+    ble_nus_init_t nus_init;
 
+    memset(&nus_init, 0, sizeof(nus_init));
+
+    nus_init.data_handler = nus_data_handler;
+
+    err_code = ble_nus_init(&m_nus, &nus_init);
+    APP_ERROR_CHECK(err_code);
+}
 
 
 int main(void)
@@ -1509,7 +1565,8 @@ int main(void)
     //hrs_c_init();
     //rscs_c_init();
     
-    services_init();
+    //services_init();
+    services_nus_init();
     advertising_init();
 
     if (erase_bonds == true)
