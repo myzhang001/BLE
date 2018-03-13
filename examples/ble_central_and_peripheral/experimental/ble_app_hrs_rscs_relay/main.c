@@ -105,6 +105,9 @@
 #include "ble_nus_c.h"
 #include "ble_nus.h"
 
+
+#include "app_uart.h"
+
 #define PERIPHERAL_ADVERTISING_LED      BSP_BOARD_LED_2
 #define PERIPHERAL_CONNECTED_LED        BSP_BOARD_LED_3
 #define CENTRAL_SCANNING_LED            BSP_BOARD_LED_0
@@ -1449,7 +1452,7 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
 {
     ret_code_t err_code;
 
-    switch (p_ble_nus_evt->evt_type)
+    switch(p_ble_nus_evt->evt_type)
     {
         case BLE_NUS_C_EVT_DISCOVERY_COMPLETE:
             NRF_LOG_INFO("Discovery complete.");
@@ -1463,6 +1466,8 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
 
         case BLE_NUS_C_EVT_NUS_TX_EVT:
            // ble_nus_chars_received_uart_print(p_ble_nus_evt->p_data, p_ble_nus_evt->data_len);
+        
+            NRF_LOG_INFO("nus_event handle:%d",p_ble_nus_evt->conn_handle);
             break;
 
         case BLE_NUS_C_EVT_DISCONNECTED:
@@ -1547,12 +1552,99 @@ static void services_nus_init(void)
 }
 
 
+
+#define UART_TX_BUF_SIZE        256                                     /**< UART TX buffer size. */
+#define UART_RX_BUF_SIZE        256     
+
+static uint16_t m_ble_nus_max_data_len = BLE_GATT_ATT_MTU_DEFAULT - OPCODE_LENGTH - HANDLE_LENGTH; /**< Maximum length of data (in bytes) that can be transmitted to the peer by the Nordic UART service module. */
+
+
+void uart_event_handle(app_uart_evt_t * p_event)
+{
+    static uint8_t data_array[BLE_NUS_MAX_DATA_LEN];
+    static uint16_t index = 0;
+    uint32_t ret_val;
+
+    switch (p_event->evt_type)
+    {
+        /**@snippet [Handling data from UART] */
+        case APP_UART_DATA_READY:
+            UNUSED_VARIABLE(app_uart_get(&data_array[index]));
+            index++;
+
+            if ((data_array[index - 1] == '\n') || (index >= (m_ble_nus_max_data_len)))
+            {
+                NRF_LOG_DEBUG("Ready to send data over BLE NUS");
+                NRF_LOG_HEXDUMP_DEBUG(data_array, index);
+
+                do
+                {
+                    //ret_val = ble_nus_c_string_send(&m_ble_nus_c, data_array, index);
+                    if ( (ret_val != NRF_ERROR_INVALID_STATE) && (ret_val != NRF_ERROR_BUSY) )
+                    {
+                        APP_ERROR_CHECK(ret_val);
+                    }
+                } while (ret_val == NRF_ERROR_BUSY);
+
+                index = 0;
+            }
+            break;
+
+        /**@snippet [Handling data from UART] */
+        case APP_UART_COMMUNICATION_ERROR:
+            NRF_LOG_ERROR("Communication error occurred while handling UART.");
+            APP_ERROR_HANDLER(p_event->data.error_communication);
+            break;
+
+        case APP_UART_FIFO_ERROR:
+            NRF_LOG_ERROR("Error occurred in FIFO module used by UART.");
+            APP_ERROR_HANDLER(p_event->data.error_code);
+            break;
+
+        default:
+            break;
+    }
+}
+
+
+
+static void uart_init(void)
+{
+    ret_code_t err_code;
+
+    app_uart_comm_params_t const comm_params =
+    {
+        .rx_pin_no    = RX_PIN_NUMBER,
+        .tx_pin_no    = TX_PIN_NUMBER,
+        .rts_pin_no   = RTS_PIN_NUMBER,
+        .cts_pin_no   = CTS_PIN_NUMBER,
+        .flow_control = APP_UART_FLOW_CONTROL_DISABLED,
+        .use_parity   = false,
+        .baud_rate    = UART_BAUDRATE_BAUDRATE_Baud115200
+    };
+
+    APP_UART_FIFO_INIT(&comm_params,
+                       UART_RX_BUF_SIZE,
+                       UART_TX_BUF_SIZE,
+                       uart_event_handle,
+                       APP_IRQ_PRIORITY_LOWEST,
+                       err_code);
+
+    APP_ERROR_CHECK(err_code);
+}
+
+
+
+
+
 int main(void)
 {
     bool erase_bonds;
 
-    log_init();
+    //log_init();
     timer_init();
+    uart_init();
+    
     buttons_leds_init(&erase_bonds);
     ble_stack_init();
     gap_params_init();
@@ -1580,11 +1672,15 @@ int main(void)
         adv_scan_start();
     }
 
+    app_uart_put(123);
+    
+    
+    
     NRF_LOG_INFO("Relay example started.");
 
     for (;;)
     {
-        if (NRF_LOG_PROCESS() == false)
+        //if (NRF_LOG_PROCESS() == false)
         {
             // Wait for BLE events.
             power_manage();

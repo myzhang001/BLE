@@ -53,6 +53,8 @@
 ".\_build\nrf_section_iter.o"
 ".\_build\nrf_strerror.o"
 ".\_build\sdk_mapped_flags.o"
+".\_build\app_fifo.o"
+".\_build\app_uart_fifo.o"
 ".\_build\nrf_log_backend_rtt.o"
 ".\_build\nrf_log_backend_serial.o"
 ".\_build\nrf_log_backend_uart.o"

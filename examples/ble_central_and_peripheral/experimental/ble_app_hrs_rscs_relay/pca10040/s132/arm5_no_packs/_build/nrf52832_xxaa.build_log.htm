@@ -22,25 +22,27 @@ Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
 D:\ble\examples\ble_central_and_peripheral\experimental\ble_app_hrs_rscs_relay\pca10040\s132\arm5_no_packs\ble_app_hrs_rscs_relay_pca10040_s132.uvprojx
-Project File Date:  03/12/2018
+Project File Date:  03/13/2018
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'nrf52832_xxaa'
 compiling main.c...
-..\..\..\main.c(1497): warning:  #177-D: variable "err_code" was declared but never referenced
+..\..\..\main.c(1502): warning:  #177-D: variable "err_code" was declared but never referenced
           uint32_t err_code;
-..\..\..\main.c(1124): warning:  #177-D: function "hrs_c_init" was declared but never referenced
+..\..\..\main.c(1127): warning:  #177-D: function "hrs_c_init" was declared but never referenced
   static void hrs_c_init(void)
-..\..\..\main.c(1138): warning:  #177-D: function "rscs_c_init" was declared but never referenced
+..\..\..\main.c(1141): warning:  #177-D: function "rscs_c_init" was declared but never referenced
   static void rscs_c_init(void)
-..\..\..\main.c(1344): warning:  #177-D: function "services_init" was declared but never referenced
+..\..\..\main.c(1347): warning:  #177-D: function "services_init" was declared but never referenced
   static void services_init(void)
-..\..\..\main.c: 4 warnings, 0 errors
+..\..\..\main.c(1424): warning:  #177-D: function "log_init" was declared but never referenced
+  static void log_init(void)
+..\..\..\main.c: 5 warnings, 0 errors
 linking...
-Program Size: Code=39964 RO-data=3912 RW-data=1968 ZI-data=12488  
+Program Size: Code=35372 RO-data=1580 RW-data=1724 ZI-data=11740  
 FromELF: creating hex file...
-".\_build\nrf52832_xxaa.axf" - 0 Error(s), 4 Warning(s).
+".\_build\nrf52832_xxaa.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 
