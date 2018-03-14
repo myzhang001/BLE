@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\_build\nrf52832_xxaa.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\_build\nrf52832_xxaa.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Wed Mar 14 17:34:06 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Wed Mar 14 18:44:18 2018
 <BR><P>
 <H3>Maximum Stack Usage =        536 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2970,7 +2970,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[62]"></a>ble_evt_handler</STRONG> (Thumb, 76 bytes, Stack size 16 bytes, main.o(i.ble_evt_handler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 332<LI>Call Chain = ble_evt_handler &rArr; on_ble_peripheral_evt &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; nrf_log_frontend_std_4 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr; nrf_memobj_alloc &rArr; nrf_memobj_free &rArr; nrf_balloc_free &rArr; app_util_critical_region_enter
+<BR><BR>[Stack]<UL><LI>Max Depth = 340<LI>Call Chain = ble_evt_handler &rArr; on_ble_central_evt &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; nrf_log_frontend_std_4 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr; nrf_memobj_alloc &rArr; nrf_memobj_free &rArr; nrf_balloc_free &rArr; app_util_critical_region_enter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_nus_c_on_ble_evt
 <LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_role
@@ -3041,8 +3041,8 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.advertising_init)
 </UL>
-<P><STRONG><a name="[df]"></a>on_ble_central_evt</STRONG> (Thumb, 486 bytes, Stack size 40 bytes, main.o(i.on_ble_central_evt))
-<BR><BR>[Stack]<UL><LI>Max Depth = 316<LI>Call Chain = on_ble_central_evt &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; nrf_log_frontend_std_4 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr; nrf_memobj_alloc &rArr; nrf_memobj_free &rArr; nrf_balloc_free &rArr; app_util_critical_region_enter
+<P><STRONG><a name="[df]"></a>on_ble_central_evt</STRONG> (Thumb, 560 bytes, Stack size 48 bytes, main.o(i.on_ble_central_evt))
+<BR><BR>[Stack]<UL><LI>Max Depth = 324<LI>Call Chain = on_ble_central_evt &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; nrf_log_frontend_std_4 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr; nrf_memobj_alloc &rArr; nrf_memobj_free &rArr; nrf_balloc_free &rArr; app_util_critical_region_enter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_6
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_2

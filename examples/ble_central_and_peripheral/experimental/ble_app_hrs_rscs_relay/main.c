@@ -874,6 +874,15 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
             
             if( User_Match_Adv_Addr(adv_report->peer_addr,MacDevice) == true)   //mac 地址过滤
             {
+                //信号强度
+                NRF_LOG_INFO("\r\n信号强度rssi:%02d",p_gap_evt->params.adv_report.rssi);
+              
+                //接收到的广播的类型
+
+                NRF_LOG_INFO("\r\n广播类型:%02d", p_gap_evt->params.adv_report.type);
+                //应答标志位  为1 是 扫描应答
+                NRF_LOG_INFO("\r\n 应答标志位%d  \r\n",p_gap_evt->params.adv_report.scan_rsp); 
+                
                 NRF_LOG_INFO("\r\n  mac 地址匹配成功");
                 //  扫描到的周围的mac 地址
                 #if 1
@@ -885,55 +894,18 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
                 p_gap_evt->params.adv_report.peer_addr.addr[5]\
                 );
                 #endif
+                //打印所有的广播数据包
+                
+                NRF_LOG_INFO("\r\n-----------------------start-------------------");
+                
+                for(uint8_t adv_len = 0;adv_len < p_gap_evt->params.adv_report.dlen; adv_len++)
+                {
+                    NRF_LOG_INFO("%02x",p_gap_evt->params.adv_report.data[adv_len]);
+                }
+                NRF_LOG_INFO("\r\n-----------------------end-------------------");
             }
-            else
-            {
-               //NRF_LOG_INFO("\r\n  mac 地址匹配失败"); 
-            }
-            
-            //NRF_LOG_INFO();
-            
-           
-            // 扫描到的周围的广播名字
-            #if 0
-            NRF_LOG_INFO("advname:%02x %02x %02x %02x %02x %02x ",p_gap_evt->params.adv_report.peer_addr.addr[0],\
-            p_gap_evt->params.adv_report.peer_addr.addr[1],\
-            p_gap_evt->params.adv_report.peer_addr.addr[2],\
-            p_gap_evt->params.adv_report.peer_addr.addr[3],\
-            p_gap_evt->params.adv_report.peer_addr.addr[4],\
-            p_gap_evt->params.adv_report.peer_addr.addr[5]\
-            );
-            #endif
-            
-            //NRF_LOG_INFO("advname：%s",p_gap_evt->params.adv_report.data);
-            //打印所有的广播数据包
-            #if 0
-            NRF_LOG_INFO("\r\n-----------------------start-------------------");
-            
-            for(uint8_t adv_len = 0;adv_len < p_gap_evt->params.adv_report.dlen; adv_len++)
-            {
-                NRF_LOG_INFO("%02x",p_gap_evt->params.adv_report.data[adv_len]);
-            
-            }
-            NRF_LOG_INFO("\r\n-----------------------end-------------------");
-        
-            //p_gap_evt->params.sec_request
-            //printf("sdfasdfsadfa");
-            
-            //信号强度
-            
-            NRF_LOG_INFO("\r\n信号强度rssi:%02d",p_gap_evt->params.adv_report.rssi);
-           
+                        
  
-            
-            #endif
-            //接收到的广播的类型
-            
-            NRF_LOG_INFO("\r\n广播类型:%02d", p_gap_evt->params.adv_report.type);
-            //应答标志位
-            NRF_LOG_INFO("\r\n 应答标志位%d  \r\n",p_gap_evt->params.adv_report.scan_rsp);
-            
-            
             #if 0
             if (strlen(m_target_periph_name) != 0)
             {
