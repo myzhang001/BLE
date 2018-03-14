@@ -46,4 +46,5 @@
 .\_build\ble_nus_c.o: ..\..\..\..\..\..\..\components\libraries\util\app_error_weak.h
 .\_build\ble_nus_c.o: ..\..\..\..\..\..\..\components\ble\common\ble_srv_common.h
 .\_build\ble_nus_c.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\nrf_log.h
+.\_build\ble_nus_c.o: ..\..\..\..\..\..\..\components\libraries\strerror\nrf_strerror.h
 .\_build\ble_nus_c.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\src\nrf_log_internal.h

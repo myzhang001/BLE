@@ -2,6 +2,7 @@
 .\_build\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\_build\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\_build\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\_build\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\util\nordic_common.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\softdevice\common\nrf_sdh.h
 .\_build\main.o: ..\config\sdk_config.h
@@ -24,7 +25,6 @@
 .\_build\main.o: C:\Keil_v5\ARM\PACK\NordicSemiconductor\nRF_DeviceFamilyPack\8.15.0\Device\Include\nrf52_name_change.h
 .\_build\main.o: C:\Keil_v5\ARM\PACK\NordicSemiconductor\nRF_DeviceFamilyPack\8.15.0\Device\Include\compiler_abstraction.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\util\app_error.h
-.\_build\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\util\app_error_weak.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\util\app_util.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\softdevice\common\nrf_sdh_soc.h
@@ -77,6 +77,7 @@
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\fstorage\nrf_fstorage.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\fds\fds.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\nrf_log.h
+.\_build\main.o: ..\..\..\..\..\..\..\components\libraries\strerror\nrf_strerror.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\src\nrf_log_internal.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\nrf_log_ctrl.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\src\nrf_log_ctrl_internal.h
@@ -87,3 +88,4 @@
 .\_build\main.o: ..\..\..\..\..\..\..\components\ble\ble_services\ble_nus_c\ble_nus_c.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\ble\ble_services\ble_nus\ble_nus.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\uart\app_uart.h
+.\_build\main.o: ..\arm5_no_packs\User_adv_func.h

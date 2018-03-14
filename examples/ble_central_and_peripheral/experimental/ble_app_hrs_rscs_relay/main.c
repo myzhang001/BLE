@@ -76,6 +76,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #include "nordic_common.h"
 #include "nrf_sdh.h"
 #include "nrf_sdh_soc.h"
@@ -107,13 +108,18 @@
 
 
 #include "app_uart.h"
+#include "User_adv_func.h"
+
+
+
+
 
 #define PERIPHERAL_ADVERTISING_LED      BSP_BOARD_LED_2
 #define PERIPHERAL_CONNECTED_LED        BSP_BOARD_LED_3
 #define CENTRAL_SCANNING_LED            BSP_BOARD_LED_0
 #define CENTRAL_CONNECTED_LED           BSP_BOARD_LED_1
 
-#define DEVICE_NAME                     "Relay"                                     /**< Name of device used for advertising. */
+#define DEVICE_NAME                     "SOMPUTON_08A"                                     /**< Name of device used for advertising. */
 #define MANUFACTURER_NAME               "NordicSemiconductor"                       /**< Manufacturer. Will be passed to Device Information Service. */
 #define APP_ADV_INTERVAL                300                                         /**< The advertising interval (in units of 0.625 ms). This value corresponds to 187.5 ms. */
 #define APP_ADV_TIMEOUT_IN_SECONDS      180                                         /**< The advertising timeout in units of seconds. */
@@ -147,7 +153,7 @@
 #define UUID16_SIZE                     2                                           /**< Size of a UUID, in bytes. */
 
 
-BLE_NUS_C_ARRAY_DEF(m_ble_nus_c,2);  
+BLE_NUS_C_ARRAY_DEF(m_ble_nus_c,NRF_SDH_BLE_CENTRAL_LINK_COUNT);  
 BLE_NUS_DEF(m_nus);   
 
 
@@ -183,7 +189,7 @@ static ble_rscs_c_t m_rscs_c;                                       /**< Running
 
 NRF_BLE_GATT_DEF(m_gatt);                                           /**< GATT module instance. */
 BLE_ADVERTISING_DEF(m_advertising);                                 /**< Advertising module instance. */
-BLE_DB_DISCOVERY_ARRAY_DEF(m_db_discovery, 2);                      /**< Database discovery module instances. */
+BLE_DB_DISCOVERY_ARRAY_DEF(m_db_discovery, NRF_SDH_BLE_CENTRAL_LINK_COUNT);                      /**< Database discovery module instances. */
 
 static uint16_t m_conn_handle_hrs_c  = BLE_CONN_HANDLE_INVALID;     /**< Connection handle for the HRS central application */
 static uint16_t m_conn_handle_rscs_c = BLE_CONN_HANDLE_INVALID;     /**< Connection handle for the RSC central application */
@@ -219,7 +225,7 @@ static ble_gap_scan_params_t const m_scan_params =
 };
 
 /**@brief Connection parameters requested for connection. */
-static ble_gap_conn_params_t const m_connection_param =
+ ble_gap_conn_params_t const m_connection_param =
 {
     MIN_CONNECTION_INTERVAL,
     MAX_CONNECTION_INTERVAL,
@@ -265,7 +271,7 @@ static void conn_params_error_handler(uint32_t nrf_error)
  * @retval NRF_SUCCESS if the data type is found in the report.
  * @retval NRF_ERROR_NOT_FOUND if the data type could not be found.
  */
-static uint32_t adv_report_parse(uint8_t type, uint8_array_t * p_advdata, uint8_array_t * p_typedata)
+ uint32_t adv_report_parse(uint8_t type, uint8_array_t * p_advdata, uint8_array_t * p_typedata)
 {
     uint32_t   index = 0;
     uint8_t  * p_data;
@@ -657,7 +663,7 @@ static bool find_adv_uuid(ble_gap_evt_adv_report_t const * p_adv_report, uint16_
     return false;
 }
 #endif
-static void on_adv_report(ble_evt_t const * p_ble_evt)
+void on_adv_report(ble_evt_t const * p_ble_evt)
 {
     uint32_t      err_code;
     uint8_array_t adv_data;
@@ -700,7 +706,7 @@ static void on_adv_report(ble_evt_t const * p_ble_evt)
     {
         if (strlen(m_target_periph_name) != 0)
         {
-            if (memcmp(m_target_periph_name, dev_name.p_data, dev_name.size) == 0)
+            if(memcmp(m_target_periph_name,dev_name.p_data,dev_name.size) == 0)
             {
                 do_connect = true;
             }
@@ -736,6 +742,11 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
     ret_code_t            err_code;
     ble_gap_evt_t const * p_gap_evt = &p_ble_evt->evt.gap_evt;
 
+    //保存下广播数据包
+    ble_gap_evt_adv_report_t const *adv_report = &p_ble_evt->evt.gap_evt.params.adv_report;
+    
+    
+    
     switch (p_ble_evt->header.evt_id)
     {
         // Upon connection, check which peripheral has connected (HR or RSC), initiate DB
@@ -780,9 +791,7 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
             {
                 APP_ERROR_CHECK(err_code);
             }
-            
-            
-            
+
             // Update LEDs status, and check if we should be looking for more peripherals to connect to.
             bsp_board_led_on(CENTRAL_CONNECTED_LED);
             if (ble_conn_state_n_centrals() == NRF_SDH_BLE_CENTRAL_LINK_COUNT)
@@ -818,7 +827,7 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
                 m_conn_handle_rscs_c = BLE_CONN_HANDLE_INVALID;
             }
 
-            if (   (m_conn_handle_rscs_c == BLE_CONN_HANDLE_INVALID)
+            if ((m_conn_handle_rscs_c == BLE_CONN_HANDLE_INVALID)
                 || (m_conn_handle_hrs_c  == BLE_CONN_HANDLE_INVALID))
             {
                 // Start scanning
@@ -857,8 +866,72 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
 
         case BLE_GAP_EVT_ADV_REPORT:
         {
+            //on_adv_report(p_ble_evt);
             
-            on_adv_report(p_ble_evt);
+            //if(p_gap_evt->params.adv_report.peer_addr.addr[0])
+            
+            uint8_t MacDevice[6]={0xF8,0X8B,0X29,0X51,0X60,0XF2};
+            
+            if( User_Match_Adv_Addr(adv_report->peer_addr,MacDevice) == true)   //mac 地址过滤
+            {
+                NRF_LOG_INFO("\r\n  mac 地址匹配成功");
+                //  扫描到的周围的mac 地址
+                #if 1
+                NRF_LOG_INFO("设备广播地址mac:%02x %02x %02x %02x %02x %02x ",p_gap_evt->params.adv_report.peer_addr.addr[0],\
+                p_gap_evt->params.adv_report.peer_addr.addr[1],\
+                p_gap_evt->params.adv_report.peer_addr.addr[2],\
+                p_gap_evt->params.adv_report.peer_addr.addr[3],\
+                p_gap_evt->params.adv_report.peer_addr.addr[4],\
+                p_gap_evt->params.adv_report.peer_addr.addr[5]\
+                );
+                #endif
+            }
+            else
+            {
+               //NRF_LOG_INFO("\r\n  mac 地址匹配失败"); 
+            }
+            
+            //NRF_LOG_INFO();
+            
+           
+            // 扫描到的周围的广播名字
+            #if 0
+            NRF_LOG_INFO("advname:%02x %02x %02x %02x %02x %02x ",p_gap_evt->params.adv_report.peer_addr.addr[0],\
+            p_gap_evt->params.adv_report.peer_addr.addr[1],\
+            p_gap_evt->params.adv_report.peer_addr.addr[2],\
+            p_gap_evt->params.adv_report.peer_addr.addr[3],\
+            p_gap_evt->params.adv_report.peer_addr.addr[4],\
+            p_gap_evt->params.adv_report.peer_addr.addr[5]\
+            );
+            #endif
+            
+            //NRF_LOG_INFO("advname：%s",p_gap_evt->params.adv_report.data);
+            //打印所有的广播数据包
+            #if 0
+            NRF_LOG_INFO("\r\n-----------------------start-------------------");
+            
+            for(uint8_t adv_len = 0;adv_len < p_gap_evt->params.adv_report.dlen; adv_len++)
+            {
+                NRF_LOG_INFO("%02x",p_gap_evt->params.adv_report.data[adv_len]);
+            
+            }
+            NRF_LOG_INFO("\r\n-----------------------end-------------------");
+        
+            //p_gap_evt->params.sec_request
+            //printf("sdfasdfsadfa");
+            
+            //信号强度
+            
+            NRF_LOG_INFO("\r\n信号强度rssi:%02d",p_gap_evt->params.adv_report.rssi);
+           
+ 
+            
+            #endif
+            //接收到的广播的类型
+            
+            NRF_LOG_INFO("\r\n广播类型:%02d", p_gap_evt->params.adv_report.type);
+            //应答标志位
+            NRF_LOG_INFO("\r\n 应答标志位%d  \r\n",p_gap_evt->params.adv_report.scan_rsp);
             
             
             #if 0
@@ -1100,9 +1173,9 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
     if (role == BLE_GAP_ROLE_PERIPH || ble_evt_is_advertising_timeout(p_ble_evt))
     {
         //ble_hrs_on_ble_evt(p_ble_evt, &m_hrs);
-        // ble_rscs_on_ble_evt(p_ble_evt, &m_rscs);
+        //ble_rscs_on_ble_evt(p_ble_evt, &m_rscs);
         
-       // ble_nus_on_ble_evt(p_ble_evt, &m_nus);
+        //ble_nus_on_ble_evt(p_ble_evt, &m_nus);
         on_ble_peripheral_evt(p_ble_evt);
     }
     else if ((role == BLE_GAP_ROLE_CENTRAL) || (p_ble_evt->header.evt_id == BLE_GAP_EVT_ADV_REPORT))
@@ -1111,7 +1184,7 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
         //ble_hrs_c_on_ble_evt(p_ble_evt, &m_hrs_c);
         //ble_rscs_c_on_ble_evt(p_ble_evt, &m_rscs_c);
         
-        for(uint8_t i = 0; i < NRF_SDH_BLE_CENTRAL_LINK_COUNT;i++)
+        for(uint8_t i = 0; i < NRF_SDH_BLE_CENTRAL_LINK_COUNT;i++)      
         {
             ble_nus_c_on_ble_evt(p_ble_evt,&m_ble_nus_c[i]);
         }
@@ -1121,7 +1194,7 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
     }
 }
 
-
+#if 0
 /**@brief Heart rate collector initialization.
  */
 static void hrs_c_init(void)
@@ -1148,7 +1221,7 @@ static void rscs_c_init(void)
     err_code = ble_rscs_c_init(&m_rscs_c, &rscs_c_init_obj);
     APP_ERROR_CHECK(err_code);
 }
-
+#endif
 
 /**@brief Function for initializing the BLE stack.
  *
@@ -1572,6 +1645,7 @@ void uart_event_handle(app_uart_evt_t * p_event)
             UNUSED_VARIABLE(app_uart_get(&data_array[index]));
             index++;
 
+            #if 0
             if ((data_array[index - 1] == '\n') || (index >= (m_ble_nus_max_data_len)))
             {
                 NRF_LOG_DEBUG("Ready to send data over BLE NUS");
@@ -1588,6 +1662,7 @@ void uart_event_handle(app_uart_evt_t * p_event)
 
                 index = 0;
             }
+            #endif
             break;
 
         /**@snippet [Handling data from UART] */
@@ -1641,9 +1716,9 @@ int main(void)
 {
     bool erase_bonds;
 
-    //log_init();
+    log_init();
     timer_init();
-    uart_init();
+    //uart_init();
     
     buttons_leds_init(&erase_bonds);
     ble_stack_init();
@@ -1661,7 +1736,7 @@ int main(void)
     services_nus_init();
     advertising_init();
 
-    if (erase_bonds == true)
+    if(erase_bonds == true)
     {
         // Scanning and advertising is done upon PM_EVT_PEERS_DELETE_SUCCEEDED event.
         delete_bonds();
@@ -1672,15 +1747,15 @@ int main(void)
         adv_scan_start();
     }
 
-    app_uart_put(123);
+    //app_uart_put(123);
     
-    
+    //printf("123");
     
     NRF_LOG_INFO("Relay example started.");
 
     for (;;)
     {
-        //if (NRF_LOG_PROCESS() == false)
+        if (NRF_LOG_PROCESS() == false)
         {
             // Wait for BLE events.
             power_manage();
