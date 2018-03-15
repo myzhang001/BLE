@@ -181,6 +181,8 @@ void  find_target_device(ble_evt_t const * p_ble_evt,ble_gap_addr_t  * device_ad
                //peer_addr  = device_addr;
                //device_addr->addr[0] = peer_addr->addr[0];
                 
+				
+				
                 //memcpy(device_addr,peer_addr,sizeof(peer_addr));
                 device_addr->addr[0]= 0x01;
                 device_addr->addr[1]= 0x02;
@@ -189,8 +191,7 @@ void  find_target_device(ble_evt_t const * p_ble_evt,ble_gap_addr_t  * device_ad
                 device_addr->addr[4]= 0x05;
                 device_addr->addr[5]= 0x06;
                 
-                
-                #if 1
+                #if 0
                 NRF_LOG_INFO("设备广播地址mac:%02x %02x %02x %02x %02x %02x ",device_addr->addr[0],\
                 device_addr->addr[1],\
                 device_addr->addr[2],\
