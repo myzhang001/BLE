@@ -725,7 +725,7 @@ void on_adv_report(ble_evt_t const * p_ble_evt)
 }
 
 
-
+ble_gap_addr_t addr_mac;         //保存mac 地址
 
 
 
@@ -872,9 +872,21 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
             
             uint8_t MacDevice[6]={0xF8,0X8B,0X29,0X51,0X60,0XF1}; //0XF2
             
-            find_target_device(p_ble_evt);
+            find_target_device(p_ble_evt,&addr_mac);
             
-
+            #if 1
+            NRF_LOG_INFO("adv设备广播地址mac:%02x %02x %02x %02x %02x %02x ",addr_mac.addr[0],\
+            addr_mac.addr[1],\
+            addr_mac.addr[2],\
+            addr_mac.addr[3],\
+            addr_mac.addr[4],\
+            addr_mac.addr[5]\
+            );
+            #endif
+            
+            
+            //NRF_LOG_INFO("mac_addr:%d",);
+           
             if( User_Match_Adv_Addr(adv_report->peer_addr,MacDevice) == true)   //mac 地址过滤
             {
                 //信号强度

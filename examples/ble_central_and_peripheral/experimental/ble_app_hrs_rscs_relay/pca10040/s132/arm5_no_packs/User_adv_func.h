@@ -29,7 +29,7 @@ typedef enum{
 
 
 extern bool User_Match_Adv_Addr(ble_gap_addr_t addr,uint8_t *dev_mac);
-extern void  find_target_device(ble_evt_t const * p_ble_evt);
+extern void  find_target_device(ble_evt_t const * p_ble_evt,ble_gap_addr_t * device_addr);
 
 
 #endif

@@ -107,7 +107,8 @@ bool ScanRsp_Match_Binding(ble_gap_evt_t  const *p_gap_evt)
 }
    
 _e_match_dev  step;
-void  find_target_device(ble_evt_t const * p_ble_evt)
+
+void  find_target_device(ble_evt_t const * p_ble_evt,ble_gap_addr_t  * device_addr)
 {
     uint32_t      err_code;
     uint8_array_t adv_data;
@@ -118,7 +119,7 @@ void  find_target_device(ble_evt_t const * p_ble_evt)
     
     //For readibility.
     ble_gap_evt_t  const * p_gap_evt  = &p_ble_evt->evt.gap_evt;                    
-    ble_gap_addr_t const * peer_addr  = &p_gap_evt->params.adv_report.peer_addr;   //保存对等设备的地址
+    ble_gap_addr_t  const* peer_addr  = &p_gap_evt->params.adv_report.peer_addr;   //保存对等设备的地址
     
     
     //Prepare advertisement report for parsing.
@@ -172,11 +173,34 @@ void  find_target_device(ble_evt_t const * p_ble_evt)
          
             uint8_t target_name_buff[20]={"SOMPUTON_08A"};
             
-            #if 0
+            #if 1
             if(strstr(device_name,target_name_buff) != NULL)   //找到目标设备名字
             {
                 NRF_LOG_INFO("Name a match");   
 
+               //peer_addr  = device_addr;
+               //device_addr->addr[0] = peer_addr->addr[0];
+                
+                //memcpy(device_addr,peer_addr,sizeof(peer_addr));
+                device_addr->addr[0]= 0x01;
+                device_addr->addr[1]= 0x02;
+                device_addr->addr[2]= 0x03;
+                device_addr->addr[3]= 0x04;
+                device_addr->addr[4]= 0x05;
+                device_addr->addr[5]= 0x06;
+                
+                
+                #if 1
+                NRF_LOG_INFO("设备广播地址mac:%02x %02x %02x %02x %02x %02x ",device_addr->addr[0],\
+                device_addr->addr[1],\
+                device_addr->addr[2],\
+                device_addr->addr[3],\
+                device_addr->addr[4],\
+                device_addr->addr[5]\
+                );
+                #endif
+                
+                
                 #if 0
                 if(ScanRsp_Match_Binding(p_gap_evt)== true)
                 {
@@ -193,6 +217,8 @@ void  find_target_device(ble_evt_t const * p_ble_evt)
             }
                
             #endif
+            
+            #if 0
             
             uint8_t sMacDevice[6]={0xF8,0X8B,0X29,0X51,0X60,0XF2}; //0XF2
             
@@ -228,11 +254,7 @@ void  find_target_device(ble_evt_t const * p_ble_evt)
                 }
                 NRF_LOG_INFO("\r\n-----------------------end-------------------");
             }
-                
-            
-            
-            
-            
+            #endif     
         }  
     }
 }
