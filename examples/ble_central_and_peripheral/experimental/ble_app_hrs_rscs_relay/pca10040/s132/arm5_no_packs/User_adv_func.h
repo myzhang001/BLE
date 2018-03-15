@@ -10,10 +10,26 @@
 
 
 
+typedef enum{
+    E_MATCH_NAME     = 0X00,  //匹配名字
+    E_MATCH_SCNA_RSP = 0X01,   //匹配扫描应答
+    E_CONNECTED_TARGET = 0X02  //连接到目标设备
+}_e_match_dev;
+
+
+
+#define USER_ADV_NAME      0X00
+#define USER_ADV_SCAN_RSP  0X01      //扫描应答 1 表示 scan_rsp 里面的数据
+
+
+
+
+
+
 
 
 extern bool User_Match_Adv_Addr(ble_gap_addr_t addr,uint8_t *dev_mac);
-
+extern void  find_target_device(ble_evt_t const * p_ble_evt);
 
 
 #endif

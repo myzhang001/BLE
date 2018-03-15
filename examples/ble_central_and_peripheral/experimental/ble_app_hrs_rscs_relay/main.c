@@ -870,8 +870,11 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
             
             //if(p_gap_evt->params.adv_report.peer_addr.addr[0])
             
-            uint8_t MacDevice[6]={0xF8,0X8B,0X29,0X51,0X60,0XF2};
+            uint8_t MacDevice[6]={0xF8,0X8B,0X29,0X51,0X60,0XF1}; //0XF2
             
+            find_target_device(p_ble_evt);
+            
+
             if( User_Match_Adv_Addr(adv_report->peer_addr,MacDevice) == true)   //mac 地址过滤
             {
                 //信号强度
@@ -880,7 +883,7 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
                 //接收到的广播的类型
 
                 NRF_LOG_INFO("\r\n广播类型:%02d", p_gap_evt->params.adv_report.type);
-                //应答标志位  为1 是 扫描应答
+                //应答标志位  为1 是 扫描应答 0 为广播数据
                 NRF_LOG_INFO("\r\n 应答标志位%d  \r\n",p_gap_evt->params.adv_report.scan_rsp); 
                 
                 NRF_LOG_INFO("\r\n  mac 地址匹配成功");
@@ -1679,8 +1682,6 @@ static void uart_init(void)
 
     APP_ERROR_CHECK(err_code);
 }
-
-
 
 
 
