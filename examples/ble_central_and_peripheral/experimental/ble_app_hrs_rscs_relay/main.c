@@ -165,7 +165,7 @@ BLE_NUS_DEF(m_nus);
 
 /**@brief Macro to unpack 16bit unsigned UUID from an octet stream.
  */
-#define UUID16_EXTRACT(DST, SRC) \
+#define UUID16_EXTRACT(DST,SRC) \
     do                           \
     {                            \
         (*(DST))   = (SRC)[1];   \
@@ -780,12 +780,12 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
 
             APP_ERROR_CHECK_BOOL(p_gap_evt->conn_handle < NRF_SDH_BLE_CENTRAL_LINK_COUNT);
 
-            err_code = ble_nus_c_handles_assign(&m_ble_nus_c[p_gap_evt->conn_handle - 1],
+            err_code = ble_nus_c_handles_assign(&m_ble_nus_c[p_gap_evt->conn_handle],
                                                 p_gap_evt->conn_handle,
                                                 NULL);
             APP_ERROR_CHECK(err_code);
 
-            err_code = ble_db_discovery_start(&m_db_discovery[p_gap_evt->conn_handle - 1],
+            err_code = ble_db_discovery_start(&m_db_discovery[p_gap_evt->conn_handle],
                                               p_gap_evt->conn_handle);
             if (err_code != NRF_ERROR_BUSY)
             {
@@ -1085,9 +1085,12 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
         //ble_hrs_c_on_ble_evt(p_ble_evt, &m_hrs_c);
         //ble_rscs_c_on_ble_evt(p_ble_evt, &m_rscs_c);
         
+        //NRF_LOG_INFO("conn_handle:%d",conn_handle);
+        
+        
         for(uint8_t i = 0; i < NRF_SDH_BLE_CENTRAL_LINK_COUNT;i++)      
         {
-            //ble_nus_c_on_ble_evt(p_ble_evt,&m_ble_nus_c[i]);
+            ble_nus_c_on_ble_evt(p_ble_evt,&m_ble_nus_c[i]);
         }
         //ble_nus_c_on_ble_evt(p_ble_evt,&m_ble_nus_c[conn_handle]);
        
@@ -1298,9 +1301,9 @@ static void db_disc_handler(ble_db_discovery_evt_t * p_evt)
     //ble_hrs_on_db_disc_evt(&m_hrs_c, p_evt);
     //ble_rscs_on_db_disc_evt(&m_rscs_c, p_evt);
     
-    //ble_nus_c_on_ble_evt(p_ble_evt,&m_ble_nus_c[i]);
-
-    //ble_nus_c_on_db_disc_evt(&m_ble_nus_c[i], p_evt); 
+    ble_nus_c_on_db_disc_evt(&m_ble_nus_c[p_evt->conn_handle], p_evt); 
+    
+    
 }
 
 
@@ -1439,7 +1442,12 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
             break;
 
         case BLE_NUS_C_EVT_NUS_TX_EVT:
-            //ble_nus_chars_received_uart_print(p_ble_nus_evt->p_data, p_ble_nus_evt->data_len);
+           //ble_nus_chars_received_uart_print(p_ble_nus_evt->p_data, p_ble_nus_evt->data_len);
+            for(uint8_t i = 0; i < p_ble_nus_evt->data_len;i++)
+            {
+                NRF_LOG_INFO("data:%c",p_ble_nus_evt->p_data[i]);
+            
+            }
         
             NRF_LOG_INFO("nus_event handle:%d",p_ble_nus_evt->conn_handle);
             break;
@@ -1459,7 +1467,6 @@ static void nus_c_init(void)
     ble_nus_c_init_t init;
 
     init.evt_handler = ble_nus_c_evt_handler;
-
     
     for(uint8_t i = 0; i < NRF_SDH_BLE_CENTRAL_LINK_COUNT;i++)
     {
@@ -1635,13 +1642,7 @@ int main(void)
     services_nus_init();
     advertising_init();
 
-    if(erase_bonds == true)
-    {
-        // Scanning and advertising is done upon PM_EVT_PEERS_DELETE_SUCCEEDED event.
-        delete_bonds();
-        // Scanning and advertising is done by
-    }
-    else
+      
     {
         adv_scan_start();
     }

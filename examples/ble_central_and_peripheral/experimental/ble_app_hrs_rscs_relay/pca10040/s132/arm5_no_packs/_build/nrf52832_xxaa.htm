@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\_build\nrf52832_xxaa.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\_build\nrf52832_xxaa.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Fri Mar 16 11:57:18 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Fri Mar 16 16:31:25 2018
 <BR><P>
 <H3>Maximum Stack Usage =        536 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1021,6 +1021,8 @@ Global Symbols
 
 <P><STRONG><a name="[60]"></a>ble_nus_c_on_ble_evt</STRONG> (Thumb, 108 bytes, Stack size 32 bytes, ble_nus_c.o(i.ble_nus_c_on_ble_evt))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = ble_nus_c_on_ble_evt
+</UL>
+<BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_evt_handler
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(sdh_ble_observers2)
 </UL>
@@ -2975,16 +2977,17 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[62]"></a>ble_evt_handler</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, main.o(i.ble_evt_handler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 364<LI>Call Chain = ble_evt_handler &rArr; on_ble_central_evt &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; nrf_log_frontend_std_4 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr; nrf_memobj_alloc &rArr; nrf_memobj_free &rArr; nrf_balloc_free &rArr; app_util_critical_region_enter
+<P><STRONG><a name="[62]"></a>ble_evt_handler</STRONG> (Thumb, 76 bytes, Stack size 16 bytes, main.o(i.ble_evt_handler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 372<LI>Call Chain = ble_evt_handler &rArr; on_ble_central_evt &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; nrf_log_frontend_std_4 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr; nrf_memobj_alloc &rArr; nrf_memobj_free &rArr; nrf_balloc_free &rArr; app_util_critical_region_enter
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_role
+<BR>[Calls]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_nus_c_on_ble_evt
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_role
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;on_ble_peripheral_evt
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;on_ble_central_evt
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(sdh_ble_observers3)
 </UL>
-<P><STRONG><a name="[3d]"></a>ble_nus_c_evt_handler</STRONG> (Thumb, 114 bytes, Stack size 24 bytes, main.o(i.ble_nus_c_evt_handler))
+<P><STRONG><a name="[3d]"></a>ble_nus_c_evt_handler</STRONG> (Thumb, 150 bytes, Stack size 24 bytes, main.o(i.ble_nus_c_evt_handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 300<LI>Call Chain = ble_nus_c_evt_handler &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; nrf_log_frontend_std_4 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr; nrf_memobj_alloc &rArr; nrf_memobj_free &rArr; nrf_balloc_free &rArr; app_util_critical_region_enter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_1
@@ -3013,8 +3016,8 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.main)
 </UL>
-<P><STRONG><a name="[3c]"></a>db_disc_handler</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, main.o(i.db_disc_handler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 228<LI>Call Chain = db_disc_handler &rArr; nrf_log_frontend_std_2 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr; nrf_memobj_alloc &rArr; nrf_memobj_free &rArr; nrf_balloc_free &rArr; app_util_critical_region_enter
+<P><STRONG><a name="[3c]"></a>db_disc_handler</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, main.o(i.db_disc_handler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 220<LI>Call Chain = db_disc_handler &rArr; nrf_log_frontend_std_2 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr; nrf_memobj_alloc &rArr; nrf_memobj_free &rArr; nrf_balloc_free &rArr; app_util_critical_region_enter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_2
 <LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_nus_c_on_db_disc_evt
@@ -3046,7 +3049,7 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.advertising_init)
 </UL>
-<P><STRONG><a name="[df]"></a>on_ble_central_evt</STRONG> (Thumb, 366 bytes, Stack size 80 bytes, main.o(i.on_ble_central_evt))
+<P><STRONG><a name="[df]"></a>on_ble_central_evt</STRONG> (Thumb, 358 bytes, Stack size 80 bytes, main.o(i.on_ble_central_evt))
 <BR><BR>[Stack]<UL><LI>Max Depth = 356<LI>Call Chain = on_ble_central_evt &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; nrf_log_frontend_std_4 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr; nrf_memobj_alloc &rArr; nrf_memobj_free &rArr; nrf_balloc_free &rArr; app_util_critical_region_enter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_2
