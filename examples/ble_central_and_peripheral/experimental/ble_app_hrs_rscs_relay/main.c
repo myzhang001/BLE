@@ -198,7 +198,7 @@ static uint16_t m_conn_handle_rscs_c = BLE_CONN_HANDLE_INVALID;     /**< Connect
  *  if these are set to empty strings, the UUIDs defined below will be used
  */
 static char const m_target_periph_name[] = "zmy_ble";
-
+                                                                                                                                          
 /**@brief UUIDs which the central applications will scan for if the name above is set to an empty string,
  * and which will be advertised by the peripherals.
  */
@@ -780,12 +780,12 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
 
             APP_ERROR_CHECK_BOOL(p_gap_evt->conn_handle < NRF_SDH_BLE_CENTRAL_LINK_COUNT);
 
-            err_code = ble_nus_c_handles_assign(&m_ble_nus_c[p_gap_evt->conn_handle],
+            err_code = ble_nus_c_handles_assign(&m_ble_nus_c[p_gap_evt->conn_handle - 1],
                                                 p_gap_evt->conn_handle,
                                                 NULL);
             APP_ERROR_CHECK(err_code);
 
-            err_code = ble_db_discovery_start(&m_db_discovery[p_gap_evt->conn_handle],
+            err_code = ble_db_discovery_start(&m_db_discovery[p_gap_evt->conn_handle - 1],
                                               p_gap_evt->conn_handle);
             if (err_code != NRF_ERROR_BUSY)
             {
@@ -866,106 +866,14 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
 
         case BLE_GAP_EVT_ADV_REPORT:
         {
-            //on_adv_report(p_ble_evt);
+            on_adv_report(p_ble_evt);
             
+            #if 0
             find_target_device_mac(p_ble_evt,&addr_mac);   //查找目标mac地址
             
             match_scanrsp_func(&adv_report_adv,addr_mac);  //根据扫描应答连接设备
-            
-            
-           #if 0
-            if( User_Match_Adv_Addr(adv_report->peer_addr,&addr_mac) == true)   //mac 地址过滤
-            {
-                
-                    if(p_gap_evt->params.adv_report.scan_rsp == 1)
-                    {
-                        //信号强度
-                        NRF_LOG_INFO("\r\n信号强度rssi:%02d",p_gap_evt->params.adv_report.rssi);
-                      
-                        //接收到的广播的类型
-                        NRF_LOG_INFO("\r\n广播类型:%02d", p_gap_evt->params.adv_report.type);
-                        //应答标志位  为1 是 扫描应答 0 为广播数据
-                        NRF_LOG_INFO("\r\n 应答标志位%d  \r\n",p_gap_evt->params.adv_report.scan_rsp); 
-                        
-                        NRF_LOG_INFO("\r\n  mac 地址匹配成功");
-                        //  扫描到的周围的mac 地址
-                        #if 1
-                        NRF_LOG_INFO("设备广播地址mac:%02x %02x %02x %02x %02x %02x ",p_gap_evt->params.adv_report.peer_addr.addr[0],\
-                        p_gap_evt->params.adv_report.peer_addr.addr[1],\
-                        p_gap_evt->params.adv_report.peer_addr.addr[2],\
-                        p_gap_evt->params.adv_report.peer_addr.addr[3],\
-                        p_gap_evt->params.adv_report.peer_addr.addr[4],\
-                        p_gap_evt->params.adv_report.peer_addr.addr[5]\
-                    );
-                    #endif
-                    //打印所有的广播数据包
-                    
-                    NRF_LOG_INFO("\r\n-----------------------start-------------------");
-                    
-                    for(uint8_t adv_len = 0;adv_len < p_gap_evt->params.adv_report.dlen; adv_len++)
-                    {
-                        NRF_LOG_INFO("%02x",p_gap_evt->params.adv_report.data[adv_len]);
-                    }
-                    NRF_LOG_INFO("\r\n-----------------------end-------------------");
-                
-                    if(p_gap_evt->params.adv_report.data[4] == 0x01)    //扫描到应答标志位绑定状态
-                    {
-                        // Initiate connection.
-                        err_code = sd_ble_gap_connect(&adv_report->peer_addr, &m_scan_params, &m_connection_param, APP_BLE_CONN_CFG_TAG);
-                        if (err_code != NRF_SUCCESS)
-                        {
-                            NRF_LOG_ERROR("Connection Request Failed, reason %d", err_code);
-                        }
-                    } 
-                    
-                }
-                
-                
-                
-            }
-                        
- #endif
-            
-            
-            #if 0
-            if (strlen(m_target_periph_name) != 0)
-            {
-                if (find_adv_name(&p_gap_evt->params.adv_report, m_target_periph_name))
-                {
-                    // Initiate connection.
-                    err_code = sd_ble_gap_connect(&p_gap_evt->params.adv_report.peer_addr,
-                                                  &m_scan_params,
-                                                  &m_connection_param,
-                                                  APP_BLE_CONN_CFG_TAG);
-                    if (err_code != NRF_SUCCESS)
-                    {
-                        NRF_LOG_INFO("Connection Request Failed, reason %d", err_code);
-                    }
-                }
-            }
-            else
-            {
-                // We do not want to connect to two peripherals offering the same service, so when
-                // a UUID is matched, we check that we are not already connected to a peer which
-                // offers the same service.
-                if (   (find_adv_uuid(&p_gap_evt->params.adv_report, BLE_UUID_HEART_RATE_SERVICE)
-                        && (m_conn_handle_hrs_c == BLE_CONN_HANDLE_INVALID))
-                    || (find_adv_uuid(&p_gap_evt->params.adv_report, BLE_UUID_RUNNING_SPEED_AND_CADENCE)
-                        && (m_conn_handle_rscs_c == BLE_CONN_HANDLE_INVALID)))
-                {
-                    // Initiate connection.
-                    err_code = sd_ble_gap_connect(&p_gap_evt->params.adv_report.peer_addr,
-                                                  &m_scan_params,
-                                                  &m_connection_param,
-                                                  APP_BLE_CONN_CFG_TAG);
-                    if (err_code != NRF_SUCCESS)
-                    {
-                        NRF_LOG_WARNING("Connection Request Failed, reason %d", err_code);
-                    }
-                }
-            }
             #endif
-            
+ 
         } break; // BLE_GAP_ADV_REPORT
 
         case BLE_GAP_EVT_TIMEOUT:
@@ -1162,6 +1070,7 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
     uint16_t conn_handle = p_ble_evt->evt.gap_evt.conn_handle;
     uint16_t role        = ble_conn_state_role(conn_handle);
 
+    
     // Based on the role this device plays in the connection, dispatch to the right handler.
     if (role == BLE_GAP_ROLE_PERIPH || ble_evt_is_advertising_timeout(p_ble_evt))
     {
@@ -1173,13 +1082,12 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
     }
     else if ((role == BLE_GAP_ROLE_CENTRAL) || (p_ble_evt->header.evt_id == BLE_GAP_EVT_ADV_REPORT))
     {
-       
         //ble_hrs_c_on_ble_evt(p_ble_evt, &m_hrs_c);
         //ble_rscs_c_on_ble_evt(p_ble_evt, &m_rscs_c);
         
         for(uint8_t i = 0; i < NRF_SDH_BLE_CENTRAL_LINK_COUNT;i++)      
         {
-            ble_nus_c_on_ble_evt(p_ble_evt,&m_ble_nus_c[i]);
+            //ble_nus_c_on_ble_evt(p_ble_evt,&m_ble_nus_c[i]);
         }
         //ble_nus_c_on_ble_evt(p_ble_evt,&m_ble_nus_c[conn_handle]);
        
@@ -1382,7 +1290,7 @@ static void conn_params_init(void)
 static void db_disc_handler(ble_db_discovery_evt_t * p_evt)
 {
     
-    NRF_LOG_DEBUG("call to ble_lbs_on_db_disc_evt for instance %d and link 0x%x!",
+    NRF_LOG_INFO("call to ble_lbs_on_db_disc_evt for instance %d and link 0x%x!",
                   p_evt->conn_handle,
                   p_evt->conn_handle);
     
@@ -1390,9 +1298,9 @@ static void db_disc_handler(ble_db_discovery_evt_t * p_evt)
     //ble_hrs_on_db_disc_evt(&m_hrs_c, p_evt);
     //ble_rscs_on_db_disc_evt(&m_rscs_c, p_evt);
     
-     ble_nus_c_on_db_disc_evt(&m_ble_nus_c[p_evt->conn_handle], p_evt);
-    
-    
+    //ble_nus_c_on_ble_evt(p_ble_evt,&m_ble_nus_c[i]);
+
+    //ble_nus_c_on_db_disc_evt(&m_ble_nus_c[i], p_evt); 
 }
 
 
@@ -1531,14 +1439,14 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
             break;
 
         case BLE_NUS_C_EVT_NUS_TX_EVT:
-           // ble_nus_chars_received_uart_print(p_ble_nus_evt->p_data, p_ble_nus_evt->data_len);
+            //ble_nus_chars_received_uart_print(p_ble_nus_evt->p_data, p_ble_nus_evt->data_len);
         
             NRF_LOG_INFO("nus_event handle:%d",p_ble_nus_evt->conn_handle);
             break;
 
         case BLE_NUS_C_EVT_DISCONNECTED:
             NRF_LOG_INFO("Disconnected.");
-            scan_start();
+            //scan_start();
             break;
     }
 }
