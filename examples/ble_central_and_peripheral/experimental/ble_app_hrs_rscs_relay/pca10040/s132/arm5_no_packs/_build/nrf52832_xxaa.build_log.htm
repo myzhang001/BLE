@@ -5,11 +5,11 @@
 <h2>Tool Versions:</h2>
 IDE-Version: ¦ÌVision V5.15
 Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: zxc Administrator, ZXc, LIC=7YKJJ-UISP9-BV31G-VM5LJ-FD8AD-J8KKW
+License Information: dtu dtu idt Flex license: MDK-ARM Standard: 9 user(s) (mdk_std) Support: Jul 2016
  
 Tool Versions:
-Toolchain:       MDK-ARM Professional  Version: 5.15.0
-Toolchain Path:  E:\Program\ARM\ARMCC\Bin
+Toolchain:       MDK-ARM Standard: 9 user(s)  Version: 5.15.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
 C Compiler:      Armcc.exe V5.05 update 2 (build 169)
 Assembler:       Armasm.exe V5.05 update 2 (build 169)
 Linker/Locator:  ArmLink.exe V5.05 update 2 (build 169)
@@ -21,17 +21,38 @@ Target DLL:      Segger\JL2CM3.dll V2.99.15.0
 Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
-G:\BLE\BLE\examples\ble_central_and_peripheral\experimental\ble_app_hrs_rscs_relay\pca10040\s132\arm5_no_packs\ble_app_hrs_rscs_relay_pca10040_s132.uvprojx
-Project File Date:  03/15/2018
+D:\ble\examples\ble_central_and_peripheral\experimental\ble_app_hrs_rscs_relay\pca10040\s132\arm5_no_packs\ble_app_hrs_rscs_relay_pca10040_s132.uvprojx
+Project File Date:  03/16/2018
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.05 update 2 (build 169)', folder: 'E:\Program\ARM\ARMCC\Bin'
+*** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'nrf52832_xxaa'
-compiling User_MacList.c...
+compiling main.c...
+..\..\..\main.c(746): warning:  #177-D: variable "adv_report" was declared but never referenced
+      ble_gap_evt_adv_report_t const *adv_report = &p_ble_evt->evt.gap_evt.params.adv_report;
+..\..\..\main.c(1570): warning:  #177-D: variable "err_code" was declared but never referenced
+          uint32_t err_code;
+..\..\..\main.c(1634): warning:  #177-D: variable "ret_val" was declared but never referenced
+      uint32_t ret_val;
+..\..\..\main.c(187): warning:  #177-D: variable "m_hrs_c" was declared but never referenced
+  static ble_hrs_c_t m_hrs_c;                                         /**< Heart rate service client instance. */
+..\..\..\main.c(188): warning:  #177-D: variable "m_rscs_c" was declared but never referenced
+  static ble_rscs_c_t m_rscs_c;                                       /**< Running speed and cadence service client instance. */
+..\..\..\main.c(441): warning:  #177-D: function "hrs_c_evt_handler" was declared but never referenced
+  static void hrs_c_evt_handler(ble_hrs_c_t * p_hrs_c, ble_hrs_c_evt_t * p_hrs_c_evt)
+..\..\..\main.c(497): warning:  #177-D: function "rscs_c_evt_handler" was declared but never referenced
+  static void rscs_c_evt_handler(ble_rscs_c_t * p_rscs_c, ble_rscs_c_evt_t * p_rscs_c_evt)
+..\..\..\main.c(1415): warning:  #177-D: function "services_init" was declared but never referenced
+  static void services_init(void)
+..\..\..\main.c(1627): warning:  #177-D: variable "m_ble_nus_max_data_len" was declared but never referenced
+  static uint16_t m_ble_nus_max_data_len = BLE_GATT_ATT_MTU_DEFAULT - OPCODE_LENGTH - HANDLE_LENGTH; /**< Maximum length of data (in bytes) that can be transmitted to the peer by the Nordic UART service module. */
+..\..\..\main.c(1681): warning:  #177-D: function "uart_init" was declared but never referenced
+  static void uart_init(void)
+..\..\..\main.c: 10 warnings, 0 errors
 linking...
-Program Size: Code=40664 RO-data=3964 RW-data=3412 ZI-data=12556  
+Program Size: Code=40648 RO-data=3952 RW-data=3412 ZI-data=12556  
 FromELF: creating hex file...
-".\_build\nrf52832_xxaa.axf" - 0 Error(s), 0 Warning(s).
+".\_build\nrf52832_xxaa.axf" - 0 Error(s), 10 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -48,18 +69,19 @@ Package Vendor: NordicSemiconductor
    * Component: Startup Version: 8.15.0
 
 <h2>Collection of Component include folders:</h2>
-  G:\BLE\BLE\examples\ble_central_and_peripheral\experimental\ble_app_hrs_rscs_relay\pca10040\s132\arm5_no_packs\RTE
-  E:\Program\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include
-  E:\Program\ARM\PACK\NordicSemiconductor\nRF_DeviceFamilyPack\8.15.0\Device\Include
+  D:\ble\examples\ble_central_and_peripheral\experimental\ble_app_hrs_rscs_relay\pca10040\s132\arm5_no_packs\RTE
+  C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include
+  C:\Keil_v5\ARM\PACK\NordicSemiconductor\nRF_DeviceFamilyPack\8.15.0\Device\Include
+  C:\Keil_v5\ARM\PACK\NordicSemiconductor\nRF_DeviceFamilyPack\8.15.2\Device\Include
 
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:4.3.0
 
    * Component: NordicSemiconductor::Device:Startup:8.15.0
-      Include file:  Device\Include\system_nrf52.h
-      Source file:   Device\Source\system_nrf52.c
       Source file:   Device\Source\arm\arm_startup_nrf52.s
+      Source file:   Device\Source\system_nrf52.c
+      Include file:  Device\Include\system_nrf52.h
 </pre>
 </body>
 </html>

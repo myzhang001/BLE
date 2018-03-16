@@ -28,9 +28,9 @@ typedef enum{
 
 
 
-extern bool User_Match_Adv_Addr(ble_gap_addr_t addr,uint8_t *dev_mac);
-extern void  find_target_device(ble_evt_t const * p_ble_evt,ble_gap_addr_t * device_addr);
-
+extern bool  User_Match_Adv_Addr(ble_gap_addr_t addr,ble_gap_addr_t *dev_mac);
+extern void  find_target_device_mac(ble_evt_t const * p_ble_evt,ble_gap_addr_t * device_addr);
+extern void match_scanrsp_func(ble_gap_evt_adv_report_t *adv_report,ble_gap_addr_t addr_mac);
 
 #endif
 

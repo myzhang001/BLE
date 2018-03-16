@@ -744,7 +744,7 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
 
     //保存下广播数据包
     ble_gap_evt_adv_report_t const *adv_report = &p_ble_evt->evt.gap_evt.params.adv_report;
-    
+    ble_gap_evt_adv_report_t  adv_report_adv = p_ble_evt->evt.gap_evt.params.adv_report;
     
     
     switch (p_ble_evt->header.evt_id)
@@ -868,59 +868,65 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
         {
             //on_adv_report(p_ble_evt);
             
-            //if(p_gap_evt->params.adv_report.peer_addr.addr[0])
+            find_target_device_mac(p_ble_evt,&addr_mac);   //查找目标mac地址
             
-            uint8_t MacDevice[6]={0xF8,0X8B,0X29,0X51,0X60,0XF1}; //0XF2
-            
-            find_target_device(p_ble_evt,&addr_mac);
-            
-            #if 1
-            NRF_LOG_INFO("adv设备广播地址mac:%02x %02x %02x %02x %02x %02x ",addr_mac.addr[0],\
-            addr_mac.addr[1],\
-            addr_mac.addr[2],\
-            addr_mac.addr[3],\
-            addr_mac.addr[4],\
-            addr_mac.addr[5]\
-            );
-            #endif
+            match_scanrsp_func(&adv_report_adv,addr_mac);  //根据扫描应答连接设备
             
             
-            //NRF_LOG_INFO("mac_addr:%d",);
-           
-            if( User_Match_Adv_Addr(adv_report->peer_addr,MacDevice) == true)   //mac 地址过滤
+           #if 0
+            if( User_Match_Adv_Addr(adv_report->peer_addr,&addr_mac) == true)   //mac 地址过滤
             {
-                //信号强度
-                NRF_LOG_INFO("\r\n信号强度rssi:%02d",p_gap_evt->params.adv_report.rssi);
-              
-                //接收到的广播的类型
-
-                NRF_LOG_INFO("\r\n广播类型:%02d", p_gap_evt->params.adv_report.type);
-                //应答标志位  为1 是 扫描应答 0 为广播数据
-                NRF_LOG_INFO("\r\n 应答标志位%d  \r\n",p_gap_evt->params.adv_report.scan_rsp); 
                 
-                NRF_LOG_INFO("\r\n  mac 地址匹配成功");
-                //  扫描到的周围的mac 地址
-                #if 1
-                NRF_LOG_INFO("设备广播地址mac:%02x %02x %02x %02x %02x %02x ",p_gap_evt->params.adv_report.peer_addr.addr[0],\
-                p_gap_evt->params.adv_report.peer_addr.addr[1],\
-                p_gap_evt->params.adv_report.peer_addr.addr[2],\
-                p_gap_evt->params.adv_report.peer_addr.addr[3],\
-                p_gap_evt->params.adv_report.peer_addr.addr[4],\
-                p_gap_evt->params.adv_report.peer_addr.addr[5]\
-                );
-                #endif
-                //打印所有的广播数据包
+                    if(p_gap_evt->params.adv_report.scan_rsp == 1)
+                    {
+                        //信号强度
+                        NRF_LOG_INFO("\r\n信号强度rssi:%02d",p_gap_evt->params.adv_report.rssi);
+                      
+                        //接收到的广播的类型
+                        NRF_LOG_INFO("\r\n广播类型:%02d", p_gap_evt->params.adv_report.type);
+                        //应答标志位  为1 是 扫描应答 0 为广播数据
+                        NRF_LOG_INFO("\r\n 应答标志位%d  \r\n",p_gap_evt->params.adv_report.scan_rsp); 
+                        
+                        NRF_LOG_INFO("\r\n  mac 地址匹配成功");
+                        //  扫描到的周围的mac 地址
+                        #if 1
+                        NRF_LOG_INFO("设备广播地址mac:%02x %02x %02x %02x %02x %02x ",p_gap_evt->params.adv_report.peer_addr.addr[0],\
+                        p_gap_evt->params.adv_report.peer_addr.addr[1],\
+                        p_gap_evt->params.adv_report.peer_addr.addr[2],\
+                        p_gap_evt->params.adv_report.peer_addr.addr[3],\
+                        p_gap_evt->params.adv_report.peer_addr.addr[4],\
+                        p_gap_evt->params.adv_report.peer_addr.addr[5]\
+                    );
+                    #endif
+                    //打印所有的广播数据包
+                    
+                    NRF_LOG_INFO("\r\n-----------------------start-------------------");
+                    
+                    for(uint8_t adv_len = 0;adv_len < p_gap_evt->params.adv_report.dlen; adv_len++)
+                    {
+                        NRF_LOG_INFO("%02x",p_gap_evt->params.adv_report.data[adv_len]);
+                    }
+                    NRF_LOG_INFO("\r\n-----------------------end-------------------");
                 
-                NRF_LOG_INFO("\r\n-----------------------start-------------------");
-                
-                for(uint8_t adv_len = 0;adv_len < p_gap_evt->params.adv_report.dlen; adv_len++)
-                {
-                    NRF_LOG_INFO("%02x",p_gap_evt->params.adv_report.data[adv_len]);
+                    if(p_gap_evt->params.adv_report.data[4] == 0x01)    //扫描到应答标志位绑定状态
+                    {
+                        // Initiate connection.
+                        err_code = sd_ble_gap_connect(&adv_report->peer_addr, &m_scan_params, &m_connection_param, APP_BLE_CONN_CFG_TAG);
+                        if (err_code != NRF_SUCCESS)
+                        {
+                            NRF_LOG_ERROR("Connection Request Failed, reason %d", err_code);
+                        }
+                    } 
+                    
                 }
-                NRF_LOG_INFO("\r\n-----------------------end-------------------");
+                
+                
+                
             }
                         
- 
+ #endif
+            
+            
             #if 0
             if (strlen(m_target_periph_name) != 0)
             {
