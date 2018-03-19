@@ -113,7 +113,6 @@
 
 
 
-
 #define PERIPHERAL_ADVERTISING_LED      BSP_BOARD_LED_2
 #define PERIPHERAL_CONNECTED_LED        BSP_BOARD_LED_3
 #define CENTRAL_SCANNING_LED            BSP_BOARD_LED_0
@@ -186,6 +185,9 @@ static ble_hrs_t m_hrs;                                             /**< Heart r
 static ble_rscs_t m_rscs;                                           /**< Running speed and cadence service instance. */
 static ble_hrs_c_t m_hrs_c;                                         /**< Heart rate service client instance. */
 static ble_rscs_c_t m_rscs_c;                                       /**< Running speed and cadence service client instance. */
+
+static ble_nus_c_t m_nus_c_test[4];
+
 
 NRF_BLE_GATT_DEF(m_gatt);                                           /**< GATT module instance. */
 BLE_ADVERTISING_DEF(m_advertising);                                 /**< Advertising module instance. */
@@ -780,13 +782,19 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
 
             APP_ERROR_CHECK_BOOL(p_gap_evt->conn_handle < NRF_SDH_BLE_CENTRAL_LINK_COUNT);
 
-            err_code = ble_nus_c_handles_assign(&m_ble_nus_c[p_gap_evt->conn_handle],
+            #if 0
+            err_code = ble_nus_c_handles_assign(&m_ble_nus_c[p_gap_evt->conn_handle -1],
                                                 p_gap_evt->conn_handle,
                                                 NULL);
             APP_ERROR_CHECK(err_code);
-
+#endif
+           #if 0
             err_code = ble_db_discovery_start(&m_db_discovery[p_gap_evt->conn_handle],
                                               p_gap_evt->conn_handle);
+            #endif
+            err_code = ble_db_discovery_start(&m_db_discovery[p_gap_evt->conn_handle - 1],
+                                              p_gap_evt->conn_handle);
+            
             if (err_code != NRF_ERROR_BUSY)
             {
                 APP_ERROR_CHECK(err_code);
@@ -1087,11 +1095,18 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
         
         //NRF_LOG_INFO("conn_handle:%d",conn_handle);
         
-        
+        #if 0
         for(uint8_t i = 0; i < NRF_SDH_BLE_CENTRAL_LINK_COUNT;i++)      
         {
             ble_nus_c_on_ble_evt(p_ble_evt,&m_ble_nus_c[i]);
         }
+        #endif
+        #if 0
+        for(uint8_t i = 0; i < NRF_SDH_BLE_CENTRAL_LINK_COUNT;i++) 
+        {
+            ble_nus_c_on_ble_evt(p_ble_evt,&m_nus_c_test[i]);
+        }
+        #endif
         //ble_nus_c_on_ble_evt(p_ble_evt,&m_ble_nus_c[conn_handle]);
        
         on_ble_central_evt(p_ble_evt);
@@ -1249,13 +1264,30 @@ static void gap_params_init(void)
     APP_ERROR_CHECK(err_code);
 }
 
+void gatt_evt_handler(nrf_ble_gatt_t * p_gatt, nrf_ble_gatt_evt_t const * p_evt)
+{
+    if (p_evt->evt_id == NRF_BLE_GATT_EVT_ATT_MTU_UPDATED)
+    {
+        NRF_LOG_INFO("ATT MTU exchange completed.");
+
+        //m_ble_nus_max_data_len = p_evt->params.att_mtu_effective - OPCODE_LENGTH - HANDLE_LENGTH;
+        //NRF_LOG_INFO("Ble NUS max data length set to 0x%X(%d)", m_ble_nus_max_data_len, m_ble_nus_max_data_len);
+    }
+}
+
+
+
 
 /**@brief Function for initializing the GATT module.
  */
 static void gatt_init(void)
 {
-    ret_code_t err_code = nrf_ble_gatt_init(&m_gatt, NULL);
+    ret_code_t err_code = nrf_ble_gatt_init(&m_gatt, gatt_evt_handler);
     APP_ERROR_CHECK(err_code);
+    
+    err_code = nrf_ble_gatt_att_mtu_central_set(&m_gatt, NRF_SDH_BLE_GATT_MAX_MTU_SIZE);
+    APP_ERROR_CHECK(err_code);
+    
 }
 
 
@@ -1301,8 +1333,14 @@ static void db_disc_handler(ble_db_discovery_evt_t * p_evt)
     //ble_hrs_on_db_disc_evt(&m_hrs_c, p_evt);
     //ble_rscs_on_db_disc_evt(&m_rscs_c, p_evt);
     
+    #if 1
     ble_nus_c_on_db_disc_evt(&m_ble_nus_c[p_evt->conn_handle], p_evt); 
+    #endif
     
+    
+    #if 0
+    ble_nus_c_on_db_disc_evt(&m_nus_c_test[p_evt->conn_handle], p_evt); 
+    #endif
     
 }
 
@@ -1448,7 +1486,15 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
                 NRF_LOG_INFO("data:%c",p_ble_nus_evt->p_data[i]);
             
             }
-        
+           
+            
+            
+            NRF_LOG_INFO("nus conn_handle:%d", p_ble_nus_c->conn_handle);
+            NRF_LOG_INFO("nus_c event handle:%d",p_ble_nus_c->evt_handler);
+            
+            NRF_LOG_INFO("nus data max len :%d",p_ble_nus_evt->max_data_len); 
+            NRF_LOG_INFO("nus data len :%d",p_ble_nus_evt->data_len);                           //数据长度
+            
             NRF_LOG_INFO("nus_event handle:%d",p_ble_nus_evt->conn_handle);
             break;
 
@@ -1468,11 +1514,22 @@ static void nus_c_init(void)
 
     init.evt_handler = ble_nus_c_evt_handler;
     
+    
+    #if 1
     for(uint8_t i = 0; i < NRF_SDH_BLE_CENTRAL_LINK_COUNT;i++)
     {
         err_code = ble_nus_c_init(&m_ble_nus_c[i], &init);
         APP_ERROR_CHECK(err_code);
     }
+    #endif
+    
+    #if 0
+    for(uint8_t i = 0; i < NRF_SDH_BLE_CENTRAL_LINK_COUNT;i++)
+    {
+        err_code = ble_nus_c_init(&m_nus_c_test[i], &init);
+        APP_ERROR_CHECK(err_code);  
+    }
+    #endif
 }
 
 static void nus_data_handler(ble_nus_evt_t * p_evt)
@@ -1642,7 +1699,6 @@ int main(void)
     services_nus_init();
     advertising_init();
 
-      
     {
         adv_scan_start();
     }

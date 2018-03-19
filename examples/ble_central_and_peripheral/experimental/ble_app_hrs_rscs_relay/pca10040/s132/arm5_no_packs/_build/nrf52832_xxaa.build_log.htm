@@ -22,39 +22,43 @@ Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
 D:\ble\examples\ble_central_and_peripheral\experimental\ble_app_hrs_rscs_relay\pca10040\s132\arm5_no_packs\ble_app_hrs_rscs_relay_pca10040_s132.uvprojx
-Project File Date:  03/16/2018
+Project File Date:  03/19/2018
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'nrf52832_xxaa'
 compiling main.c...
-..\..\..\main.c(746): warning:  #177-D: variable "adv_report" was declared but never referenced
+..\..\..\main.c(748): warning:  #177-D: variable "adv_report" was declared but never referenced
       ble_gap_evt_adv_report_t const *adv_report = &p_ble_evt->evt.gap_evt.params.adv_report;
-..\..\..\main.c(747): warning:  #177-D: variable "adv_report_adv" was declared but never referenced
+..\..\..\main.c(749): warning:  #177-D: variable "adv_report_adv" was declared but never referenced
       ble_gap_evt_adv_report_t  adv_report_adv = p_ble_evt->evt.gap_evt.params.adv_report;
-..\..\..\main.c(1483): warning:  #177-D: variable "err_code" was declared but never referenced
+..\..\..\main.c(1540): warning:  #177-D: variable "err_code" was declared but never referenced
           uint32_t err_code;
-..\..\..\main.c(1547): warning:  #177-D: variable "ret_val" was declared but never referenced
+..\..\..\main.c(1604): warning:  #177-D: variable "ret_val" was declared but never referenced
       uint32_t ret_val;
-..\..\..\main.c(187): warning:  #177-D: variable "m_hrs_c" was declared but never referenced
+..\..\..\main.c(186): warning:  #177-D: variable "m_hrs_c" was declared but never referenced
   static ble_hrs_c_t m_hrs_c;                                         /**< Heart rate service client instance. */
-..\..\..\main.c(188): warning:  #177-D: variable "m_rscs_c" was declared but never referenced
+..\..\..\main.c(187): warning:  #177-D: variable "m_rscs_c" was declared but never referenced
   static ble_rscs_c_t m_rscs_c;                                       /**< Running speed and cadence service client instance. */
-..\..\..\main.c(441): warning:  #177-D: function "hrs_c_evt_handler" was declared but never referenced
+..\..\..\main.c(189): warning:  #177-D: variable "m_nus_c_test" was declared but never referenced
+  static ble_nus_c_t m_nus_c_test[4];
+..\..\..\main.c(443): warning:  #177-D: function "hrs_c_evt_handler" was declared but never referenced
   static void hrs_c_evt_handler(ble_hrs_c_t * p_hrs_c, ble_hrs_c_evt_t * p_hrs_c_evt)
-..\..\..\main.c(497): warning:  #177-D: function "rscs_c_evt_handler" was declared but never referenced
+..\..\..\main.c(499): warning:  #177-D: function "rscs_c_evt_handler" was declared but never referenced
   static void rscs_c_evt_handler(ble_rscs_c_t * p_rscs_c, ble_rscs_c_evt_t * p_rscs_c_evt)
-..\..\..\main.c(1324): warning:  #177-D: function "services_init" was declared but never referenced
+..\..\..\main.c(1207): warning:  #177-D: function "delete_bonds" was declared but never referenced
+  static void delete_bonds(void)
+..\..\..\main.c(1362): warning:  #177-D: function "services_init" was declared but never referenced
   static void services_init(void)
-..\..\..\main.c(1540): warning:  #177-D: variable "m_ble_nus_max_data_len" was declared but never referenced
+..\..\..\main.c(1597): warning:  #177-D: variable "m_ble_nus_max_data_len" was declared but never referenced
   static uint16_t m_ble_nus_max_data_len = BLE_GATT_ATT_MTU_DEFAULT - OPCODE_LENGTH - HANDLE_LENGTH; /**< Maximum length of data (in bytes) that can be transmitted to the peer by the Nordic UART service module. */
-..\..\..\main.c(1594): warning:  #177-D: function "uart_init" was declared but never referenced
+..\..\..\main.c(1651): warning:  #177-D: function "uart_init" was declared but never referenced
   static void uart_init(void)
-..\..\..\main.c: 11 warnings, 0 errors
+..\..\..\main.c: 13 warnings, 0 errors
 linking...
-Program Size: Code=40140 RO-data=3944 RW-data=3404 ZI-data=12556  
+Program Size: Code=40232 RO-data=4016 RW-data=3404 ZI-data=12596  
 FromELF: creating hex file...
-".\_build\nrf52832_xxaa.axf" - 0 Error(s), 11 Warning(s).
+".\_build\nrf52832_xxaa.axf" - 0 Error(s), 13 Warning(s).
 
 <h2>Software Packages used:</h2>
 
