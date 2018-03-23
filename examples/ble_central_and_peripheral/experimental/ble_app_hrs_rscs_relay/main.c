@@ -782,13 +782,17 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
 
             APP_ERROR_CHECK_BOOL(p_gap_evt->conn_handle < NRF_SDH_BLE_CENTRAL_LINK_COUNT);
 
-            #if 0
-            err_code = ble_nus_c_handles_assign(&m_ble_nus_c[p_gap_evt->conn_handle -1],
+            #if 1
+            err_code = ble_nus_c_handles_assign(&m_ble_nus_c[p_gap_evt->conn_handle - 1],
                                                 p_gap_evt->conn_handle,
                                                 NULL);
             APP_ERROR_CHECK(err_code);
-#endif
-           #if 0
+
+            #endif
+            
+            
+            
+            #if 0
             err_code = ble_db_discovery_start(&m_db_discovery[p_gap_evt->conn_handle],
                                               p_gap_evt->conn_handle);
             #endif
@@ -855,6 +859,11 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
                          p_gap_evt->conn_handle,
                          p_gap_evt->params.disconnected.reason);
 
+            //memset(&m_nus_c_test[p_gap_evt->conn_handle],0,sizeof(ble_nus_c_t));
+            
+            //m_nus_c_test[p_gap_evt->conn_handle].evt_handler = NULL;
+            //m_nus_c_test[p_gap_evt->conn_handle].handles = {0,0,0};
+            
             if (ble_conn_state_n_centrals() == 0)
             {
                 err_code = app_button_disable();
@@ -865,7 +874,7 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
             }
 
             // Start scanning
-            scan_start();
+            //scan_start();
 
             // Turn on LED for indicating scanning
             bsp_board_led_on(CENTRAL_SCANNING_LED);
@@ -1334,9 +1343,8 @@ static void db_disc_handler(ble_db_discovery_evt_t * p_evt)
     //ble_rscs_on_db_disc_evt(&m_rscs_c, p_evt);
     
     #if 1
-    ble_nus_c_on_db_disc_evt(&m_ble_nus_c[p_evt->conn_handle], p_evt); 
+    ble_nus_c_on_db_disc_evt(&m_ble_nus_c[p_evt->conn_handle - 1], p_evt); 
     #endif
-    
     
     #if 0
     ble_nus_c_on_db_disc_evt(&m_nus_c_test[p_evt->conn_handle], p_evt); 
@@ -1471,9 +1479,12 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
     {
         case BLE_NUS_C_EVT_DISCOVERY_COMPLETE:
             NRF_LOG_INFO("Discovery complete.");
-            err_code = ble_nus_c_handles_assign(p_ble_nus_c, p_ble_nus_evt->conn_handle, &p_ble_nus_evt->handles);
+            err_code = ble_nus_c_handles_assign(p_ble_nus_c, p_ble_nus_evt->conn_handle , &p_ble_nus_evt->handles);
             APP_ERROR_CHECK(err_code);
 
+            
+        
+        
             err_code = ble_nus_c_tx_notif_enable(p_ble_nus_c);
             APP_ERROR_CHECK(err_code);
             NRF_LOG_INFO("Connected to device with Nordic UART Service.");
@@ -1481,14 +1492,20 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
 
         case BLE_NUS_C_EVT_NUS_TX_EVT:
            //ble_nus_chars_received_uart_print(p_ble_nus_evt->p_data, p_ble_nus_evt->data_len);
+        
             for(uint8_t i = 0; i < p_ble_nus_evt->data_len;i++)
             {
                 NRF_LOG_INFO("data:%c",p_ble_nus_evt->p_data[i]);
-            
             }
+       
            
-            
-            
+            for(uint8_t i= 0; i<4;i++)
+            {
+                NRF_LOG_INFO("conn_handle %d",m_ble_nus_c[i].conn_handle);
+                NRF_LOG_INFO("evt_handle %d",m_ble_nus_c[i].evt_handler);
+            }
+            NRF_LOG_INFO("nus---------------------start----------------------");
+            #if 1
             NRF_LOG_INFO("nus conn_handle:%d", p_ble_nus_c->conn_handle);
             NRF_LOG_INFO("nus_c event handle:%d",p_ble_nus_c->evt_handler);
             
@@ -1496,11 +1513,18 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
             NRF_LOG_INFO("nus data len :%d",p_ble_nus_evt->data_len);                           //数据长度
             
             NRF_LOG_INFO("nus_event handle:%d",p_ble_nus_evt->conn_handle);
+            #endif
+             NRF_LOG_INFO("nus---------------------end----------------------");
             break;
 
         case BLE_NUS_C_EVT_DISCONNECTED:
             NRF_LOG_INFO("Disconnected.");
             //scan_start();
+            NRF_LOG_INFO("disconnected conn_handle %d ",p_ble_nus_c->conn_handle);
+        
+           //memset(&m_nus_c_test[p_ble_nus_c->conn_handle],0,sizeof(ble_nus_c_t));
+        
+        
             break;
     }
 }
@@ -1699,6 +1723,13 @@ int main(void)
     services_nus_init();
     advertising_init();
 
+    if(erase_bonds == true)
+    {
+        // Scanning and advertising is done upon PM_EVT_PEERS_DELETE_SUCCEEDED event.
+        delete_bonds();
+        // Scanning and advertising is done by
+    }
+    else
     {
         adv_scan_start();
     }

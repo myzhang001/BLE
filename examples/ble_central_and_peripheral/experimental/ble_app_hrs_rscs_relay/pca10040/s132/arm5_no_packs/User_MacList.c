@@ -18,7 +18,6 @@ typedef struct{
 typedef struct{
 	_t_ble_status ble_dev[MAX_LIST_LENGTH];
 	
-
 }_t_dev_mac_match;
 
 
