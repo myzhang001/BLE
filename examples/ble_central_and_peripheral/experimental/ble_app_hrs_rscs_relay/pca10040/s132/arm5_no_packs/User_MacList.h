@@ -35,13 +35,36 @@ typedef struct{
 	_e_machine_model model;             			//设备型号
 }_t_ble_status;
 
+typedef enum{
+    E_BIND_NONE = 0X00,     //未绑定状态
+    E_BIND_ING  = 0X01,     //正在绑定
+    E_BIND_CMPT = 0X02      //绑定完成
+
+}_e_band_status;
+
+
 
 typedef struct{
-	_t_ble_status ble_dev[MAX_LIST_LENGTH];  //设备基本信息
-    uint8_t       empty_flag;                //设备连接数标志
-	
+	_t_ble_status   ble_dev[MAX_LIST_LENGTH];  //设备基本信息
+    uint8_t         empty_flag;                //设备连接数标志
+	_e_band_status  scan_bind_flag;            //允许扫描标志位
+    uint8_t         bing_timeout_cnt;          //绑定超时
 }_t_dev_mac_match;
 
+
+
+
+
+
+
+#define  BIND_TIMEOUT_CNT           60      //绑定超时时间
+
+
+//复位超时时间
+#define Reset_Timeout_Cnt do{\
+dev_info.scan_bind_flag = 0;\
+dev_info.bing_timeout_cnt = BIND_TIMEOUT_CNT;\
+}while(0)
 
 
 
@@ -51,6 +74,9 @@ void Device_Info_Reset(_t_ble_status *s_ble_info);
 void Debug_Device_match_info(uint16_t  connected_handle);
 void Device_Disconnected_handle(uint16_t  connected_handle);
 void Debug_Device_match_connected_mac(ble_gap_addr_t mac_peer_addr,uint16_t handle);
+void USER_DEBUG_printf(void);
+_e_band_status Ret_Device_Bind_status(void);
+uint8_t Ret_Device_Bind_Time(void);
 
 
 

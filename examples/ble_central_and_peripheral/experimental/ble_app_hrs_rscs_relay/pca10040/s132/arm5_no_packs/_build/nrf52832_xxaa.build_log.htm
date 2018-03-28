@@ -27,7 +27,42 @@ Project File Date:  03/19/2018
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'nrf52832_xxaa'
-".\_build\nrf52832_xxaa.axf" - 0 Error(s), 0 Warning(s).
+compiling main.c...
+..\..\..\main.c(323): warning:  #177-D: variable "err_code" was declared but never referenced
+      ret_code_t err_code;
+..\..\..\main.c(759): warning:  #177-D: variable "adv_report" was declared but never referenced
+      ble_gap_evt_adv_report_t const *adv_report = &p_ble_evt->evt.gap_evt.params.adv_report;
+..\..\..\main.c(1607): warning:  #177-D: variable "err_code" was declared but never referenced
+          uint32_t err_code;
+..\..\..\main.c(1670): warning:  #177-D: variable "ret_val" was declared but never referenced
+      uint32_t ret_val;
+..\..\..\main.c(188): warning:  #177-D: variable "m_hrs_c" was declared but never referenced
+  static ble_hrs_c_t m_hrs_c;                                         /**< Heart rate service client instance. */
+..\..\..\main.c(189): warning:  #177-D: variable "m_rscs_c" was declared but never referenced
+  static ble_rscs_c_t m_rscs_c;                                       /**< Running speed and cadence service client instance. */
+..\..\..\main.c(191): warning:  #177-D: variable "m_nus_c_test" was declared but never referenced
+  static ble_nus_c_t m_nus_c_test[4];
+..\..\..\main.c(454): warning:  #177-D: function "hrs_c_evt_handler" was declared but never referenced
+  static void hrs_c_evt_handler(ble_hrs_c_t * p_hrs_c, ble_hrs_c_evt_t * p_hrs_c_evt)
+..\..\..\main.c(510): warning:  #177-D: function "rscs_c_evt_handler" was declared but never referenced
+  static void rscs_c_evt_handler(ble_rscs_c_t * p_rscs_c, ble_rscs_c_evt_t * p_rscs_c_evt)
+..\..\..\main.c(1241): warning:  #177-D: function "delete_bonds" was declared but never referenced
+  static void delete_bonds(void)
+..\..\..\main.c(1395): warning:  #177-D: function "services_init" was declared but never referenced
+  static void services_init(void)
+..\..\..\main.c(1663): warning:  #177-D: variable "m_ble_nus_max_data_len" was declared but never referenced
+  static uint16_t m_ble_nus_max_data_len = BLE_GATT_ATT_MTU_DEFAULT - OPCODE_LENGTH - HANDLE_LENGTH; /**< Maximum length of data (in bytes) that can be transmitted to the peer by the Nordic UART service module. */
+..\..\..\main.c(1717): warning:  #177-D: function "uart_init" was declared but never referenced
+  static void uart_init(void)
+..\..\..\main.c: 13 warnings, 0 errors
+compiling User_MacList.c...
+User_MacList.c(125): warning:  #188-D: enumerated type mixed with another type
+          else{dev_info.scan_bind_flag = 0;}
+User_MacList.c: 1 warning, 0 errors
+linking...
+Program Size: Code=40940 RO-data=4020 RW-data=3404 ZI-data=12812  
+FromELF: creating hex file...
+".\_build\nrf52832_xxaa.axf" - 0 Error(s), 14 Warning(s).
 
 <h2>Software Packages used:</h2>
 

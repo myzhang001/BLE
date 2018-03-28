@@ -156,6 +156,8 @@ BLE_NUS_C_ARRAY_DEF(m_ble_nus_c,NRF_SDH_BLE_CENTRAL_LINK_COUNT);
 BLE_NUS_DEF(m_nus);   
 
 
+APP_TIMER_DEF(m_battery_timer_id); 
+
 
 /**@brief   Priority of the application BLE event handler.
  * @note    You shouldn't need to modify this value.
@@ -330,11 +332,20 @@ static void adv_scan_start(void)
         // Turn on the LED to signal scanning.
         bsp_board_led_on(CENTRAL_SCANNING_LED);
 
-        // Start advertising.
-        err_code = ble_advertising_start(&m_advertising, BLE_ADV_MODE_FAST);
-        APP_ERROR_CHECK(err_code);
+        
     }
 }
+
+
+void adv_start(void)
+{
+    ret_code_t err_code;
+    // Start advertising.
+    err_code = ble_advertising_start(&m_advertising, BLE_ADV_MODE_FAST);
+    APP_ERROR_CHECK(err_code);
+}
+
+
 
 
 /**@brief Function for handling Peer Manager events.
@@ -749,11 +760,7 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
     ble_gap_evt_adv_report_t  adv_report_adv = p_ble_evt->evt.gap_evt.params.adv_report;
     
     
-    
-    
-    
-    
-    switch (p_ble_evt->header.evt_id)
+    switch(p_ble_evt->header.evt_id)
     {
         // Upon connection, check which peripheral has connected (HR or RSC), initiate DB
         // discovery, update LEDs status and resume scanning if necessary.
@@ -769,11 +776,14 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
             mac_peer_addr.addr[4],
             mac_peer_addr.addr[5]);
             
+            Debug_Device_match_connected_mac(mac_peer_addr,p_gap_evt->conn_handle);
+
+            USER_DEBUG_printf();
             
-            
+            //NRF_LOG_INFO("empty  %02x",dev_info.empty_flag );
             // If no Heart Rate sensor or RSC sensor is currently connected, try to find them on this peripheral.
-            //dev_info
-            if(dev_check_empty()== true)
+            
+            //if(dev_check_empty()== true)
             {
                 NRF_LOG_INFO("Connection 0x%x established, starting DB discovery.",
                          p_gap_evt->conn_handle);
@@ -782,9 +792,7 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
 
                 //连接上的设备地址
                 //adv_report->peer_addr.addr[0]
-                
-                
-                
+   
                 err_code = ble_nus_c_handles_assign(&m_ble_nus_c[p_gap_evt->conn_handle - 1],
                                                     p_gap_evt->conn_handle,
                                                     NULL);
@@ -810,7 +818,6 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
                     bsp_board_led_on(CENTRAL_SCANNING_LED);
                     scan_start();
                 }
-
             }
             
             #if 0
@@ -872,12 +879,14 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
             }
             #endif
             
-             if(dev_check_empty()== true)
+             //if(dev_check_empty()== true)
              {
                 // Start scanning
                 scan_start();
              }
             
+             USER_DEBUG_printf();
+             
              
             NRF_LOG_INFO("LBS central link 0x%x disconnected (reason: 0x%x)",
                          p_gap_evt->conn_handle,
@@ -893,6 +902,12 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
 
         case BLE_GAP_EVT_ADV_REPORT:
         {
+            
+            if(Ret_Device_Bind_status != 0)
+            {
+            
+            }
+            
             on_adv_report(p_ble_evt);
             
             #if 0
@@ -1462,6 +1477,20 @@ static void log_init(void)
     NRF_LOG_DEFAULT_BACKENDS_INIT();
 }
 
+uint8_t test[10]={"testzmy"};
+uint8_t i = 0;
+static void battery_level_meas_timeout_handler(void * p_context)
+{
+    UNUSED_PARAMETER(p_context);
+   // battery_level_update();
+    
+    //NRF_LOG_INFO("zmytest\r\n");
+    
+    //ble_nus_c_string_send(&m_ble_nus_c[i], &test[0] ,sizeof(test));
+    //i++;
+    //if(i> 2)i =0;
+
+}
 
 /**@brief Function for initializing the timer.
  */
@@ -1469,6 +1498,13 @@ static void timer_init(void)
 {
     ret_code_t err_code = app_timer_init();
     APP_ERROR_CHECK(err_code);
+    
+     // Create timers.
+    err_code = app_timer_create(&m_battery_timer_id,
+                                APP_TIMER_MODE_REPEATED,
+                                battery_level_meas_timeout_handler);
+    APP_ERROR_CHECK(err_code);
+    
 }
 
 
@@ -1492,9 +1528,6 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
             err_code = ble_nus_c_handles_assign(p_ble_nus_c, p_ble_nus_evt->conn_handle , &p_ble_nus_evt->handles);
             APP_ERROR_CHECK(err_code);
 
-            
-        
-        
             err_code = ble_nus_c_tx_notif_enable(p_ble_nus_c);
             APP_ERROR_CHECK(err_code);
             NRF_LOG_INFO("Connected to device with Nordic UART Service.");
@@ -1511,8 +1544,10 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
            
             for(uint8_t i= 0; i<4;i++)
             {
-                NRF_LOG_INFO("conn_handle %d",m_ble_nus_c[i].conn_handle);
-                NRF_LOG_INFO("evt_handle %d",m_ble_nus_c[i].evt_handler);
+                Debug_Device_match_info(i+1);
+                
+                //NRF_LOG_INFO("conn_handle %d",m_ble_nus_c[i].conn_handle);
+                //NRF_LOG_INFO("evt_handle %d",m_ble_nus_c[i].evt_handler);
             }
             NRF_LOG_INFO("nus---------------------start----------------------");
             #if 1
@@ -1538,8 +1573,6 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
             break;
     }
 }
-
-
 
 static void nus_c_init(void)
 {
@@ -1569,7 +1602,7 @@ static void nus_c_init(void)
 static void nus_data_handler(ble_nus_evt_t * p_evt)
 {
 
-    if (p_evt->type == BLE_NUS_EVT_RX_DATA)
+    if(p_evt->type == BLE_NUS_EVT_RX_DATA)
     {
         uint32_t err_code;
 
@@ -1584,7 +1617,6 @@ static void nus_data_handler(ble_nus_evt_t * p_evt)
         #endif
         
         //NRF_LOG_INFO("\r\n :hello");
-        
         #if 0
         for (uint32_t i = 0; i < p_evt->params.rx_data.length; i++)
         {
@@ -1706,6 +1738,20 @@ static void uart_init(void)
 
     APP_ERROR_CHECK(err_code);
 }
+#define BATTERY_LEVEL_MEAS_INTERVAL         APP_TIMER_TICKS(2000)                   /**< Battery level measurement interval (ticks). */
+#define MIN_BATTERY_LEVEL                   81                                      /**< Minimum simulated battery level. */
+#define MAX_BATTERY_LEVEL                   100                                     /**< Maximum simulated 7battery level. */
+#define BATTERY_LEVEL_INCREMENT             1                                       /**< Increment between each simulated battery level measurement. */
+
+
+static void application_timers_start(void)
+{
+    ret_code_t err_code;
+     // Start application timers.
+    err_code = app_timer_start(m_battery_timer_id, BATTERY_LEVEL_MEAS_INTERVAL, NULL);
+    APP_ERROR_CHECK(err_code);
+
+}
 
 
 
@@ -1733,6 +1779,7 @@ int main(void)
     services_nus_init();
     advertising_init();
 
+    #if 0
     if(erase_bonds == true)
     {
         // Scanning and advertising is done upon PM_EVT_PEERS_DELETE_SUCCEEDED event.
@@ -1743,6 +1790,7 @@ int main(void)
     {
         adv_scan_start();
     }
+    #endif
 
     //app_uart_put(123);
     
@@ -1750,6 +1798,12 @@ int main(void)
     
     NRF_LOG_INFO("Relay example started.");
 
+    
+    adv_start();        //开启广播
+    
+      
+    application_timers_start();
+    
     for (;;)
     {
         if (NRF_LOG_PROCESS() == false)
