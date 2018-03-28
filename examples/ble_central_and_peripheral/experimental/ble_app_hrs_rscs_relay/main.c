@@ -109,7 +109,7 @@
 
 #include "app_uart.h"
 #include "User_adv_func.h"
-
+#include "User_MacList.h"
 
 
 
@@ -749,6 +749,10 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
     ble_gap_evt_adv_report_t  adv_report_adv = p_ble_evt->evt.gap_evt.params.adv_report;
     
     
+    
+    
+    
+    
     switch (p_ble_evt->header.evt_id)
     {
         // Upon connection, check which peripheral has connected (HR or RSC), initiate DB
@@ -756,7 +760,58 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
         case BLE_GAP_EVT_CONNECTED:
         {
             NRF_LOG_INFO("Central connected");
+            ble_gap_addr_t mac_peer_addr = adv_report_adv.peer_addr;     //保存下地址
+            
+            NRF_LOG_INFO("connected addr %02x %02x %02x %02x %02x %02x ",mac_peer_addr.addr[0],
+            mac_peer_addr.addr[1],
+            mac_peer_addr.addr[2],
+            mac_peer_addr.addr[3],
+            mac_peer_addr.addr[4],
+            mac_peer_addr.addr[5]);
+            
+            
+            
             // If no Heart Rate sensor or RSC sensor is currently connected, try to find them on this peripheral.
+            //dev_info
+            if(dev_check_empty()== true)
+            {
+                NRF_LOG_INFO("Connection 0x%x established, starting DB discovery.",
+                         p_gap_evt->conn_handle);
+
+                APP_ERROR_CHECK_BOOL(p_gap_evt->conn_handle < NRF_SDH_BLE_CENTRAL_LINK_COUNT);
+
+                //连接上的设备地址
+                //adv_report->peer_addr.addr[0]
+                
+                
+                
+                err_code = ble_nus_c_handles_assign(&m_ble_nus_c[p_gap_evt->conn_handle - 1],
+                                                    p_gap_evt->conn_handle,
+                                                    NULL);
+                APP_ERROR_CHECK(err_code);
+
+                err_code = ble_db_discovery_start(&m_db_discovery[p_gap_evt->conn_handle - 1],
+                                                  p_gap_evt->conn_handle);
+                
+                if (err_code != NRF_ERROR_BUSY)
+                {
+                    APP_ERROR_CHECK(err_code);
+                }
+
+                // Update LEDs status, and check if we should be looking for more peripherals to connect to.
+                bsp_board_led_on(CENTRAL_CONNECTED_LED);
+                if (ble_conn_state_n_centrals() == NRF_SDH_BLE_CENTRAL_LINK_COUNT)
+                {
+                    bsp_board_led_off(CENTRAL_SCANNING_LED);
+                }
+                else
+                {
+                    // Resume scanning.
+                    bsp_board_led_on(CENTRAL_SCANNING_LED);
+                    scan_start();
+                }
+
+            }
             
             #if 0
             if (   (m_conn_handle_hrs_c  == BLE_CONN_HANDLE_INVALID)
@@ -777,45 +832,7 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
             }
             #endif
             
-            NRF_LOG_INFO("Connection 0x%x established, starting DB discovery.",
-                         p_gap_evt->conn_handle);
 
-            APP_ERROR_CHECK_BOOL(p_gap_evt->conn_handle < NRF_SDH_BLE_CENTRAL_LINK_COUNT);
-
-            #if 1
-            err_code = ble_nus_c_handles_assign(&m_ble_nus_c[p_gap_evt->conn_handle - 1],
-                                                p_gap_evt->conn_handle,
-                                                NULL);
-            APP_ERROR_CHECK(err_code);
-
-            #endif
-            
-            
-            
-            #if 0
-            err_code = ble_db_discovery_start(&m_db_discovery[p_gap_evt->conn_handle],
-                                              p_gap_evt->conn_handle);
-            #endif
-            err_code = ble_db_discovery_start(&m_db_discovery[p_gap_evt->conn_handle - 1],
-                                              p_gap_evt->conn_handle);
-            
-            if (err_code != NRF_ERROR_BUSY)
-            {
-                APP_ERROR_CHECK(err_code);
-            }
-
-            // Update LEDs status, and check if we should be looking for more peripherals to connect to.
-            bsp_board_led_on(CENTRAL_CONNECTED_LED);
-            if (ble_conn_state_n_centrals() == NRF_SDH_BLE_CENTRAL_LINK_COUNT)
-            {
-                bsp_board_led_off(CENTRAL_SCANNING_LED);
-            }
-            else
-            {
-                // Resume scanning.
-                bsp_board_led_on(CENTRAL_SCANNING_LED);
-                scan_start();
-            }
         } break; // BLE_GAP_EVT_CONNECTED
 
         // Upon disconnection, reset the connection handle of the peer which disconnected,
@@ -855,29 +872,22 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
             }
             #endif
             
+             if(dev_check_empty()== true)
+             {
+                // Start scanning
+                scan_start();
+             }
+            
+             
             NRF_LOG_INFO("LBS central link 0x%x disconnected (reason: 0x%x)",
                          p_gap_evt->conn_handle,
                          p_gap_evt->params.disconnected.reason);
 
-            //memset(&m_nus_c_test[p_gap_evt->conn_handle],0,sizeof(ble_nus_c_t));
+           Debug_Device_match_info(p_gap_evt->conn_handle);   // 打印断开连接的设备地址
             
-            //m_nus_c_test[p_gap_evt->conn_handle].evt_handler = NULL;
-            //m_nus_c_test[p_gap_evt->conn_handle].handles = {0,0,0};
-            
-            if (ble_conn_state_n_centrals() == 0)
-            {
-                err_code = app_button_disable();
-                APP_ERROR_CHECK(err_code);
-
-                // Turn off connection indication LED
-                bsp_board_led_off(CENTRAL_CONNECTED_LED);
-            }
-
-            // Start scanning
-            //scan_start();
-
-            // Turn on LED for indicating scanning
-            bsp_board_led_on(CENTRAL_SCANNING_LED);
+             
+           Device_Disconnected_handle(p_gap_evt->conn_handle); //对应设备的连接句柄清零
+             
             
         } break; // BLE_GAP_EVT_DISCONNECTED
 

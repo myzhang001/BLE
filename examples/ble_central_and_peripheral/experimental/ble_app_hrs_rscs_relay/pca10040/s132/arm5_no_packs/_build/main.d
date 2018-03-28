@@ -89,3 +89,4 @@
 .\_build\main.o: ..\..\..\..\..\..\..\components\ble\ble_services\ble_nus\ble_nus.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\uart\app_uart.h
 .\_build\main.o: ..\arm5_no_packs\User_adv_func.h
+.\_build\main.o: ..\arm5_no_packs\User_MacList.h
