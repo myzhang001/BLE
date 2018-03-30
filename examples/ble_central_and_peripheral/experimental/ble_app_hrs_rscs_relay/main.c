@@ -759,6 +759,7 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
     ble_gap_evt_adv_report_t const *adv_report = &p_ble_evt->evt.gap_evt.params.adv_report;
     ble_gap_evt_adv_report_t  adv_report_adv = p_ble_evt->evt.gap_evt.params.adv_report;
     
+    int8_t         rssi_value;
     
     switch(p_ble_evt->header.evt_id)
     {
@@ -778,7 +779,11 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
             
             Debug_Device_match_connected_mac(mac_peer_addr,p_gap_evt->conn_handle);
 
-            USER_DEBUG_printf();
+            USER_DEBUG_printf();    
+            
+            sd_ble_gap_rssi_start(p_gap_evt->conn_handle,1,1);        //触发rssi 数据校准
+            
+            
             
             //NRF_LOG_INFO("empty  %02x",dev_info.empty_flag );
             // If no Heart Rate sensor or RSC sensor is currently connected, try to find them on this peripheral.
@@ -902,20 +907,14 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
 
         case BLE_GAP_EVT_ADV_REPORT:
         {
-            
-            if(Ret_Device_Bind_status != 0)
+            if(Ret_Device_Bind_status != E_BIND_NONE)
             {
-            
+                on_adv_report(p_ble_evt);
+                #if 0
+                find_target_device_mac(p_ble_evt,&addr_mac);   //查找目标mac地址
+                match_scanrsp_func(&adv_report_adv,addr_mac);  //根据扫描应答连接设备
+                #endif
             }
-            
-            on_adv_report(p_ble_evt);
-            
-            #if 0
-            find_target_device_mac(p_ble_evt,&addr_mac);   //查找目标mac地址
-            
-            match_scanrsp_func(&adv_report_adv,addr_mac);  //根据扫描应答连接设备
-            #endif
- 
         } break; // BLE_GAP_ADV_REPORT
 
         case BLE_GAP_EVT_TIMEOUT:
@@ -965,6 +964,16 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
             APP_ERROR_CHECK(err_code);
             break;
 
+        case BLE_GAP_EVT_RSSI_CHANGED:
+            
+            //NRF_LOG_INFO("ZMY TEST  HANDLE :%02d",p_gap_evt->conn_handle);
+            rssi_value = p_ble_evt->evt.gap_evt.params.rssi_changed.rssi;  
+
+            NRF_LOG_INFO("\r\n handle rssi%d %02d",p_gap_evt->conn_handle,rssi_value);
+
+            break;
+        
+        
         default:
             // No implementation needed.
             break;
@@ -1500,10 +1509,10 @@ static void timer_init(void)
     APP_ERROR_CHECK(err_code);
     
      // Create timers.
-    err_code = app_timer_create(&m_battery_timer_id,
-                                APP_TIMER_MODE_REPEATED,
-                                battery_level_meas_timeout_handler);
-    APP_ERROR_CHECK(err_code);
+//    err_code = app_timer_create(&m_battery_timer_id,
+//                                APP_TIMER_MODE_REPEATED,
+//                                battery_level_meas_timeout_handler);
+//    APP_ERROR_CHECK(err_code);
     
 }
 
@@ -1779,7 +1788,7 @@ int main(void)
     services_nus_init();
     advertising_init();
 
-    #if 0
+    #if 1
     if(erase_bonds == true)
     {
         // Scanning and advertising is done upon PM_EVT_PEERS_DELETE_SUCCEEDED event.
@@ -1802,7 +1811,7 @@ int main(void)
     adv_start();        //开启广播
     
       
-    application_timers_start();
+    //application_timers_start();
     
     for (;;)
     {

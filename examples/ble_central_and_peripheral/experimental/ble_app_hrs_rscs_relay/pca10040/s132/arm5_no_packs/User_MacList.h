@@ -31,15 +31,17 @@ typedef struct{
 	uint8_t 	mac_addr[MAC_ADDR_LENGTH];        	//设备mac 地址
 	uint16_t 	conn_handle;       					//连接句柄
 	uint8_t 	connected_flag;   					//连接状态
-	int     	rssi;             	  				//rssi 信号强度
+	int8_t     	rssi;             	  				//rssi 信号强度
 	_e_machine_model model;             			//设备型号
+    uint8_t     hard_version;                       //硬件版本,包含硬件芯片型号和硬件版本号
+    uint8_t     software_version;                   //软件版本号
+    
 }_t_ble_status;
 
 typedef enum{
     E_BIND_NONE = 0X00,     //未绑定状态
     E_BIND_ING  = 0X01,     //正在绑定
     E_BIND_CMPT = 0X02      //绑定完成
-
 }_e_band_status;
 
 

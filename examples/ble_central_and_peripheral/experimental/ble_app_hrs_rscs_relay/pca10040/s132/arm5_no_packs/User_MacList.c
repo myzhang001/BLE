@@ -70,6 +70,8 @@ void Device_Disconnected_handle(uint16_t  connected_handle)
 {
     dev_info.ble_dev[connected_handle - 1].conn_handle = BLE_CONN_HANDLE_INVALID;
     if(dev_info.empty_flag >0 )dev_info.empty_flag -=1; 
+    
+    memset(dev_info.ble_dev[connected_handle - 1].mac_addr,0,6);
 }
 
 //匹配断开的设备信息,用于调试
@@ -139,6 +141,69 @@ uint8_t Ret_Device_Bind_Time(void)
     return dev_info.bing_timeout_cnt;
 }
 
+//获取连接时间的rssi 
+
+void Device_Get_Rssi(uint16_t conn_handle,int8_t rssi)
+{
+    dev_info.ble_dev[conn_handle-1].rssi = rssi;
+}
 
 
+//返回rssi值
+int8_t Ret_Device_Rssi(uint16_t conn_handle)
+{
+    return dev_info.ble_dev[conn_handle-1].rssi;
+}
 
+
+//根据设备类型查找设备信息  ,设备个数  设备句柄  设备 conn_handle
+
+typedef struct{
+    uint16_t conn_handle;
+    _e_machine_model device_type;
+}_s_avaiable_info;
+
+
+typedef struct{
+    uint8_t  total_avaiable_num;      //可连接设备总个数
+    _s_avaiable_info dev_info[8];
+}_s_avaiable_device;
+
+_s_avaiable_device   sys_avaiable_table;   //可用设备列表全局
+
+_s_avaiable_device Find_Avaiable_Device(_e_machine_model device_type)
+{
+    uint8_t i = 0;
+    
+    _s_avaiable_device  s_device;
+    
+    for(i = 0; i < sys_avaiable_table.total_avaiable_num;i++)
+    {
+        if(sys_avaiable_table.dev_info[i].device_type == device_type)
+        {
+            s_device.total_avaiable_num +=1;
+            s_device.dev_info[s_device.total_avaiable_num  - 1].conn_handle = sys_avaiable_table.dev_info[i].conn_handle;
+            s_device.dev_info[s_device.total_avaiable_num  - 1].device_type = sys_avaiable_table.dev_info[i].device_type;
+        }
+    }
+
+    return s_device;
+}
+
+
+//更新可用设备列表
+void Device_Update_Avaiable_Table(void)
+{
+    uint8_t i = 0;
+    
+    for(i = 0; i < 8;i++)
+    {
+        if(dev_info.ble_dev[i].conn_handle != 0 ||dev_info.ble_dev[i].conn_handle != 0xFFFF)
+        {
+            sys_avaiable_table.total_avaiable_num +=1;
+
+            sys_avaiable_table.dev_info[i].conn_handle = dev_info.ble_dev[i].conn_handle;   //保存handle
+            sys_avaiable_table.dev_info[i].device_type = dev_info.ble_dev[i].model;         //保存类型
+        }
+    }
+}
