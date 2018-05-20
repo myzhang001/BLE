@@ -5,11 +5,11 @@
 <h2>Tool Versions:</h2>
 IDE-Version: ¦ÌVision V5.15
 Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: dtu dtu idt Flex license: MDK-ARM Standard: 9 user(s) (mdk_std) Support: Jul 2016
+License Information: zxc Administrator, ZXc, LIC=7YKJJ-UISP9-BV31G-VM5LJ-FD8AD-J8KKW
  
 Tool Versions:
-Toolchain:       MDK-ARM Standard: 9 user(s)  Version: 5.15.0
-Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+Toolchain:       MDK-ARM Professional  Version: 5.15.0
+Toolchain Path:  E:\Program\ARM\ARMCC\Bin
 C Compiler:      Armcc.exe V5.05 update 2 (build 169)
 Assembler:       Armasm.exe V5.05 update 2 (build 169)
 Linker/Locator:  ArmLink.exe V5.05 update 2 (build 169)
@@ -21,20 +21,20 @@ Target DLL:      Segger\JL2CM3.dll V2.99.15.0
 Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
-D:\ble\examples\ble_central_and_peripheral\experimental\ble_app_hrs_rscs_relay\pca10040\s132\arm5_no_packs\ble_app_hrs_rscs_relay_pca10040_s132.uvprojx
-Project File Date:  03/19/2018
+G:\BLE\52832_dev\BLE\examples\ble_central_and_peripheral\experimental\ble_app_hrs_rscs_relay\pca10040\s132\arm5_no_packs\ble_app_hrs_rscs_relay_pca10040_s132.uvprojx
+Project File Date:  05/16/2018
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+*** Using Compiler 'V5.05 update 2 (build 169)', folder: 'E:\Program\ARM\ARMCC\Bin'
 Build target 'nrf52832_xxaa'
 compiling main.c...
 ..\..\..\main.c(323): warning:  #177-D: variable "err_code" was declared but never referenced
       ret_code_t err_code;
 ..\..\..\main.c(759): warning:  #177-D: variable "adv_report" was declared but never referenced
       ble_gap_evt_adv_report_t const *adv_report = &p_ble_evt->evt.gap_evt.params.adv_report;
-..\..\..\main.c(1616): warning:  #177-D: variable "err_code" was declared but never referenced
+..\..\..\main.c(1609): warning:  #177-D: variable "err_code" was declared but never referenced
           uint32_t err_code;
-..\..\..\main.c(1679): warning:  #177-D: variable "ret_val" was declared but never referenced
+..\..\..\main.c(1672): warning:  #177-D: variable "ret_val" was declared but never referenced
       uint32_t ret_val;
 ..\..\..\main.c(188): warning:  #177-D: variable "m_hrs_c" was declared but never referenced
   static ble_hrs_c_t m_hrs_c;                                         /**< Heart rate service client instance. */
@@ -46,25 +46,21 @@ compiling main.c...
   static void hrs_c_evt_handler(ble_hrs_c_t * p_hrs_c, ble_hrs_c_evt_t * p_hrs_c_evt)
 ..\..\..\main.c(510): warning:  #177-D: function "rscs_c_evt_handler" was declared but never referenced
   static void rscs_c_evt_handler(ble_rscs_c_t * p_rscs_c, ble_rscs_c_evt_t * p_rscs_c_evt)
-..\..\..\main.c(1404): warning:  #177-D: function "services_init" was declared but never referenced
+..\..\..\main.c(1397): warning:  #177-D: function "services_init" was declared but never referenced
   static void services_init(void)
-..\..\..\main.c(1491): warning:  #177-D: function "battery_level_meas_timeout_handler" was declared but never referenced
-  static void battery_level_meas_timeout_handler(void * p_context)
-..\..\..\main.c(1672): warning:  #177-D: variable "m_ble_nus_max_data_len" was declared but never referenced
+..\..\..\main.c(1665): warning:  #177-D: variable "m_ble_nus_max_data_len" was declared but never referenced
   static uint16_t m_ble_nus_max_data_len = BLE_GATT_ATT_MTU_DEFAULT - OPCODE_LENGTH - HANDLE_LENGTH; /**< Maximum length of data (in bytes) that can be transmitted to the peer by the Nordic UART service module. */
-..\..\..\main.c(1726): warning:  #177-D: function "uart_init" was declared but never referenced
+..\..\..\main.c(1719): warning:  #177-D: function "uart_init" was declared but never referenced
   static void uart_init(void)
-..\..\..\main.c(1756): warning:  #177-D: function "application_timers_start" was declared but never referenced
-  static void application_timers_start(void)
-..\..\..\main.c: 14 warnings, 0 errors
-compiling User_MacList.c...
-User_MacList.c(127): warning:  #188-D: enumerated type mixed with another type
-          else{dev_info.scan_bind_flag = 0;}
-User_MacList.c: 1 warning, 0 errors
+..\..\..\main.c: 12 warnings, 0 errors
+compiling ble_nus_c.c...
+..\..\..\..\..\..\..\components\ble\ble_services\ble_nus_c\ble_nus_c.c(147): warning:  #177-D: function "on_disconnected" was declared but never referenced
+  static void on_disconnected(ble_nus_c_t * p_ble_nus_c, ble_evt_t const * p_ble_evt)
+..\..\..\..\..\..\..\components\ble\ble_services\ble_nus_c\ble_nus_c.c: 1 warning, 0 errors
 linking...
-Program Size: Code=41144 RO-data=4016 RW-data=3404 ZI-data=12772  
+Program Size: Code=41188 RO-data=4024 RW-data=3404 ZI-data=12804  
 FromELF: creating hex file...
-".\_build\nrf52832_xxaa.axf" - 0 Error(s), 15 Warning(s).
+".\_build\nrf52832_xxaa.axf" - 0 Error(s), 13 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -81,10 +77,10 @@ Package Vendor: NordicSemiconductor
    * Component: Startup Version: 8.15.0
 
 <h2>Collection of Component include folders:</h2>
-  D:\ble\examples\ble_central_and_peripheral\experimental\ble_app_hrs_rscs_relay\pca10040\s132\arm5_no_packs\RTE
-  C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include
-  C:\Keil_v5\ARM\PACK\NordicSemiconductor\nRF_DeviceFamilyPack\8.15.0\Device\Include
-  C:\Keil_v5\ARM\PACK\NordicSemiconductor\nRF_DeviceFamilyPack\8.15.2\Device\Include
+  G:\BLE\52832_dev\BLE\examples\ble_central_and_peripheral\experimental\ble_app_hrs_rscs_relay\pca10040\s132\arm5_no_packs\RTE
+  E:\Program\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include
+  E:\Program\ARM\PACK\NordicSemiconductor\nRF_DeviceFamilyPack\8.15.0\Device\Include
+  E:\Program\ARM\PACK\NordicSemiconductor\nRF_DeviceFamilyPack\8.16.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
 
@@ -92,8 +88,8 @@ Package Vendor: NordicSemiconductor
 
    * Component: NordicSemiconductor::Device:Startup:8.15.0
       Source file:   Device\Source\arm\arm_startup_nrf52.s
-      Source file:   Device\Source\system_nrf52.c
       Include file:  Device\Include\system_nrf52.h
+      Source file:   Device\Source\system_nrf52.c
 </pre>
 </body>
 </html>

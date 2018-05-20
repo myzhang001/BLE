@@ -185,7 +185,6 @@ void  find_target_device_mac(ble_evt_t const * p_ble_evt,ble_gap_addr_t  * devic
 
 
 //根据匹配扫描应答数据来识别机型
-
 void match_scanrsp_func(ble_gap_evt_adv_report_t *adv_report,ble_gap_addr_t addr_mac)
 {
     uint32_t err_code = 0;
@@ -237,9 +236,6 @@ void match_scanrsp_func(ble_gap_evt_adv_report_t *adv_report,ble_gap_addr_t addr
         }
     }
 }
-
-
-
 
 
 

@@ -201,7 +201,7 @@ static uint16_t m_conn_handle_rscs_c = BLE_CONN_HANDLE_INVALID;     /**< Connect
 /**@brief names which the central applications will scan for, and which will be advertised by the peripherals.
  *  if these are set to empty strings, the UUIDs defined below will be used
  */
-static char const m_target_periph_name[] = "zmy_ble";
+static char const m_target_periph_name[] = "Nordic_UART";
                                                                                                                                           
 /**@brief UUIDs which the central applications will scan for if the name above is set to an empty string,
  * and which will be advertised by the peripherals.
@@ -765,7 +765,8 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
     {
         // Upon connection, check which peripheral has connected (HR or RSC), initiate DB
         // discovery, update LEDs status and resume scanning if necessary.
-        case BLE_GAP_EVT_CONNECTED:
+
+		case BLE_GAP_EVT_CONNECTED:
         {
             NRF_LOG_INFO("Central connected");
             ble_gap_addr_t mac_peer_addr = adv_report_adv.peer_addr;     //保存下地址
@@ -781,7 +782,7 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
 
             USER_DEBUG_printf();    
             
-            sd_ble_gap_rssi_start(p_gap_evt->conn_handle,1,1);        //触发rssi 数据校准
+            //sd_ble_gap_rssi_start(p_gap_evt->conn_handle,1,1);        //触发rssi 数据校准
             
             
             
@@ -1125,18 +1126,11 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
     // Based on the role this device plays in the connection, dispatch to the right handler.
     if (role == BLE_GAP_ROLE_PERIPH || ble_evt_is_advertising_timeout(p_ble_evt))
     {
-        //ble_hrs_on_ble_evt(p_ble_evt, &m_hrs);
-        //ble_rscs_on_ble_evt(p_ble_evt, &m_rscs);
-        
-        //ble_nus_on_ble_evt(p_ble_evt, &m_nus);
+        //ble_nus_on_ble_evt(p_ble_evt, &m_nus);        //根据不同初始化方式选择
         on_ble_peripheral_evt(p_ble_evt);
     }
     else if ((role == BLE_GAP_ROLE_CENTRAL) || (p_ble_evt->header.evt_id == BLE_GAP_EVT_ADV_REPORT))
     {
-        //ble_hrs_c_on_ble_evt(p_ble_evt, &m_hrs_c);
-        //ble_rscs_c_on_ble_evt(p_ble_evt, &m_rscs_c);
-        
-        //NRF_LOG_INFO("conn_handle:%d",conn_handle);
         
         #if 0
         for(uint8_t i = 0; i < NRF_SDH_BLE_CENTRAL_LINK_COUNT;i++)      
@@ -1320,7 +1314,6 @@ void gatt_evt_handler(nrf_ble_gatt_t * p_gatt, nrf_ble_gatt_evt_t const * p_evt)
 
 
 
-
 /**@brief Function for initializing the GATT module.
  */
 static void gatt_init(void)
@@ -1347,7 +1340,7 @@ static void conn_params_init(void)
     cp_init.first_conn_params_update_delay = FIRST_CONN_PARAMS_UPDATE_DELAY;
     cp_init.next_conn_params_update_delay  = NEXT_CONN_PARAMS_UPDATE_DELAY;
     cp_init.max_conn_params_update_count   = MAX_CONN_PARAMS_UPDATE_COUNT;
-    cp_init.start_on_notify_cccd_handle    = BLE_CONN_HANDLE_INVALID; // Start upon connection.
+    cp_init.start_on_notify_cccd_handle    = BLE_CONN_HANDLE_INVALID;        //Start upon connection.
     cp_init.disconnect_on_fail             = true;
     cp_init.evt_handler                    = NULL;  // Ignore events.
     cp_init.error_handler                  = conn_params_error_handler;
@@ -1493,11 +1486,11 @@ static void battery_level_meas_timeout_handler(void * p_context)
     UNUSED_PARAMETER(p_context);
    // battery_level_update();
     
-    //NRF_LOG_INFO("zmytest\r\n");
-    
-    //ble_nus_c_string_send(&m_ble_nus_c[i], &test[0] ,sizeof(test));
-    //i++;
-    //if(i> 2)i =0;
+//    NRF_LOG_INFO("zmytest  %d \r\n",i);
+//    
+//    ble_nus_c_string_send(&m_ble_nus_c[i], &test[0] ,sizeof(test));
+//    i++;
+//    if(i> 3)i =0;
 
 }
 
@@ -1509,10 +1502,10 @@ static void timer_init(void)
     APP_ERROR_CHECK(err_code);
     
      // Create timers.
-//    err_code = app_timer_create(&m_battery_timer_id,
-//                                APP_TIMER_MODE_REPEATED,
-//                                battery_level_meas_timeout_handler);
-//    APP_ERROR_CHECK(err_code);
+    err_code = app_timer_create(&m_battery_timer_id,
+                                APP_TIMER_MODE_REPEATED,
+                                battery_level_meas_timeout_handler);
+    APP_ERROR_CHECK(err_code);
     
 }
 
@@ -1768,7 +1761,7 @@ int main(void)
 {
     bool erase_bonds;
 
-    log_init();
+    log_init();									//log 打印初始化
     timer_init();
     //uart_init();
     
@@ -1780,15 +1773,13 @@ int main(void)
     db_discovery_init();
     peer_manager_init();
     
-    nus_c_init();
-    //hrs_c_init();
-    //rscs_c_init();
-    
+    nus_c_init();							    //主机端 服务初始化
+
     //services_init();
-    services_nus_init();
+    services_nus_init();						//从机端服务初始化
     advertising_init();
 
-    #if 1
+    
     if(erase_bonds == true)
     {
         // Scanning and advertising is done upon PM_EVT_PEERS_DELETE_SUCCEEDED event.
@@ -1799,19 +1790,15 @@ int main(void)
     {
         adv_scan_start();
     }
-    #endif
-
-    //app_uart_put(123);
     
+    //app_uart_put(123);						//串口打印测试
     //printf("123");
     
     NRF_LOG_INFO("Relay example started.");
 
-    
-    adv_start();        //开启广播
-    
-      
-    //application_timers_start();
+    adv_start();        						//开启广播
+	
+    application_timers_start();			    //开启定时器
     
     for (;;)
     {
