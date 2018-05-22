@@ -111,6 +111,16 @@
 #include "User_adv_func.h"
 #include "User_MacList.h"
 
+#include "user_common_func.h"
+#include "Protocol_Analysis.h"
+#include "Somputon_BLE_DataHandle.h"
+
+#include "Nus_Master_DataHandle.h"
+
+
+
+
+
 
 
 #define PERIPHERAL_ADVERTISING_LED      BSP_BOARD_LED_2
@@ -1543,7 +1553,14 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
                 NRF_LOG_INFO("data:%c",p_ble_nus_evt->p_data[i]);
             }
        
-           
+	
+		    if(NUS_C_Filter_Connected_Handle(p_ble_nus_c->conn_handle) == true)
+			{
+				
+			
+			}
+			
+
             for(uint8_t i= 0; i<4;i++)
             {
                 Debug_Device_match_info(i+1);
@@ -1584,21 +1601,14 @@ static void nus_c_init(void)
     init.evt_handler = ble_nus_c_evt_handler;
     
     
-    #if 1
     for(uint8_t i = 0; i < NRF_SDH_BLE_CENTRAL_LINK_COUNT;i++)
     {
         err_code = ble_nus_c_init(&m_ble_nus_c[i], &init);
         APP_ERROR_CHECK(err_code);
     }
-    #endif
     
-    #if 0
-    for(uint8_t i = 0; i < NRF_SDH_BLE_CENTRAL_LINK_COUNT;i++)
-    {
-        err_code = ble_nus_c_init(&m_nus_c_test[i], &init);
-        APP_ERROR_CHECK(err_code);  
-    }
-    #endif
+    
+
 }
 
 static void nus_data_handler(ble_nus_evt_t * p_evt)
@@ -1779,7 +1789,10 @@ int main(void)
     services_nus_init();						//从机端服务初始化
     advertising_init();
 
-    
+	
+	Somputon_Init(&App_RecvHandler);							//somouton ble  平台初始化					
+	
+	
     if(erase_bonds == true)
     {
         // Scanning and advertising is done upon PM_EVT_PEERS_DELETE_SUCCEEDED event.
@@ -1792,13 +1805,13 @@ int main(void)
     }
     
     //app_uart_put(123);						//串口打印测试
-    //printf("123");
+   
     
     NRF_LOG_INFO("Relay example started.");
 
     adv_start();        						//开启广播
 	
-    application_timers_start();			    //开启定时器
+    application_timers_start();			    	//开启定时器
     
     for (;;)
     {

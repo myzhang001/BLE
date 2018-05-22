@@ -90,3 +90,7 @@
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\uart\app_uart.h
 .\_build\main.o: ..\arm5_no_packs\User_adv_func.h
 .\_build\main.o: ..\arm5_no_packs\User_MacList.h
+.\_build\main.o: ..\arm5_no_packs\user_common_func.h
+.\_build\main.o: ..\arm5_no_packs\Protocol_Analysis.h
+.\_build\main.o: ..\arm5_no_packs\Somputon_BLE_DataHandle.h
+.\_build\main.o: ..\arm5_no_packs\Nus_Master_DataHandle.h

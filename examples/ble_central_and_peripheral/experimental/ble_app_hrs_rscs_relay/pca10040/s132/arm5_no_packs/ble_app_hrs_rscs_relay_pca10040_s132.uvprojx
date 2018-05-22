@@ -442,6 +442,21 @@
               <FileType>1</FileType>
               <FilePath>.\user_common_func.c</FilePath>
             </File>
+            <File>
+              <FileName>Protocol_Analysis.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Protocol_Analysis.c</FilePath>
+            </File>
+            <File>
+              <FileName>Somputon_BLE_DataHandle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Somputon_BLE_DataHandle.c</FilePath>
+            </File>
+            <File>
+              <FileName>Nus_Master_DataHandle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Nus_Master_DataHandle.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4102,6 +4117,21 @@
               <FileName>user_common_func.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\user_common_func.c</FilePath>
+            </File>
+            <File>
+              <FileName>Protocol_Analysis.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Protocol_Analysis.c</FilePath>
+            </File>
+            <File>
+              <FileName>Somputon_BLE_DataHandle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Somputon_BLE_DataHandle.c</FilePath>
+            </File>
+            <File>
+              <FileName>Nus_Master_DataHandle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Nus_Master_DataHandle.c</FilePath>
             </File>
           </Files>
         </Group>
