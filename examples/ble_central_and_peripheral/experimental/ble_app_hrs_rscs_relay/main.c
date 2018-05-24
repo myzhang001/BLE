@@ -794,21 +794,17 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
             
             //sd_ble_gap_rssi_start(p_gap_evt->conn_handle,1,1);        //触发rssi 数据校准
             
-            
-            
             //NRF_LOG_INFO("empty  %02x",dev_info.empty_flag );
-            // If no Heart Rate sensor or RSC sensor is currently connected, try to find them on this peripheral.
+            
             
             //if(dev_check_empty()== true)
             {
                 NRF_LOG_INFO("Connection 0x%x established, starting DB discovery.",
                          p_gap_evt->conn_handle);
 
-                APP_ERROR_CHECK_BOOL(p_gap_evt->conn_handle < NRF_SDH_BLE_CENTRAL_LINK_COUNT);
+                APP_ERROR_CHECK_BOOL(p_gap_evt->conn_handle - 1 < NRF_SDH_BLE_CENTRAL_LINK_COUNT);
 
-                //连接上的设备地址
-                //adv_report->peer_addr.addr[0]
-   
+               
                 err_code = ble_nus_c_handles_assign(&m_ble_nus_c[p_gap_evt->conn_handle - 1],
                                                     p_gap_evt->conn_handle,
                                                     NULL);
@@ -835,27 +831,8 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
                     scan_start();
                 }
             }
-            
-            #if 0
-            if (   (m_conn_handle_hrs_c  == BLE_CONN_HANDLE_INVALID)
-                || (m_conn_handle_rscs_c == BLE_CONN_HANDLE_INVALID))
-            {
-                NRF_LOG_INFO("Attempt to find HRS or RSC on conn_handle 0x%x", p_gap_evt->conn_handle);
-
-                err_code = ble_db_discovery_start(&m_db_discovery[0], p_gap_evt->conn_handle);
-                if (err_code == NRF_ERROR_BUSY)
-                {
-                    err_code = ble_db_discovery_start(&m_db_discovery[1], p_gap_evt->conn_handle);
-                    APP_ERROR_CHECK(err_code);
-                }
-                else
-                {
-                    APP_ERROR_CHECK(err_code);
-                }
-            }
-            #endif
-            
-
+           
+ 
         } break; // BLE_GAP_EVT_CONNECTED
 
         // Upon disconnection, reset the connection handle of the peer which disconnected,
@@ -1141,21 +1118,7 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
     }
     else if ((role == BLE_GAP_ROLE_CENTRAL) || (p_ble_evt->header.evt_id == BLE_GAP_EVT_ADV_REPORT))
     {
-        
-        #if 0
-        for(uint8_t i = 0; i < NRF_SDH_BLE_CENTRAL_LINK_COUNT;i++)      
-        {
-            ble_nus_c_on_ble_evt(p_ble_evt,&m_ble_nus_c[i]);
-        }
-        #endif
-        #if 0
-        for(uint8_t i = 0; i < NRF_SDH_BLE_CENTRAL_LINK_COUNT;i++) 
-        {
-            ble_nus_c_on_ble_evt(p_ble_evt,&m_nus_c_test[i]);
-        }
-        #endif
-        //ble_nus_c_on_ble_evt(p_ble_evt,&m_ble_nus_c[conn_handle]);
-       
+        //ble_nus_c_on_ble_evt(p_ble_evt,&m_ble_nus_c[conn_handle]);   //根据不同初始化
         on_ble_central_evt(p_ble_evt);
     }
 }
@@ -1556,11 +1519,10 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
 	
 		    if(NUS_C_Filter_Connected_Handle(p_ble_nus_c->conn_handle) == true)
 			{
-				
-			
+				nus_data_handle(p_ble_nus_c->conn_handle,p_ble_nus_evt->p_data,p_ble_nus_evt->data_len);    //处理所有从机数据
+
 			}
 			
-
             for(uint8_t i= 0; i<4;i++)
             {
                 Debug_Device_match_info(i+1);

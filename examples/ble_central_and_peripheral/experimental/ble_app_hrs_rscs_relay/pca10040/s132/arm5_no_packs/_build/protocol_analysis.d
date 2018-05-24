@@ -30,4 +30,5 @@
 .\_build\protocol_analysis.o: E:\Program\ARM\PACK\NordicSemiconductor\nRF_DeviceFamilyPack\8.15.0\Device\Include\compiler_abstraction.h
 .\_build\protocol_analysis.o: ..\..\..\..\..\..\..\components\softdevice\s132\headers\ble_gatts.h
 .\_build\protocol_analysis.o: ..\..\..\..\..\..\..\components\ble\common\ble_gatt_db.h
+.\_build\protocol_analysis.o: User_MacList.h
 .\_build\protocol_analysis.o: Somputon_BLE_DataHandle.h

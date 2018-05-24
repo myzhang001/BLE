@@ -1,6 +1,9 @@
 #include "Somputon_BLE_DataHandle.h"
 
 
+
+
+
 /**@brief get_real_time_data_cmd     
  *
  *	Function for replying to get real time data.
@@ -23,9 +26,40 @@ void get_real_time_data_cmd(void)
  *
  * @return      void
  */
-void bond_cmd(void)
+void bond_cmd(uint16_t conn_handle,_e_machine_model device_type,uint8_t mac_addr[6])
 {
+	//dev_info.ble_dev[conn_handle - 1].device_datastruct_index
 	
+	
+	switch(device_type)
+	{
+		case E_01G:
+			break;
+		case E_01H:
+			break;
+		case E_03F:
+			break;
+		case E_03H:
+			break;
+		case E_06H:
+			break;
+		case E_06F:
+			break;
+		case E_08A:
+			break;
+		case E_08F:
+			
+			
+			break;
+		case E_09A:
+			
+			break;
+		case E_09F:
+			break;
+		 
+		 default:
+			 break;
+	}
 }
 
 /**@brief clear_history_data_cmd     

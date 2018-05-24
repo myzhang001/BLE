@@ -1,6 +1,6 @@
 #include "Protocol_Analysis.h"
 #include "Somputon_BLE_DataHandle.h"
-
+#include "User_MacList.h"
 
 
 
@@ -33,12 +33,12 @@ void Somputon_Init(appRecvHandler_Cb cb)
 /**@brief     Function for handling clife command word in the application
  *
  * @param[in] command 			clife command word
- *         		src_data    	source data
- *         		len 					data length
+ *         	  src_data    	    source data
+ *         	  len 			    data length
  *
  * @return    void
  */
-void App_RecvHandler(uint16_t command, uint8_t* data,uint16_t len)
+void App_RecvHandler(uint16_t conn_handle,uint16_t command, uint8_t* data,uint16_t len,_e_machine_model device_type,uint8_t mac_addr[6])
 {
 		switch(command)
 		{			
@@ -54,7 +54,7 @@ void App_RecvHandler(uint16_t command, uint8_t* data,uint16_t len)
 					 break;		
 			
 			case BOND_COMMAND:
-					bond_cmd();                               //发送绑定指令
+					bond_cmd(conn_handle,device_type,mac_addr);                              //发送绑定指令
 					 break;		
 												
 			case GET_HISTORY_DATA_TOTAL_PACKETS:

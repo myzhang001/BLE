@@ -35,8 +35,11 @@ typedef struct{
 	_e_machine_model model;             			//设备型号
     uint8_t     hard_version;                       //硬件版本,包含硬件芯片型号和硬件版本号
     uint8_t     software_version;                   //软件版本号
-    
+	uint8_t     device_datastruct_index;            //对应设备数据结构索引
+	
+	
 }_t_ble_status;
+
 
 typedef enum{
     E_BIND_NONE = 0X00,     //未绑定状态
@@ -57,16 +60,22 @@ typedef struct{
 
 
 
-
-
 #define  BIND_TIMEOUT_CNT           60      //绑定超时时间
-
 
 //复位超时时间
 #define Reset_Timeout_Cnt do{\
 dev_info.scan_bind_flag = 0;\
 dev_info.bing_timeout_cnt = BIND_TIMEOUT_CNT;\
 }while(0)
+
+
+
+
+
+
+
+extern  _t_dev_mac_match dev_info;    //连接设备的所有信息
+
 
 
 

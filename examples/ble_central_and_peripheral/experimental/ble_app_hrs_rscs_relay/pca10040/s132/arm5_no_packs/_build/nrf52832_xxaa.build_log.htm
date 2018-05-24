@@ -22,19 +22,53 @@ Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
 G:\BLE\52832_dev\BLE\examples\ble_central_and_peripheral\experimental\ble_app_hrs_rscs_relay\pca10040\s132\arm5_no_packs\ble_app_hrs_rscs_relay_pca10040_s132.uvprojx
-Project File Date:  05/21/2018
+Project File Date:  05/22/2018
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'E:\Program\ARM\ARMCC\Bin'
 Build target 'nrf52832_xxaa'
+compiling main.c...
+..\..\..\main.c(333): warning:  #177-D: variable "err_code" was declared but never referenced
+      ret_code_t err_code;
+..\..\..\main.c(769): warning:  #177-D: variable "adv_report" was declared but never referenced
+      ble_gap_evt_adv_report_t const *adv_report = &p_ble_evt->evt.gap_evt.params.adv_report;
+..\..\..\main.c(1581): warning:  #177-D: variable "err_code" was declared but never referenced
+          uint32_t err_code;
+..\..\..\main.c(1644): warning:  #177-D: variable "ret_val" was declared but never referenced
+      uint32_t ret_val;
+..\..\..\main.c(198): warning:  #177-D: variable "m_hrs_c" was declared but never referenced
+  static ble_hrs_c_t m_hrs_c;                                         /**< Heart rate service client instance. */
+..\..\..\main.c(199): warning:  #177-D: variable "m_rscs_c" was declared but never referenced
+  static ble_rscs_c_t m_rscs_c;                                       /**< Running speed and cadence service client instance. */
+..\..\..\main.c(201): warning:  #177-D: variable "m_nus_c_test" was declared but never referenced
+  static ble_nus_c_t m_nus_c_test[4];
+..\..\..\main.c(464): warning:  #177-D: function "hrs_c_evt_handler" was declared but never referenced
+  static void hrs_c_evt_handler(ble_hrs_c_t * p_hrs_c, ble_hrs_c_evt_t * p_hrs_c_evt)
+..\..\..\main.c(520): warning:  #177-D: function "rscs_c_evt_handler" was declared but never referenced
+  static void rscs_c_evt_handler(ble_rscs_c_t * p_rscs_c, ble_rscs_c_evt_t * p_rscs_c_evt)
+..\..\..\main.c(1370): warning:  #177-D: function "services_init" was declared but never referenced
+  static void services_init(void)
+..\..\..\main.c(1637): warning:  #177-D: variable "m_ble_nus_max_data_len" was declared but never referenced
+  static uint16_t m_ble_nus_max_data_len = BLE_GATT_ATT_MTU_DEFAULT - OPCODE_LENGTH - HANDLE_LENGTH; /**< Maximum length of data (in bytes) that can be transmitted to the peer by the Nordic UART service module. */
+..\..\..\main.c(1691): warning:  #177-D: function "uart_init" was declared but never referenced
+  static void uart_init(void)
+..\..\..\main.c: 12 warnings, 0 errors
+compiling User_MacList.c...
+User_MacList.c(127): warning:  #188-D: enumerated type mixed with another type
+          else{dev_info.scan_bind_flag = 0;}
+User_MacList.c: 1 warning, 0 errors
+compiling Protocol_Analysis.c...
+compiling Somputon_BLE_DataHandle.c...
+Somputon_BLE_DataHandle.c(39): error:  #134: expected a field name
+  }
+Somputon_BLE_DataHandle.c(39): error:  #65: expected a ";"
+  }
+Somputon_BLE_DataHandle.c: 0 warnings, 2 errors
 compiling Nus_Master_DataHandle.c...
-Nus_Master_DataHandle.c(66): warning:  #177-D: variable "Temp" was declared but never referenced
-        uint16_t  Temp;
+Nus_Master_DataHandle.c(113): warning:  #188-D: enumerated type mixed with another type
+                        receive_data_from_app((uint16_t)nus_c_conn_handle,Common_Word.Common_World,&data_buffer[DATA_CONTENT_INDEX],Common_Word.Data_Length - 4,Common_Word.Device_Type,&Common_Word.MacAddr_Device);
 Nus_Master_DataHandle.c: 1 warning, 0 errors
-linking...
-Program Size: Code=41348 RO-data=4024 RW-data=3408 ZI-data=12800  
-FromELF: creating hex file...
-".\_build\nrf52832_xxaa.axf" - 0 Error(s), 1 Warning(s).
+".\_build\nrf52832_xxaa.axf" - 2 Error(s), 14 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -64,6 +98,7 @@ Package Vendor: NordicSemiconductor
       Source file:   Device\Source\system_nrf52.c
       Source file:   Device\Source\arm\arm_startup_nrf52.s
       Include file:  Device\Include\system_nrf52.h
+Target not created.
 </pre>
 </body>
 </html>

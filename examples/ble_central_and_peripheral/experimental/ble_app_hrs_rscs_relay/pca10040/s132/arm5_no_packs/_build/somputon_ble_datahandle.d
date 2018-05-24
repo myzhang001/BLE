@@ -30,3 +30,5 @@
 .\_build\somputon_ble_datahandle.o: E:\Program\ARM\PACK\NordicSemiconductor\nRF_DeviceFamilyPack\8.15.0\Device\Include\compiler_abstraction.h
 .\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\softdevice\s132\headers\ble_gatts.h
 .\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\ble\common\ble_gatt_db.h
+.\_build\somputon_ble_datahandle.o: Protocol_Analysis.h
+.\_build\somputon_ble_datahandle.o: User_MacList.h

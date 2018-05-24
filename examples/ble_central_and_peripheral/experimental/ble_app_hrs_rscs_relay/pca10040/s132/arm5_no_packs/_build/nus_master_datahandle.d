@@ -31,4 +31,5 @@
 .\_build\nus_master_datahandle.o: ..\..\..\..\..\..\..\components\softdevice\s132\headers\ble_gatts.h
 .\_build\nus_master_datahandle.o: ..\..\..\..\..\..\..\components\ble\common\ble_gatt_db.h
 .\_build\nus_master_datahandle.o: Protocol_Analysis.h
+.\_build\nus_master_datahandle.o: User_MacList.h
 .\_build\nus_master_datahandle.o: Somputon_BLE_DataHandle.h

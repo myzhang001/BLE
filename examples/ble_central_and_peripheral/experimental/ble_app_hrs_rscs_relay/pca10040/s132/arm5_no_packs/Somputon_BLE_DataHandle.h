@@ -8,7 +8,8 @@
 #include "nordic_common.h"
 #include "ble_db_discovery.h"
 
-
+#include "Protocol_Analysis.h"
+#include "User_MacList.h"
 
 
 
@@ -17,7 +18,7 @@
 
 
 void get_real_time_data_cmd(void);
-void bond_cmd(void);
+void bond_cmd(uint16_t conn_handle,_e_machine_model device_type,uint8_t mac_addr[6]);
 void clear_history_data_cmd(void);
 void set_device_time_cmd(uint8_t *data_info);
 void get_device_time_cmd(uint32_t second);

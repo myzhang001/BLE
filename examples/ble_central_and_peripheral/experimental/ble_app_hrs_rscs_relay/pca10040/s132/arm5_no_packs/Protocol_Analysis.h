@@ -7,7 +7,7 @@
 #include <string.h>
 #include "nordic_common.h"
 #include "ble_db_discovery.h"
-
+#include "User_MacList.h"
 
 
 
@@ -53,10 +53,16 @@
 /******************************************************************************
 **                           Typedefs                                       **
 ******************************************************************************/
-typedef void(* appRecvHandler_Cb) (uint16_t cmd, uint8_t* pdata,uint16_t len);
+typedef void(* appRecvHandler_Cb) (uint16_t conn_handle,uint16_t command, uint8_t* data,uint16_t len,_e_machine_model device_type,uint8_t mac_addr[6]);
 
 
-void App_RecvHandler(uint16_t command, uint8_t* data,uint16_t len);
+
+extern appRecvHandler_Cb  receive_data_from_app;   //数据接收回调
+
+
+
+
+void App_RecvHandler(uint16_t conn_handle,uint16_t command, uint8_t* data,uint16_t len,_e_machine_model device_type,uint8_t mac_addr[6]);
 
 void Somputon_Init(appRecvHandler_Cb cb);
 

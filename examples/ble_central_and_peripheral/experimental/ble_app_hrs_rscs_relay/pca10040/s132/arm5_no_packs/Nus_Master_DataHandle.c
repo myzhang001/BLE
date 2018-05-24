@@ -6,9 +6,16 @@
 
 
 
+typedef struct{
 
-uint8_t  Data_Length  = 0;    //保存数据长度
-uint16_t Common_World = 0;   //保存命令字
+	uint8_t  Data_Length;    //保存数据长度
+	uint16_t Common_World;    //保存命令字
+	uint8_t  Device_Type;    //设备类型
+	uint8_t  MacAddr_Device;	//设备mac 地址
+}_s_analsis_word;
+
+
+_s_analsis_word  Common_Word;
 
 
 
@@ -76,27 +83,35 @@ void nus_data_handle(uint32_t nus_c_conn_handle, uint8_t *data, uint8_t length)
 	else
 	{
 		
-		Data_Length  = data_buffer[DATA_LENGTH_INDIX_HIGH];    //获取数据包长度
-		Data_Length = Data_Length>>8;
-		Data_Length |= data_buffer[DATA_LENGTH_INDIX_LOW];
+		Common_Word.Data_Length  = data_buffer[DATA_LENGTH_INDIX_HIGH];    //获取数据包长度
+		Common_Word.Data_Length = Common_Word.Data_Length>>8;
+		Common_Word.Data_Length |= data_buffer[DATA_LENGTH_INDIX_LOW];
 		
-		Common_World = data_buffer[DATA_COMMOND_WORD + 1];	   //获取命令字
-		Common_World = Common_World >> 8;
-		Common_World |= data_buffer[DATA_COMMOND_WORD];        
+		Common_Word.Common_World = data_buffer[DATA_COMMOND_WORD + 1];	   //获取命令字
+		Common_Word.Common_World = Common_Word.Common_World >> 8;
+		Common_Word.Common_World |= data_buffer[DATA_COMMOND_WORD];        
 		
 		
-		if(data_buffer[Data_Length -1 ]!= Crc8(&data_buffer[1],data_buffer[Data_Length -2]))  //crc8校验
+		Common_Word.Device_Type = data_buffer[DATA_DEVICE_TYPE_INDEX];     //获取设备类型
+		
+	    memcpy(&Common_Word.MacAddr_Device,&data_buffer[DATA_DEVICE_MAC_INDEX],6);  //拷贝mac 地址		 	  
+			
+		
+		if(data_buffer[Common_Word.Data_Length -1 ]!= Crc8(&data_buffer[1],data_buffer[Common_Word.Data_Length -2]))  //crc8校验
 		{
 			#ifdef UART_MASTER_TEST 
-			NRF_LOG_INFO(" data_buffer crc %d", data_buffer[Data_Length -1]);
+			NRF_LOG_INFO(" data_buffer crc %d", data_buffer[Common_Word.Data_Length -1]);
 			
-			NRF_LOG_INFO("CRC ERROR ERROR");
+			NRF_LOG_INFO("CRC ERROR");
 			#endif
 			return;
 		}
 		//处理数据内容
 		
-		
+		if(receive_data_from_app != NULL)
+		{
+			receive_data_from_app((uint16_t)nus_c_conn_handle,Common_Word.Common_World,&data_buffer[DATA_CONTENT_INDEX],Common_Word.Data_Length - 4,Common_Word.Device_Type,&Common_Word.MacAddr_Device);
+		}
 		
 		
 		

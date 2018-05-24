@@ -6,6 +6,7 @@
 ".\_build\protocol_analysis.o"
 ".\_build\somputon_ble_datahandle.o"
 ".\_build\nus_master_datahandle.o"
+".\_build\master_datastruct.o"
 ".\_build\boards.o"
 ".\_build\bsp.o"
 ".\_build\bsp_btn_ble.o"

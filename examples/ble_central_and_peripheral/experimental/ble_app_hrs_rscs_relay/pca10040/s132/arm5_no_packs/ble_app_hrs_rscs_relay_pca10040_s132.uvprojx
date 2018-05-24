@@ -457,6 +457,11 @@
               <FileType>1</FileType>
               <FilePath>.\Nus_Master_DataHandle.c</FilePath>
             </File>
+            <File>
+              <FileName>Master_DataStruct.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Master_DataStruct.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4132,6 +4137,11 @@
               <FileName>Nus_Master_DataHandle.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Nus_Master_DataHandle.c</FilePath>
+            </File>
+            <File>
+              <FileName>Master_DataStruct.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Master_DataStruct.c</FilePath>
             </File>
           </Files>
         </Group>
