@@ -50,6 +50,10 @@ void bond_cmd(uint16_t conn_handle,_e_machine_model device_type,uint8_t mac_addr
 		case E_08F:
 			
 			
+		
+		
+		
+			
 			break;
 		case E_09A:
 			

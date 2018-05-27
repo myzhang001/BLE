@@ -72,11 +72,6 @@ typedef struct{
 
 
 
-extern _real_staus_08F 	Device_08F_Array[8];    		//08 实时数据
-extern _control_08F 	Device_Control_08F_Array[8];    //08 控制数据
-
-extern _real_status_09 	Device_09_Array[8];				//09 实时数据
-extern _contorl_09    	Device_Control_09_Array[8];	    //09 控制数据
 
 
 

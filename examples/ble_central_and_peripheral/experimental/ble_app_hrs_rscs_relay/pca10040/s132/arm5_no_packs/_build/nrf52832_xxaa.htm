@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\_build\nrf52832_xxaa.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\_build\nrf52832_xxaa.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Wed May 23 12:13:24 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Sat May 26 18:24:34 2018
 <BR><P>
 <H3>Maximum Stack Usage =        536 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -569,8 +569,10 @@ Global Symbols
 
 <P><STRONG><a name="[26c]"></a>__decompress1</STRONG> (Thumb, 86 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
 
-<P><STRONG><a name="[41]"></a>App_RecvHandler</STRONG> (Thumb, 88 bytes, Stack size 0 bytes, protocol_analysis.o(i.App_RecvHandler))
-<BR><BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_device_time_cmd
+<P><STRONG><a name="[41]"></a>App_RecvHandler</STRONG> (Thumb, 118 bytes, Stack size 8 bytes, protocol_analysis.o(i.App_RecvHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = App_RecvHandler
+</UL>
+<BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_device_time_cmd
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_real_time_data_cmd
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_device_time_cmd
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_device_cmd
@@ -2354,8 +2356,8 @@ Global Symbols
 <LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_error_fault_handler
 </UL>
 
-<P><STRONG><a name="[fb]"></a>nus_data_handle</STRONG> (Thumb, 70 bytes, Stack size 112 bytes, nus_master_datahandle.o(i.nus_data_handle))
-<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = nus_data_handle &rArr; Crc8
+<P><STRONG><a name="[fb]"></a>nus_data_handle</STRONG> (Thumb, 138 bytes, Stack size 128 bytes, nus_master_datahandle.o(i.nus_data_handle))
+<BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = nus_data_handle &rArr; Crc8
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Crc8
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
@@ -5056,8 +5058,8 @@ Local Symbols
 <P><STRONG><a name="[114]"></a>log_skip</STRONG> (Thumb, 138 bytes, Stack size 48 bytes, nrf_log_frontend.o(i.log_skip))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = log_skip &rArr; nrf_atomic_flag_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[19a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_atomic_flag_set
-<LI><a href="#[19b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___18_nrf_log_frontend_c_bc460776__nrf_atomic_internal_and
+<BR>[Calls]<UL><LI><a href="#[19b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___18_nrf_log_frontend_c_bc460776__nrf_atomic_internal_and
+<LI><a href="#[19a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_atomic_flag_set
 </UL>
 <BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buf_prealloc
 </UL>
