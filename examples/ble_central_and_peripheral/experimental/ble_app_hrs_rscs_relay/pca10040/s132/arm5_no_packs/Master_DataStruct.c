@@ -1,54 +1,12 @@
 #include "Master_DataStruct.h"
 
 
+
+_datastruct_08F   System_08F;        //08F  系统变量
+
+
+
 	
-//mac 地址 和 Array 索引匹配
-typedef struct{
-
-	uint8_t mac_addr[6];             //保存mac 地址
-	uint8_t index;                   //索引
-	
-}_mac_index_fix;
-
-
-
-typedef struct{
-	uint8_t         device_num; 					  //设备个数
-	uint8_t         max_index_decice;                 //最大索引
-	uint8_t         index_sort[MAX_DEVICE_NUM];       //索引序号排序
-	_mac_index_fix  mac_list_array[MAX_DEVICE_NUM];   //设备mac list 和index 列表
-}_mac_index_data;
-
-
-
-typedef struct{
-	uint8_t         Device_Num;                     			//总设备个数
-	_real_staus_08F Device_08F_Array[MAX_DEVICE_NUM];    		//08 实时数据
-	_control_08F 	Device_Control_08F_Array[MAX_DEVICE_NUM];   //08 控制数据
-
-	_mac_index_data mac_index; 									//mac list index				
-
-}_datastruct_08F;
-
-
-
-typedef struct{
-	uint8_t         Device_Num;                     			//总设备个数
-	_real_status_09 Device_09_Array[MAX_DEVICE_NUM];			//09 实时数据
-	_contorl_09    	Device_Control_09_Array[MAX_DEVICE_NUM];	//09 控制数据
-}_datastruct_09;
-
-
-
-
-
-
-
-
-
-
-
-
 
 //清零数据   device_index 0 - 7
 
@@ -195,6 +153,9 @@ void  Index_Sort_Push(_mac_index_data *device_list, uint8_t index)
 	
 }
 
+
+
+
 void Index_Sort_POP(_mac_index_data *device_list ,uint8_t index)
 {
 	
@@ -208,13 +169,21 @@ void Index_Sort_POP(_mac_index_data *device_list ,uint8_t index)
 	
 	for(i = 0; i < device_list->device_num;i++)
 	{
-		
-	
-	
+		if(device_list->index_sort[i]== index )
+        {
+            break;
+        }
 	}
 	
-	
+	if(i < device_list->device_num)
+    {
+        device_list->index_sort[i] = device_list->device_num;
+    }
 
+    //删除后排序
+	
+	BubbleSort1(device_list->index_sort,device_list->device_num);
+    
 }
 
 
@@ -273,6 +242,9 @@ uint8_t Add_Device_List(_mac_index_data *device_list,uint8_t mac_addr[6])
 						s_device_list->max_index_decice = i;
 					}
 
+                    Index_Sort_Push(s_device_list,i);                                       //更新所以列表   
+                    
+                    
 				}
 			}
 			
@@ -311,12 +283,16 @@ uint8_t Del_Device_List(_mac_index_data *device_list,uint8_t mac_addr[6])
 			}
 			else																	//找到相同的设备
 			{
-				memset(&s_device_list->mac_list_array[i],0,sizeof(_mac_index_fix));  //清除设备
+				memset(&s_device_list->mac_list_array[i],0,sizeof(_mac_index_fix)); //清除设备
 				
 				break;
 			
 			}
 		}
+        
+        Index_Sort_POP(s_device_list,i);                                            //更新索引列表
+        
+        
 	}
 	return 0;
 }

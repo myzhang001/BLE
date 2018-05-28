@@ -1,6 +1,7 @@
 #include "Somputon_BLE_DataHandle.h"
 
-
+#include "Master_DataStruct.h"
+#include "Nus_Master_DataHandle.h"
 
 
 
@@ -49,11 +50,8 @@ void bond_cmd(uint16_t conn_handle,_e_machine_model device_type,uint8_t mac_addr
 			break;
 		case E_08F:
 			
-			
+			Add_Device_List(&System_08F.mac_index,mac_addr);    //为设备添加匹配关系
 		
-		
-		
-			
 			break;
 		case E_09A:
 			

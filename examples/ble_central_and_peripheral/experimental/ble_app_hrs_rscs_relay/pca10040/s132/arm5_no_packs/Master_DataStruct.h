@@ -66,16 +66,53 @@ typedef struct{
 
 
 
+//mac 地址 和 Array 索引匹配
+typedef struct{
+
+	uint8_t mac_addr[6];             //保存mac 地址
+	uint8_t index;                   //索引
+	
+}_mac_index_fix;
+
+
+
+typedef struct{
+	uint8_t         device_num; 					  //设备个数
+	uint8_t         max_index_decice;                 //最大索引
+	uint8_t         index_sort[MAX_DEVICE_NUM];       //索引序号排序
+	_mac_index_fix  mac_list_array[MAX_DEVICE_NUM];   //设备mac list 和index 列表
+}_mac_index_data;
+
+
+
+typedef struct{
+	uint8_t         Device_Num;                     			//总设备个数
+	_real_staus_08F Device_08F_Array[MAX_DEVICE_NUM];    		//08 实时数据
+	_control_08F 	Device_Control_08F_Array[MAX_DEVICE_NUM];   //08 控制数据
+
+	_mac_index_data mac_index; 									//mac list index				
+
+}_datastruct_08F;
+
+
+
+typedef struct{
+	uint8_t         Device_Num;                     			//总设备个数
+	_real_status_09 Device_09_Array[MAX_DEVICE_NUM];			//09 实时数据
+	_contorl_09    	Device_Control_09_Array[MAX_DEVICE_NUM];	//09 控制数据
+}_datastruct_09;
 
 
 
 
 
+uint8_t Del_Device_List(_mac_index_data *device_list,uint8_t mac_addr[6]);
+uint8_t Add_Device_List(_mac_index_data *device_list,uint8_t mac_addr[6]);
 
 
 
 
-
+extern _datastruct_08F   System_08F;        //08F  系统变量
 
 
 
