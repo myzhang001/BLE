@@ -211,7 +211,7 @@ static uint16_t m_conn_handle_rscs_c = BLE_CONN_HANDLE_INVALID;     /**< Connect
 /**@brief names which the central applications will scan for, and which will be advertised by the peripherals.
  *  if these are set to empty strings, the UUIDs defined below will be used
  */
-static char const m_target_periph_name[] = "Nordic_UART";
+static char const m_target_periph_name[] = "zmy_UART";
                                                                                                                                           
 /**@brief UUIDs which the central applications will scan for if the name above is set to an empty string,
  * and which will be advertised by the peripherals.
@@ -895,7 +895,7 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
 
         case BLE_GAP_EVT_ADV_REPORT:
         {
-            if(Ret_Device_Bind_status != E_BIND_NONE)
+            //if(Ret_Device_Bind_status != E_BIND_NONE)
             {
                 on_adv_report(p_ble_evt);
                 #if 0
@@ -1511,16 +1511,23 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
         case BLE_NUS_C_EVT_NUS_TX_EVT:
            //ble_nus_chars_received_uart_print(p_ble_nus_evt->p_data, p_ble_nus_evt->data_len);
         
+            
+            #ifdef USER_UART_PRINT
+        
             for(uint8_t i = 0; i < p_ble_nus_evt->data_len;i++)
             {
-                NRF_LOG_INFO("data:%c",p_ble_nus_evt->p_data[i]);
+                NRF_LOG_INFO("data[%d] :0x%02x",i,p_ble_nus_evt->p_data[i]);
             }
-       
-	
+            #endif
+            
+            
+            
 		    if(NUS_C_Filter_Connected_Handle(p_ble_nus_c->conn_handle) == true)
 			{
 				nus_data_handle(p_ble_nus_c->conn_handle,p_ble_nus_evt->p_data,p_ble_nus_evt->data_len);    //处理所有从机数据
-
+                    
+                
+                
 			}
 			
             for(uint8_t i= 0; i<4;i++)
@@ -1530,8 +1537,10 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
                 //NRF_LOG_INFO("conn_handle %d",m_ble_nus_c[i].conn_handle);
                 //NRF_LOG_INFO("evt_handle %d",m_ble_nus_c[i].evt_handler);
             }
+            
+            #ifdef USER_UART_PRINT
             NRF_LOG_INFO("nus---------------------start----------------------");
-            #if 1
+           
             NRF_LOG_INFO("nus conn_handle:%d", p_ble_nus_c->conn_handle);
             NRF_LOG_INFO("nus_c event handle:%d",p_ble_nus_c->evt_handler);
             
@@ -1539,8 +1548,11 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
             NRF_LOG_INFO("nus data len :%d",p_ble_nus_evt->data_len);                           //数据长度
             
             NRF_LOG_INFO("nus_event handle:%d",p_ble_nus_evt->conn_handle);
-            #endif
+            
              NRF_LOG_INFO("nus---------------------end----------------------");
+            #endif
+            
+            
             break;
 
         case BLE_NUS_C_EVT_DISCONNECTED:

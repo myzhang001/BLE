@@ -2,7 +2,9 @@
 #include "Somputon_BLE_DataHandle.h"
 #include "User_MacList.h"
 
-
+#include "nrf_log.h"
+#include "nrf_log_ctrl.h"
+#include "nrf_log_default_backends.h"
 
 appRecvHandler_Cb  receive_data_from_app;   //数据接收回调
 
@@ -55,6 +57,15 @@ void App_RecvHandler(uint16_t conn_handle,uint16_t command, uint8_t* data,uint16
 			
 			case BOND_COMMAND:
 					bond_cmd(conn_handle,device_type,mac_addr);                              //发送绑定指令
+            
+                    #ifdef USER_UART_PRINT
+            
+                    NRF_LOG_INFO("BOND_COMMAND : conn_handle 0x%02x  device_type :0x%02x ",conn_handle,device_type);
+                    for(uint8_t i = 0; i<6;i++)
+                    {
+                        NRF_LOG_INFO("mac [%d]: 0x%02x",i,mac_addr[i]);
+                    }
+                    #endif
 					 break;		
 												
 			case GET_HISTORY_DATA_TOTAL_PACKETS:

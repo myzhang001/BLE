@@ -3,6 +3,10 @@
 #include "Master_DataStruct.h"
 #include "Nus_Master_DataHandle.h"
 
+#include "nrf_log.h"
+#include "nrf_log_ctrl.h"
+#include "nrf_log_default_backends.h"
+
 
 
 /**@brief get_real_time_data_cmd     
@@ -16,6 +20,9 @@
 void get_real_time_data_cmd(void)
 {
 	
+        NRF_LOG_INFO("REALTIME");
+    
+    
 }
 
 

@@ -3,12 +3,14 @@
 #include "Protocol_Analysis.h"
 #include "Somputon_BLE_DataHandle.h"
 
-
+#include "nrf_log.h"
+#include "nrf_log_ctrl.h"
+#include "nrf_log_default_backends.h"
 
 
 typedef struct{
 
-	uint8_t  Data_Length;    //保存数据长度
+	uint16_t  Data_Length;    //保存数据长度
 	uint16_t Common_World;    //保存命令字
 	uint8_t  Device_Type;    //设备类型
 	uint8_t  MacAddr_Device;	//设备mac 地址
@@ -75,6 +77,11 @@ void nus_data_handle(uint32_t nus_c_conn_handle, uint8_t *data, uint8_t length)
 	memcpy(data_buffer,data,length);
 	memset(data,0,length);
 	
+    for(uint8_t i = 0; i< length;i++)
+    {
+        NRF_LOG_INFO("DATA 0x%02x",data_buffer[i]);
+    }
+    
 
 	if(data_buffer[0]!= START_FLAG)	
 	{
@@ -83,27 +90,33 @@ void nus_data_handle(uint32_t nus_c_conn_handle, uint8_t *data, uint8_t length)
 	else
 	{
 		
-		Common_Word.Data_Length  = data_buffer[DATA_LENGTH_INDIX_HIGH];    //获取数据包长度
+		Common_Word.Data_Length  = data_buffer[DATA_LENGTH_INDIX_LOW];    //获取数据包长度
 		Common_Word.Data_Length = Common_Word.Data_Length>>8;
-		Common_Word.Data_Length |= data_buffer[DATA_LENGTH_INDIX_LOW];
+		Common_Word.Data_Length |= data_buffer[DATA_LENGTH_INDIX_HIGH];
 		
-		Common_Word.Common_World = data_buffer[DATA_COMMOND_WORD + 1];	   //获取命令字
-		Common_Word.Common_World = Common_Word.Common_World >> 8;
-		Common_Word.Common_World |= data_buffer[DATA_COMMOND_WORD];        
+        
+        NRF_LOG_INFO("DATA LENGHT : %d",Common_Word.Data_Length);
+        
+		Common_Word.Common_World = data_buffer[DATA_COMMOND_WORD ];	   //获取命令字
+		Common_Word.Common_World = Common_Word.Common_World << 8;
+		Common_Word.Common_World |= data_buffer[DATA_COMMOND_WORD +1 ];        
 		
+        NRF_LOG_INFO("COMMAND WORLD:  0X%04x",Common_Word.Common_World);
+        
+        
 		
 		Common_Word.Device_Type = data_buffer[DATA_DEVICE_TYPE_INDEX];     //获取设备类型
 		
 	    memcpy(&Common_Word.MacAddr_Device,&data_buffer[DATA_DEVICE_MAC_INDEX],6);  //拷贝mac 地址		 	  
 			
 		
-		if(data_buffer[Common_Word.Data_Length -1 ]!= Crc8(&data_buffer[1],data_buffer[Common_Word.Data_Length -2]))  //crc8校验
+		if(data_buffer[Common_Word.Data_Length ]!= Crc8(&data_buffer[1],Common_Word.Data_Length -1))  //crc8校验
 		{
-			#ifdef UART_MASTER_TEST 
-			NRF_LOG_INFO(" data_buffer crc %d", data_buffer[Common_Word.Data_Length -1]);
+			//#ifdef UART_MASTER_TEST 
+			NRF_LOG_INFO(" data_buffer crc 0x%02x", data_buffer[Common_Word.Data_Length ]);
 			
 			NRF_LOG_INFO("CRC ERROR");
-			#endif
+			//#endif
 			return;
 		}
 		//处理数据内容

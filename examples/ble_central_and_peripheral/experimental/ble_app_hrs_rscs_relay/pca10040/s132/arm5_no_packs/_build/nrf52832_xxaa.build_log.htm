@@ -22,16 +22,22 @@ Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
 D:\somput\BLE\examples\ble_central_and_peripheral\experimental\ble_app_hrs_rscs_relay\pca10040\s132\arm5_no_packs\ble_app_hrs_rscs_relay_pca10040_s132.uvprojx
-Project File Date:  05/28/2018
+Project File Date:  06/01/2018
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'nrf52832_xxaa'
 compiling Somputon_BLE_DataHandle.c...
+compiling Master_DataStruct.c...
+Master_DataStruct.c(200): warning:  #550-D: variable "ret" was set but never used
+        uint8_t ret;
+Master_DataStruct.c(259): warning:  #550-D: variable "ret" was set but never used
+        uint8_t ret;
+Master_DataStruct.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=41624 RO-data=4024 RW-data=3420 ZI-data=12804  
+Program Size: Code=42312 RO-data=4024 RW-data=3420 ZI-data=12988  
 FromELF: creating hex file...
-".\_build\nrf52832_xxaa.axf" - 0 Error(s), 0 Warning(s).
+".\_build\nrf52832_xxaa.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 

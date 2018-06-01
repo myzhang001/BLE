@@ -207,7 +207,6 @@ uint8_t Add_Device_List(_mac_index_data *device_list,uint8_t mac_addr[6])
 
 	_mac_index_data *s_device_list = device_list;
 	
-	
 	if(s_device_list->device_num == 0)   //设备列表为空
 	{
 		s_device_list->mac_list_array[0].index  = 0;
