@@ -1,12 +1,14 @@
 #include "Master_DataStruct.h"
 
 
+#include "nrf_log.h"
+#include "nrf_log_ctrl.h"
+#include "nrf_log_default_backends.h"
+
 
 _datastruct_08F   System_08F;        //08F  系统变量
 
 
-
-	
 
 //清零数据   device_index 0 - 7
 
@@ -145,12 +147,27 @@ void  Index_Sort_Push(_mac_index_data *device_list, uint8_t index)
 	
 	device_list->index_sort[device_list->device_num] =  index;   //添加
 	
+    
+    NRF_LOG_INFO("device_num :%d ",device_list->device_num);
+    
+    
+    
 	//添加后排序
 	
-	BubbleSort1(device_list->index_sort,device_list->device_num);
+	BubbleSort1(device_list->index_sort,device_list->device_num);    //排序
 	
 	device_list->max_index_decice = device_list->index_sort[device_list->device_num];
 	
+    #ifdef USER_UART_PRINT
+    
+    for(uint8_t i = 0 ; i < device_list->max_index_decice; i++)
+    {
+    
+        NRF_LOG_INFO("索引序号 %d :[%d] ",i,device_list->index_sort[i]);
+    }
+    
+    
+    #endif
 }
 
 
@@ -192,7 +209,6 @@ void Index_Sort_POP(_mac_index_data *device_list ,uint8_t index)
 
 
 //往列表里面增加设备
-
 uint8_t Add_Device_List(_mac_index_data *device_list,uint8_t mac_addr[6])
 {
 	
@@ -207,11 +223,21 @@ uint8_t Add_Device_List(_mac_index_data *device_list,uint8_t mac_addr[6])
 
 	_mac_index_data *s_device_list = device_list;
 	
+    
+    NRF_LOG_INFO("DEVICE_LIST_num %d ",s_device_list->device_num);
+    
 	if(s_device_list->device_num == 0)   //设备列表为空
 	{
 		s_device_list->mac_list_array[0].index  = 0;
 		memcpy(&s_device_list->mac_list_array[0].mac_addr,&mac_addr[0],6);         //拷贝mac地址和索引
-	}
+        
+        s_device_list->device_num += 1;											   //添加的设备总数+1
+                                                                                   
+        s_device_list->max_index_decice += 1;                                      //最大索引+1
+        
+        Index_Sort_Push(s_device_list,i);                                          //更新所以列表  
+    
+    }
 	else
 	{
 		//设备列表不为空,检查mac 地址是否相同，相同返回错误，不同继续添加
@@ -297,6 +323,20 @@ uint8_t Del_Device_List(_mac_index_data *device_list,uint8_t mac_addr[6])
 }
 
 
+
+//用于调试
+
+void Debug_Device_Info(void)
+{
+
+    NRF_LOG_INFO("debug");
+
+
+
+
+
+
+}
 
 
 

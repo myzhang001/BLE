@@ -171,6 +171,10 @@ typedef struct{
 
 _s_avaiable_device   sys_avaiable_table;   //可用设备列表全局
 
+
+
+
+//根据设备类型 ，返回相同设备类型的列表
 _s_avaiable_device Find_Avaiable_Device(_e_machine_model device_type)
 {
     uint8_t i = 0;
