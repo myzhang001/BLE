@@ -37,7 +37,6 @@ typedef struct{
     uint8_t     software_version;                   //软件版本号
 	uint8_t     device_datastruct_index;            //对应设备数据结构索引
 	
-	
 }_t_ble_status;
 
 
@@ -51,11 +50,9 @@ typedef enum{
 
 typedef struct{
 	_t_ble_status   ble_dev[MAX_LIST_LENGTH];  //设备基本信息
-    uint8_t         empty_flag;                //设备连接总数
+    uint8_t         device_total_num;                //设备连接总数
 	_e_band_status  scan_bind_flag;            //允许扫描标志位
     uint8_t         bing_timeout_cnt;          //绑定超时
-    
-    
 }_t_dev_mac_match;
 
 

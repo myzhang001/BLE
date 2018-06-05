@@ -14,7 +14,7 @@ _t_dev_mac_match dev_info;    //连接设备的所有信息
 // 检查设备地址连接个数
 bool dev_check_empty(void)
 {
-    if(dev_info.empty_flag < NRF_SDH_BLE_CENTRAL_LINK_COUNT)
+    if(dev_info.device_total_num < NRF_SDH_BLE_CENTRAL_LINK_COUNT)
     {
         return true;
     }
@@ -38,14 +38,14 @@ void Device_Info_Reset(_t_ble_status *s_ble_info)
 
 uint8_t Device_Info_Connected_num(void)
 {
-    return dev_info.empty_flag;
+    return dev_info.device_total_num;
 
 }
 
 
 void USER_DEBUG_printf(void)
 {
-    NRF_LOG_INFO("dev_info.empty_flag:%02x",dev_info.empty_flag);
+    NRF_LOG_INFO("dev_info.empty_flag:%02x",dev_info.device_total_num);
 
 
 }
@@ -69,7 +69,7 @@ void Device_Info_Push(void)
 void Device_Disconnected_handle(uint16_t  connected_handle)
 {
     dev_info.ble_dev[connected_handle - 1].conn_handle = BLE_CONN_HANDLE_INVALID;
-    if(dev_info.empty_flag >0 )dev_info.empty_flag -=1; 
+    if(dev_info.device_total_num >0 )dev_info.device_total_num -=1; 
     
     memset(dev_info.ble_dev[connected_handle - 1].mac_addr,0,6);
 }
@@ -165,11 +165,11 @@ typedef struct{
 
 
 typedef struct{
-    uint8_t  total_avaiable_num;      //可连接设备总个数
+    uint8_t  total_avaiable_num;            //可连接设备总个数
     _s_avaiable_info dev_info[8];
 }_s_avaiable_device;
 
-_s_avaiable_device   sys_avaiable_table;   //可用设备列表全局
+_s_avaiable_device   sys_avaiable_table;    //可用设备列表全局
 
 
 

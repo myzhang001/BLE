@@ -791,7 +791,7 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
             
             //sd_ble_gap_rssi_start(p_gap_evt->conn_handle,1,1);        //触发rssi 数据校准
             
-            //NRF_LOG_INFO("empty  %02x",dev_info.empty_flag );
+            //NRF_LOG_INFO("empty  %02x",dev_info.device_total_num );
             
             
             //if(dev_check_empty()== true)
