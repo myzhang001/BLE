@@ -5,16 +5,21 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
+#include "Somputon_BLE_DataHandle.h"
+
 
 
 _t_dev_mac_match dev_info;    //连接设备的所有信息
+
+
+uint8_t mac_addr_list[6];    //mac 地址
 
 
 
 // 检查设备地址连接个数
 bool dev_check_empty(void)
 {
-    if(dev_info.device_total_num < NRF_SDH_BLE_CENTRAL_LINK_COUNT)
+    if(dev_info.device_num < NRF_SDH_BLE_CENTRAL_LINK_COUNT)
     {
         return true;
     }
@@ -38,14 +43,14 @@ void Device_Info_Reset(_t_ble_status *s_ble_info)
 
 uint8_t Device_Info_Connected_num(void)
 {
-    return dev_info.device_total_num;
+    return dev_info.device_num;
 
 }
 
 
 void USER_DEBUG_printf(void)
 {
-    NRF_LOG_INFO("dev_info.empty_flag:%02x",dev_info.device_total_num);
+    NRF_LOG_INFO("dev_info.device_num:%02x",dev_info.device_num);
 
 
 }
@@ -69,32 +74,59 @@ void Device_Info_Push(void)
 void Device_Disconnected_handle(uint16_t  connected_handle)
 {
     dev_info.ble_dev[connected_handle - 1].conn_handle = BLE_CONN_HANDLE_INVALID;
-    if(dev_info.device_total_num >0 )dev_info.device_total_num -=1; 
+    if(dev_info.device_num >0 )dev_info.device_num -=1; 
     
     memset(dev_info.ble_dev[connected_handle - 1].mac_addr,0,6);
 }
 
-//匹配断开的设备信息,用于调试
 
-void Debug_Device_match_info(uint16_t  connected_handle)
+
+
+//匹配断开的设备信息,用于调试
+void  Debug_Device_match_info(uint16_t  connected_handle,uint8_t *addr_mac)
 {
     
     uint16_t degug_connected_handle = 0;                   //断开连接的handle
     
-    degug_connected_handle = dev_info.ble_dev[connected_handle -1].conn_handle;
+    degug_connected_handle = dev_info.ble_dev[connected_handle - 1].conn_handle;
     
     NRF_LOG_INFO("device connedted handle %d is disconnected ",degug_connected_handle);
 
     
     //显示断开连接的mac 地址 
     
-    NRF_LOG_INFO("device disconnedted mac addr %02x %02x %02x %02x %02x %02x ",dev_info.ble_dev[connected_handle -1].mac_addr[0],
+    NRF_LOG_INFO("device disconnedted mac addr %02x %02x %02x %02x %02x %02x  ",dev_info.ble_dev[connected_handle -1].mac_addr[0],
     dev_info.ble_dev[connected_handle -1].mac_addr[1],
     dev_info.ble_dev[connected_handle -1].mac_addr[2],
     dev_info.ble_dev[connected_handle -1].mac_addr[3],
     dev_info.ble_dev[connected_handle -1].mac_addr[4],
     dev_info.ble_dev[connected_handle -1].mac_addr[5]);
+    
+    
+    NRF_LOG_INFO("device_type %d ",dev_info.ble_dev[connected_handle -1].model);
+    
+    memcpy(addr_mac,&dev_info.ble_dev[connected_handle - 1].mac_addr[0],6);
+    
 }
+
+
+//数组换序
+
+uint8_t change_array_index(uint8_t *p,int y)
+ {
+     uint8_t  *q;
+     int temp;
+     q=p+y-1;
+     while(p<q)
+     {
+         temp=*p;
+         *p=*q;
+         *q=temp;
+         p++;
+         q--;
+     }
+}
+
 
 //连接上的设备地址
 void Debug_Device_match_connected_mac(ble_gap_addr_t mac_peer_addr , uint16_t handle)
@@ -105,6 +137,7 @@ void Debug_Device_match_connected_mac(ble_gap_addr_t mac_peer_addr , uint16_t ha
     }
 
     memcpy(dev_info.ble_dev[handle-1].mac_addr,mac_peer_addr.addr,6);       //保存mac 地址
+    change_array_index(dev_info.ble_dev[handle-1].mac_addr,6);              //mac 地址倒序保持和app 上显示一致
       
     dev_info.ble_dev[handle-1].conn_handle = handle;                        //保存handle        
     
@@ -135,7 +168,6 @@ _e_band_status Ret_Device_Bind_status(void)
 }
 
 //返回绑定剩余时间
-
 uint8_t Ret_Device_Bind_Time(void)
 {
     return dev_info.bing_timeout_cnt;
@@ -165,11 +197,11 @@ typedef struct{
 
 
 typedef struct{
-    uint8_t  total_avaiable_num;            //可连接设备总个数
+    uint8_t  total_avaiable_num;      //可连接设备总个数
     _s_avaiable_info dev_info[8];
 }_s_avaiable_device;
 
-_s_avaiable_device   sys_avaiable_table;    //可用设备列表全局
+_s_avaiable_device   sys_avaiable_table;   //可用设备列表全局
 
 
 
@@ -198,16 +230,185 @@ _s_avaiable_device Find_Avaiable_Device(_e_machine_model device_type)
 //更新可用设备列表
 void Device_Update_Avaiable_Table(void)
 {
-    uint8_t i = 0;
+    uint8_t i = 0,num= 0;
     
     for(i = 0; i < 8;i++)
     {
-        if(dev_info.ble_dev[i].conn_handle != 0 ||dev_info.ble_dev[i].conn_handle != 0xFFFF)
+        if(dev_info.ble_dev[i].conn_handle != 0 && dev_info.ble_dev[i].conn_handle != 0xFFFF)
         {
-            sys_avaiable_table.total_avaiable_num +=1;
-
+            #if 0
+            NRF_LOG_INFO("可用设备列表  conn_handle %d     ",dev_info.ble_dev[i].conn_handle); 
+            NRF_LOG_INFO("------NUM %d ",num);
+            #endif
+            num++;
             sys_avaiable_table.dev_info[i].conn_handle = dev_info.ble_dev[i].conn_handle;   //保存handle
             sys_avaiable_table.dev_info[i].device_type = dev_info.ble_dev[i].model;         //保存类型
+            
+           // NRF_LOG_INFO("------device type %d ",dev_info.ble_dev[i].model);
+            
         }
     }
+    
+    sys_avaiable_table.total_avaiable_num = num;
+    
+    
+    NRF_LOG_INFO("可用设备列表总数 %d ",sys_avaiable_table.total_avaiable_num);
+    
+    
+    for(i = 0; i < 8;i++)
+    {
+        NRF_LOG_INFO("可用设备列表 %d  conn_handle %d   device_type %d  ",i,sys_avaiable_table.dev_info[i].conn_handle,
+        sys_avaiable_table.dev_info[i].device_type);  
+    }
 }
+
+
+
+//检查 设备是否绑定  ，当有设备连接后 需要调用判断
+uint8_t check_bound_device(void)
+{
+    uint8_t  ret;
+    uint8_t  i,j;
+    
+    for(i = 0; i < 8;i++)
+    {
+        if(dev_info.ble_dev[i].bond_stauts  == 0X01)  
+        {
+            j++;
+        }
+    }
+    
+   ret = j;
+    
+   return ret; 
+}
+
+//更新设备的绑定标志
+void  device_bond_status_update(uint8_t conn_handle)
+{
+    dev_info.ble_dev[conn_handle -1].bond_stauts = 1;
+}
+
+//清除绑定标志位
+void  device_bond_status_clear(uint8_t conn_handle)
+{
+    dev_info.ble_dev[conn_handle -1].bond_stauts = 0;
+}
+
+//添加设备类型
+void device_add_type(uint8_t conn_handle ,_e_machine_model device_type)
+{
+    dev_info.ble_dev[conn_handle - 1].model = device_type;
+}
+
+//删除设备类型
+void device_del_type(uint8_t conn_handle ,_e_machine_model device_type)
+{
+    dev_info.ble_dev[conn_handle - 1].model = 0; 
+}
+
+//增加设备个数
+void device_total_add(void)
+{
+    if(dev_info.device_num < 8) dev_info.device_num++;
+}
+
+
+//减少设备个数
+void device_total_del(void)
+{
+    if(dev_info.device_num > 0) dev_info.device_num--;
+}
+
+//打印所有连接的数据
+void printf_all_dev_info(void)
+{
+  
+    for(uint8_t i = 0; i < 8;i++)
+    {
+    
+        NRF_LOG_INFO(" device conn_handle %d " , dev_info.ble_dev[i].conn_handle);
+        
+        
+        NRF_LOG_INFO("device  mac addr %02x %02x %02x %02x %02x %02x  ",dev_info.ble_dev[i].mac_addr[0],
+        dev_info.ble_dev[i].mac_addr[1],
+        dev_info.ble_dev[i].mac_addr[2],
+        dev_info.ble_dev[i].mac_addr[3],
+        dev_info.ble_dev[i].mac_addr[4],
+        dev_info.ble_dev[i].mac_addr[5]);
+    
+        NRF_LOG_INFO("device_type %d ",dev_info.ble_dev[i].model);
+        
+    }
+   
+}
+
+
+
+
+void data_send_proc(void)
+{
+    static uint8_t step;
+    static uint8_t i = 0;
+    uint8_t conn_handle = 0;
+    
+    NRF_LOG_INFO("连接设备总数 %d \r\n",dev_info.device_num);
+    
+    step = E_REAL_TIME_DATA;
+    
+    switch(step)
+    {
+        case E_SEND_STATUS:                         //发送绑定认证指令
+               
+               if(dev_info.device_num != 0)  
+               {
+                   if( i < dev_info.device_num)
+                    {
+                        conn_handle = sys_avaiable_table.dev_info[i].conn_handle;  //获取conn_handle
+                        i++;
+                        NRF_LOG_INFO("-----------index  : %d",conn_handle);
+                        
+                        if(dev_info.ble_dev[conn_handle - 1].bond_stauts == 0)   
+                        {
+                            bond_data_send(conn_handle - 1 );
+                        }  
+                    }
+                    else
+                    {
+                        step = E_REAL_TIME_DATA;
+                        i = 0;
+                    }
+               }
+             break;
+        case E_REAL_TIME_DATA:
+            
+            NRF_LOG_INFO("------------------real time data send ------------");
+            
+            if(dev_info.device_num != 0)  
+            {
+                if( i < dev_info.device_num)
+                {
+                    conn_handle = sys_avaiable_table.dev_info[i].conn_handle;  //获取conn_handle
+                    real_data_send(conn_handle - 1);
+                    i++;
+                } 
+                else
+                {
+                    step = E_SEND_STATUS;
+                    i = 0;
+                }
+            }
+             break;
+        case E_CONTROL_DATA:
+             
+             break;
+        default:
+             break;
+
+    }
+}
+
+
+
+
+    

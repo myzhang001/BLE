@@ -42,6 +42,9 @@ void Somputon_Init(appRecvHandler_Cb cb)
  */
 void App_RecvHandler(uint16_t conn_handle,uint16_t command, uint8_t* data,uint16_t len,_e_machine_model device_type,uint8_t mac_addr[6])
 {
+    
+        uint8_t i = 0;
+    
 		switch(command)
 		{			
 			case ENCRYPTION_REQ_REPLY:
@@ -51,13 +54,23 @@ void App_RecvHandler(uint16_t conn_handle,uint16_t command, uint8_t* data,uint16
 					 clear_history_data_cmd();                //清除历史数据
 					 break;			
 			
-			case GET_REAL_TIME_DATA_COMMAND:					 
-					 get_real_time_data_cmd();	              //获取实时时间
+			case GET_REAL_TIME_DATA_COMMAND_REPLY:					 
+                    get_real_time_data_cmd(conn_handle,device_type,mac_addr,data,len);	      //获取实时时间
+
+                    #if 1
+                    for(i = 0; i < len ;i++)
+                    {
+                        NRF_LOG_INFO(" REALTIME DATA %d 0x%02x ",i,data[i]);
+                    }
+                    #endif  
 					 break;		
-			
-			case BOND_COMMAND:
+			case BOND_COMMAND_REPLY:
 					bond_cmd(conn_handle,device_type,mac_addr);                              //发送绑定指令
+           
+                    device_bond_status_update(conn_handle);                                  //绑定标志位
+                    device_add_type(conn_handle,device_type);                                //添加设备类型
             
+            #if 1
                     #ifdef USER_UART_PRINT
             
                     NRF_LOG_INFO("BOND_COMMAND : conn_handle 0x%02x  device_type :0x%02x ",conn_handle,device_type);
@@ -66,6 +79,7 @@ void App_RecvHandler(uint16_t conn_handle,uint16_t command, uint8_t* data,uint16
                         NRF_LOG_INFO("mac [%d]: 0x%02x",i,mac_addr[i]);
                     }
                     #endif
+            #endif
 					 break;		
 												
 			case GET_HISTORY_DATA_TOTAL_PACKETS:

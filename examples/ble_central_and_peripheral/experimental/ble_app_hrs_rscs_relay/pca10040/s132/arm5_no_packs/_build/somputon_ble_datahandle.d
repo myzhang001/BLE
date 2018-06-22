@@ -59,3 +59,6 @@
 .\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\libraries\util\app_error.h
 .\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\libraries\util\app_error_weak.h
 .\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\nrf_log_default_backends.h
+.\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\ble\ble_services\ble_nus_c\ble_nus_c.h
+.\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\softdevice\common\nrf_sdh_ble.h
+.\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\libraries\experimental_section_vars\nrf_section_iter.h

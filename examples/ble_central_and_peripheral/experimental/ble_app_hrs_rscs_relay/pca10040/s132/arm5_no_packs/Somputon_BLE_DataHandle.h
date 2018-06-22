@@ -14,10 +14,7 @@
 
 
 
-
-
-
-void get_real_time_data_cmd(void);
+void get_real_time_data_cmd(uint16_t conn_handle,_e_machine_model device_type,uint8_t mac_addr[6],uint8_t* data,uint16_t len);
 void bond_cmd(uint16_t conn_handle,_e_machine_model device_type,uint8_t mac_addr[6]);
 void clear_history_data_cmd(void);
 void set_device_time_cmd(uint8_t *data_info);
@@ -27,6 +24,9 @@ void Clife_GetHisData(uint16_t cmd, uint8_t* data, uint16_t len);
 void Clife_GenerateHisData(void);
 
 
+
+void bond_data_send(uint8_t conn_handle);
+void real_data_send(uint8_t conn_handle);
 
 
 #endif

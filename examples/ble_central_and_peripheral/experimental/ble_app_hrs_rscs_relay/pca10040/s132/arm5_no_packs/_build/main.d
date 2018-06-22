@@ -94,3 +94,4 @@
 .\_build\main.o: ..\arm5_no_packs\Protocol_Analysis.h
 .\_build\main.o: ..\arm5_no_packs\Somputon_BLE_DataHandle.h
 .\_build\main.o: ..\arm5_no_packs\Nus_Master_DataHandle.h
+.\_build\main.o: ..\arm5_no_packs\Master_DataStruct.h

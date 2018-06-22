@@ -30,7 +30,7 @@ typedef enum{
 
 bool NUS_C_Filter_Connected_Handle(uint32_t handle);   
 void nus_data_handle(uint32_t nus_c_conn_handle, uint8_t *data, uint8_t length);
-
+unsigned char Crc8( unsigned char *Address, unsigned char Length );
 
 
 

@@ -55,3 +55,5 @@
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\util\app_error.h
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\util\app_error_weak.h
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\nrf_log_default_backends.h
+.\_build\user_maclist.o: Somputon_BLE_DataHandle.h
+.\_build\user_maclist.o: Protocol_Analysis.h

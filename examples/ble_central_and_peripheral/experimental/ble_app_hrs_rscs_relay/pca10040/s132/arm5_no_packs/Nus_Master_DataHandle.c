@@ -67,7 +67,6 @@ bool NUS_C_Filter_Connected_Handle(uint32_t handle)
 }
 
 
-
 //处理串口数据
 void nus_data_handle(uint32_t nus_c_conn_handle, uint8_t *data, uint8_t length)
 {
@@ -75,13 +74,16 @@ void nus_data_handle(uint32_t nus_c_conn_handle, uint8_t *data, uint8_t length)
 	uint8_t data_buffer[100];       	//接收数据缓冲区大小
 	
 	memcpy(data_buffer,data,length);
-	memset(data,0,length);
+	//memset(data,0,length);
 	
+    
+    //答应接收的数据
+    #if 0            
     for(uint8_t i = 0; i< length;i++)
     {
         NRF_LOG_INFO("DATA 0x%02x",data_buffer[i]);
     }
-    
+    #endif
 
 	if(data_buffer[0]!= START_FLAG)	
 	{
@@ -89,20 +91,17 @@ void nus_data_handle(uint32_t nus_c_conn_handle, uint8_t *data, uint8_t length)
 	}
 	else
 	{
-		
 		Common_Word.Data_Length  = data_buffer[DATA_LENGTH_INDIX_LOW];    //获取数据包长度
 		Common_Word.Data_Length = Common_Word.Data_Length>>8;
 		Common_Word.Data_Length |= data_buffer[DATA_LENGTH_INDIX_HIGH];
 		
-        
-        NRF_LOG_INFO("DATA LENGHT : %d",Common_Word.Data_Length);
+        //NRF_LOG_INFO("DATA LENGHT : %d",Common_Word.Data_Length);
         
 		Common_Word.Common_World = data_buffer[DATA_COMMOND_WORD ];	   //获取命令字
 		Common_Word.Common_World = Common_Word.Common_World << 8;
 		Common_Word.Common_World |= data_buffer[DATA_COMMOND_WORD +1 ];        
 		
-        NRF_LOG_INFO("COMMAND WORLD:  0X%04x",Common_Word.Common_World);
-        
+        //NRF_LOG_INFO("COMMAND WORLD:  0X%04x",Common_Word.Common_World);
         
 		
 		Common_Word.Device_Type = data_buffer[DATA_DEVICE_TYPE_INDEX];     //获取设备类型
@@ -110,10 +109,10 @@ void nus_data_handle(uint32_t nus_c_conn_handle, uint8_t *data, uint8_t length)
 	    memcpy(&Common_Word.MacAddr_Device,&data_buffer[DATA_DEVICE_MAC_INDEX],6);  //拷贝mac 地址		 	  
 			
 		
-		if(data_buffer[Common_Word.Data_Length ]!= Crc8(&data_buffer[1],Common_Word.Data_Length -1))  //crc8校验
+		if(data_buffer[Common_Word.Data_Length + 2]!= Crc8(&data_buffer[1],Common_Word.Data_Length + 1))  //crc8校验
 		{
 			//#ifdef UART_MASTER_TEST 
-			NRF_LOG_INFO(" data_buffer crc 0x%02x", data_buffer[Common_Word.Data_Length ]);
+			NRF_LOG_INFO(" data_buffer crc 0x%02x",data_buffer[Common_Word.Data_Length]);
 			
 			NRF_LOG_INFO("CRC ERROR");
 			//#endif
@@ -123,10 +122,10 @@ void nus_data_handle(uint32_t nus_c_conn_handle, uint8_t *data, uint8_t length)
 		
 		if(receive_data_from_app != NULL)
 		{
-			receive_data_from_app((uint16_t)nus_c_conn_handle,Common_Word.Common_World,&data_buffer[DATA_CONTENT_INDEX],Common_Word.Data_Length - 4,Common_Word.Device_Type,&Common_Word.MacAddr_Device);
+			receive_data_from_app((uint16_t)nus_c_conn_handle,Common_Word.Common_World,
+            &data_buffer[DATA_CONTENT_INDEX],Common_Word.Data_Length - 11,
+            Common_Word.Device_Type,&Common_Word.MacAddr_Device);
 		}
-		
-		
 		
 	}
 }

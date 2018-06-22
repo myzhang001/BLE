@@ -7,6 +7,18 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
+#include "ble_nus_c.h"
+
+
+
+
+extern void send_string_c(uint8_t conn_handle, uint8_t * p_string, uint16_t length);
+
+
+
+
+
+
 
 
 /**@brief get_real_time_data_cmd     
@@ -17,10 +29,44 @@
  *
  * @return      void
  */
-void get_real_time_data_cmd(void)
+void get_real_time_data_cmd(uint16_t conn_handle,_e_machine_model device_type,uint8_t mac_addr[6],uint8_t* data,uint16_t len)
 {
-	
-        NRF_LOG_INFO("REALTIME");
+	switch(device_type)
+	{
+		case E_01G:
+            //接收rm661 的实时数据    
+            
+        
+        
+        
+			break;
+		case E_01H:
+			break;
+		case E_03F:
+			break;
+		case E_03H:
+			break;
+		case E_06H:
+			break;
+		case E_06F:
+			break;
+		case E_08A:
+			break;
+		case E_08F:
+
+			break;
+		case E_09A:
+            //接收实时数据  
+            //memcpy(&System_08F.Device_08F_Array[conn_handle].Device_08F_POWER,data,len);
+                
+			break;
+		case E_09F:
+			break;
+		 
+		 default:
+			 break;
+	}
+        
     
     
 }
@@ -38,10 +84,11 @@ void bond_cmd(uint16_t conn_handle,_e_machine_model device_type,uint8_t mac_addr
 {
 	//dev_info.ble_dev[conn_handle - 1].device_datastruct_index
 	
-	
 	switch(device_type)
 	{
 		case E_01G:
+            Add_Device_List(&rm661_data.mac_index,mac_addr);    //为设备添加匹配关系
+        
 			break;
 		case E_01H:
 			break;
@@ -165,3 +212,102 @@ void Clife_GenerateHisData(void)
 
 
 }
+
+
+void bond_data_send(uint8_t conn_handle)
+{
+    uint8_t  send_buffer[50];
+    
+    
+    send_buffer[0] = START_FLAG;                                //数据头
+    send_buffer[1] = 0x00;                                      //数据长度
+    send_buffer[2] = BOND_CMD_INDEX;
+    send_buffer[3] = PROTOCOL_VERSION;                          //协议版本号
+    send_buffer[4] = 0x00;                                      //设备类型 
+    memset(&send_buffer[5],0,6);     //获取mac 地址
+  
+
+    send_buffer[11] =  (uint8_t)(BOND_COMMAND>>8);              //命令控制字
+    send_buffer[12] =  (uint8_t)BOND_COMMAND;                   //命令控制字
+
+    send_buffer[13] = Crc8(&send_buffer[1],BOND_CMD_INDEX + 1);                 //crc 校验
+
+    send_string_c(conn_handle,send_buffer,BOND_CMD_INDEX_TOTAL);
+}
+
+//获取设备状态数据
+
+void real_data_send(uint8_t conn_handle)
+{
+    uint8_t  send_buffer[50];
+    
+    
+    send_buffer[0] = START_FLAG;                                //数据头
+    send_buffer[1] = 0x00;                                      //数据长度
+    send_buffer[2] = REAL_TIME_INDEX;
+    send_buffer[3] = PROTOCOL_VERSION;                          //协议版本号
+    send_buffer[4] = 0x00;                                      //设备类型 
+    memset(&send_buffer[5],0,6);                                //获取mac 地址
+  
+
+    send_buffer[11] =  (uint8_t)(GET_REAL_TIME_DATA_COMMAND >> 8);              //命令控制字
+    send_buffer[12] =  (uint8_t)GET_REAL_TIME_DATA_COMMAND;                   //命令控制字
+
+    send_buffer[13] = Crc8(&send_buffer[1],REAL_TIME_INDEX + 1);                 //crc 校验
+
+    send_string_c(conn_handle,send_buffer,REAL_TIME_INDEX_TOTAL);
+}
+
+
+void control_data_send(uint8_t conn_handle,uint8_t device_type,uint8_t *data ,uint8_t length)
+{
+    uint8_t  send_buffer[50];
+    
+    
+    send_buffer[0] = START_FLAG;                                //数据头
+
+    send_buffer[1] = 0x00;                                      //数据长度
+    send_buffer[2] = REAL_TIME_INDEX;
+    
+    
+    send_buffer[3] = PROTOCOL_VERSION;                          //协议版本号
+    send_buffer[4] = 0x00;                                      //设备类型 
+    //memcpy(&send_buffer[5],,6);                               //获取mac 地址
+
+
+    send_buffer[11] =  (uint8_t)(GET_REAL_TIME_DATA_COMMAND >> 8);    //命令控制字
+    send_buffer[12] =  (uint8_t)GET_REAL_TIME_DATA_COMMAND;           //命令控制字
+
+    send_buffer[13] = Crc8(&send_buffer[1],REAL_TIME_INDEX);          //crc 校验
+
+    
+    switch(device_type)
+    {
+        case 0:
+            
+        
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        default:
+            break;
+    }
+    
+    
+    send_string_c(conn_handle,send_buffer,BOND_CMD_INDEX_TOTAL);
+
+}
+
+

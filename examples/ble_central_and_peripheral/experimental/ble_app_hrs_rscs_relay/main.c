@@ -116,7 +116,7 @@
 #include "Somputon_BLE_DataHandle.h"
 
 #include "Nus_Master_DataHandle.h"
-
+#include "Master_DataStruct.h"
 
 
 
@@ -163,6 +163,8 @@ BLE_NUS_C_ARRAY_DEF(m_ble_nus_c,NRF_SDH_BLE_CENTRAL_LINK_COUNT);
 BLE_NUS_DEF(m_nus);   
 
 
+
+
 APP_TIMER_DEF(m_battery_timer_id); 
 
 
@@ -204,6 +206,11 @@ BLE_DB_DISCOVERY_ARRAY_DEF(m_db_discovery, NRF_SDH_BLE_CENTRAL_LINK_COUNT);     
 
 static uint16_t m_conn_handle_hrs_c  = BLE_CONN_HANDLE_INVALID;     /**< Connection handle for the HRS central application */
 static uint16_t m_conn_handle_rscs_c = BLE_CONN_HANDLE_INVALID;     /**< Connection handle for the RSC central application */
+
+
+
+static uint8_t mac_addr[6]={0};
+
 
 /**@brief names which the central applications will scan for, and which will be advertised by the peripherals.
  *  if these are set to empty strings, the UUIDs defined below will be used
@@ -789,9 +796,11 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
 
             USER_DEBUG_printf();    
             
+            
+            
             //sd_ble_gap_rssi_start(p_gap_evt->conn_handle,1,1);        //触发rssi 数据校准
             
-            //NRF_LOG_INFO("empty  %02x",dev_info.device_total_num );
+            //NRF_LOG_INFO("device_num  %02x",dev_info.device_num );
             
             
             //if(dev_check_empty()== true)
@@ -836,6 +845,7 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
         // update the LEDs status and start scanning again.
         case BLE_GAP_EVT_DISCONNECTED:
         {
+           
             
             #if 0
             if (p_gap_evt->conn_handle == m_conn_handle_hrs_c)
@@ -869,24 +879,23 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
             }
             #endif
             
-             //if(dev_check_empty()== true)
-             {
+            //if(dev_check_empty()== true)
+            {
                 // Start scanning
                 scan_start();
-             }
+            }
             
-             USER_DEBUG_printf();
-             
+            USER_DEBUG_printf();
              
             NRF_LOG_INFO("LBS central link 0x%x disconnected (reason: 0x%x)",
                          p_gap_evt->conn_handle,
                          p_gap_evt->params.disconnected.reason);
 
-           Debug_Device_match_info(p_gap_evt->conn_handle);   // 打印断开连接的设备地址
-            
-             
-           Device_Disconnected_handle(p_gap_evt->conn_handle); //对应设备的连接句柄清零
-             
+            Debug_Device_match_info(p_gap_evt->conn_handle,&mac_addr[0]);   // 打印断开连接的设备地址
+
+            Device_Disconnected_handle(p_gap_evt->conn_handle);             //对应设备的连接句柄清零
+
+            Del_Device_List(&System_08F.mac_index,mac_addr);                //删除设备信息
             
         } break; // BLE_GAP_EVT_DISCONNECTED
 
@@ -1462,6 +1471,17 @@ static void battery_level_meas_timeout_handler(void * p_context)
 //    i++;
 //    if(i> 3)i =0;
 
+    #if 0
+    Debug_Device_Info();
+    #endif
+    
+    data_send_proc();         //设备通信数据流程
+    
+   
+    
+    Device_Update_Avaiable_Table();
+
+    //printf_all_dev_info();    //打印所有设备信息
 }
 
 /**@brief Function for initializing the timer.
@@ -1503,50 +1523,55 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
             err_code = ble_nus_c_tx_notif_enable(p_ble_nus_c);
             APP_ERROR_CHECK(err_code);
             NRF_LOG_INFO("Connected to device with Nordic UART Service.");
+        
+            device_total_add();                                         //连接上设备总设备个数增加
+        
             break;
 
         case BLE_NUS_C_EVT_NUS_TX_EVT:
            //ble_nus_chars_received_uart_print(p_ble_nus_evt->p_data, p_ble_nus_evt->data_len);
         
-            
-            #ifdef USER_UART_PRINT
+            #if 1
+            //#if USER_UART_PRINT == 1
         
             for(uint8_t i = 0; i < p_ble_nus_evt->data_len;i++)
             {
                 NRF_LOG_INFO("data[%d] :0x%02x",i,p_ble_nus_evt->p_data[i]);
             }
+            //#endif
             #endif
-            
-            
             
 		    if(NUS_C_Filter_Connected_Handle(p_ble_nus_c->conn_handle) == true)
 			{
-				nus_data_handle(p_ble_nus_c->conn_handle,p_ble_nus_evt->p_data,p_ble_nus_evt->data_len);    //处理所有从机数据
-                    
-                
-                
+				nus_data_handle(p_ble_nus_c->conn_handle,p_ble_nus_evt->p_data,p_ble_nus_evt->data_len);    //处理所有从机数据 
 			}
-			
-            for(uint8_t i= 0; i<4;i++)
+            
+            #if 0
+            for(uint8_t i= 0; i<NRF_SDH_BLE_CENTRAL_LINK_COUNT;i++)
             {
                 Debug_Device_match_info(i+1);
                 
                 //NRF_LOG_INFO("conn_handle %d",m_ble_nus_c[i].conn_handle);
                 //NRF_LOG_INFO("evt_handle %d",m_ble_nus_c[i].evt_handler);
             }
+            #endif
             
+            
+            #if 0
             #ifdef USER_UART_PRINT
             NRF_LOG_INFO("nus---------------------start----------------------");
-           
+
             NRF_LOG_INFO("nus conn_handle:%d", p_ble_nus_c->conn_handle);
             NRF_LOG_INFO("nus_c event handle:%d",p_ble_nus_c->evt_handler);
-            
+
             NRF_LOG_INFO("nus data max len :%d",p_ble_nus_evt->max_data_len); 
             NRF_LOG_INFO("nus data len :%d",p_ble_nus_evt->data_len);                           //数据长度
-            
+
             NRF_LOG_INFO("nus_event handle:%d",p_ble_nus_evt->conn_handle);
+
+            NRF_LOG_INFO("nus---------------------end----------------------");
+            #endif
             
-             NRF_LOG_INFO("nus---------------------end----------------------");
             #endif
             
             
@@ -1578,13 +1603,10 @@ static void nus_c_init(void)
         APP_ERROR_CHECK(err_code);
     }
     
-    
-
 }
 
 static void nus_data_handler(ble_nus_evt_t * p_evt)
 {
-
     if(p_evt->type == BLE_NUS_EVT_RX_DATA)
     {
         uint32_t err_code;
@@ -1760,9 +1782,7 @@ int main(void)
     services_nus_init();						//从机端服务初始化
     advertising_init();
 
-	
 	Somputon_Init(&App_RecvHandler);							//somouton ble  平台初始化					
-	
 	
     if(erase_bonds == true)
     {
@@ -1793,3 +1813,16 @@ int main(void)
         }
     }
 }
+
+
+
+//发送数据接
+
+void send_string_c(uint8_t conn_handle, uint8_t * p_string, uint16_t length)
+{
+    ble_nus_c_string_send(&m_ble_nus_c[conn_handle], p_string,length);
+    
+    
+}
+
+

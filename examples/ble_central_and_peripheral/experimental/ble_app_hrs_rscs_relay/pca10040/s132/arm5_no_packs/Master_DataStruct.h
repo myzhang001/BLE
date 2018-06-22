@@ -12,7 +12,7 @@
 
 
 #define MAX_DEVICE_NUM  8							//最大连接设备个数
-
+#define MAC_LEN         6                           //MAC 地址长度
 
 
 //08F 数据结构
@@ -30,10 +30,6 @@ typedef enum{
 //设备状态数据
 typedef struct{
 	uint8_t 		Device_08F_POWER;       //开关机
-	_e_08f_motor    Motor_Level;            //风机档位
-	uint32_t        PM2_5_Value;            //pm2.5 等级
-	uint8_t         Anion;                  //负离子浓度
-	uint8_t         Filter;                 //滤网
 }_real_staus_08F;
 
 
@@ -95,7 +91,6 @@ typedef struct{
 }_datastruct_08F;
 
 
-
 typedef struct{
 	uint8_t         Device_Num;                     			//总设备个数
 	_real_status_09 Device_09_Array[MAX_DEVICE_NUM];			//09 实时数据
@@ -105,14 +100,49 @@ typedef struct{
 
 
 
+//---------------------rm661 数据结构
+
+
+
+
+typedef struct{
+	uint8_t      control_light;              //开关灯
+	uint8_t      control_aroma;              //开关香薰	
+}_contorl_rm661;
+
+
+typedef struct{
+	uint8_t      real_light;                 //开关机
+	uint8_t      real_aroma;                 //马达档位
+	                
+}_real_status_rm661;
+
+
+
+typedef struct{
+	uint8_t             Device_Num;                     			//总设备个数
+	_real_status_rm661  Device_rm661_Array[MAX_DEVICE_NUM];			//661 实时数据
+	_contorl_rm661    	Device_Control_rm661_Array[MAX_DEVICE_NUM];	//661 控制数据
+    _mac_index_data     mac_index; 									//mac list index	
+    
+}_datastruct_rm661;
+
+
+
+
+
+
 
 uint8_t Del_Device_List(_mac_index_data *device_list,uint8_t mac_addr[6]);
 uint8_t Add_Device_List(_mac_index_data *device_list,uint8_t mac_addr[6]);
 
 
+extern _datastruct_08F   System_08F;       //08F  系统变量
 
+extern _datastruct_rm661 rm661_data;       //661 全局变量
 
-extern _datastruct_08F   System_08F;        //08F  系统变量
+extern void Debug_Device_Info(void);       //打印调试信息
+
 
 
 
