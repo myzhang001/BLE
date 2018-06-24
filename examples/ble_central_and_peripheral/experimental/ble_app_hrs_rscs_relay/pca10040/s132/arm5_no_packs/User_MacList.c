@@ -354,7 +354,7 @@ void data_send_proc(void)
     
     NRF_LOG_INFO("连接设备总数 %d \r\n",dev_info.device_num);
     
-    step = E_REAL_TIME_DATA;
+    //step = E_REAL_TIME_DATA;
     
     switch(step)
     {

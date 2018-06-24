@@ -32,7 +32,7 @@ void Master_ResetBuffer_08F_RealStatus_All(void)
 
 
 
-//检查mac 地址合法性
+//检查mac 地址合法性   0:为非法的地址   1：合法地址
 
 uint8_t  Check_Mac(uint8_t mac_addr[6])
 {
@@ -390,14 +390,46 @@ uint8_t Del_Device_List(_mac_index_data *device_list,uint8_t mac_addr[6])
 
 
 
-//根据mac 地址 匹配 相应的 handle
-uint16_t  mac_match_hanle(uint8_t mac[6])
+//根据mac 地址 匹配 相应的 handle   0xffff 为错误mac 地址
+uint16_t  mac_match_hanle(_mac_index_data *device_list ,uint8_t mac[6])
 {
-    
-
-
-
+	uint8_t i = 0;
+	uint8_t conn_handle = 0;
+	uint16_t ret;
+	
+    if( Check_Mac(mac) == 0)
+	{
+		return 0xffff;
+	}
+	
+	if(device_list == NULL)
+	{
+		return 0xffff;
+	}
+	
+	_mac_index_data *s_device_list = device_list;
+	
+	
+	for(i = 0; i < s_device_list->device_num ; i++)
+	{
+		
+		conn_handle = s_device_list->index_sort[i];
+		
+		if( memcmp( s_device_list->mac_list_array[conn_handle].mac_addr,mac,6) == 0 )  //找到相同的 mac 地址
+		{
+			
+			 ret = s_device_list->mac_list_array[conn_handle].index;
+			break;
+		}
+		
+	}
+	
+	return ret;
 }
+
+
+
+
 
 //用于调试   打印设备的信息mac 地址
 void Debug_Device_Info(void)

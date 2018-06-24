@@ -31,14 +31,24 @@ extern void send_string_c(uint8_t conn_handle, uint8_t * p_string, uint16_t leng
  */
 void get_real_time_data_cmd(uint16_t conn_handle,_e_machine_model device_type,uint8_t mac_addr[6],uint8_t* data,uint16_t len)
 {
+	uint16_t handle = 0;
+	
+	
 	switch(device_type)
 	{
 		case E_01G:
             //接收rm661 的实时数据    
-            
-        
-        
-        
+
+			 handle = mac_match_hanle(&rm661_data.mac_index,mac_addr);
+			
+			 NRF_LOG_INFO("----------01G handle %d",handle);
+
+	         if(handle > 8)return;		
+		
+			 memcpy(&rm661_data.Device_rm661_Array[handle].real_light,data,len);
+
+			 NRF_LOG_INFO("----------data 0x%02x",rm661_data.Device_rm661_Array[handle].real_light);
+		
 			break;
 		case E_01H:
 			break;
@@ -57,8 +67,16 @@ void get_real_time_data_cmd(uint16_t conn_handle,_e_machine_model device_type,ui
 			break;
 		case E_09A:
             //接收实时数据  
-            //memcpy(&System_08F.Device_08F_Array[conn_handle].Device_08F_POWER,data,len);
-                
+            //memcpy(&System_08F.Device_08F_Array[conn_handle].Device_08F_POWER,data,len); 
+		
+			handle = mac_match_hanle(&System_08F.mac_index,mac_addr);
+		
+			NRF_LOG_INFO("----------E_09A handle %d",handle);
+			if(handle >8)return;	
+		
+			memcpy(&System_08F.Device_08F_Array[handle].Device_08F_POWER,data,len);	
+		
+			NRF_LOG_INFO("----------data 0x%02x",System_08F.Device_08F_Array[handle].Device_08F_POWER);
 			break;
 		case E_09F:
 			break;

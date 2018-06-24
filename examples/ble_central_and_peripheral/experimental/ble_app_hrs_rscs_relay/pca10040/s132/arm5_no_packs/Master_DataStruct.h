@@ -113,7 +113,7 @@ typedef struct{
 
 typedef struct{
 	uint8_t      real_light;                 //开关机
-	uint8_t      real_aroma;                 //马达档位
+
 	                
 }_real_status_rm661;
 
@@ -143,7 +143,7 @@ extern _datastruct_rm661 rm661_data;       //661 全局变量
 
 extern void Debug_Device_Info(void);       //打印调试信息
 
-
+extern uint16_t  mac_match_hanle(_mac_index_data *device_list ,uint8_t mac[6]);
 
 
 #endif

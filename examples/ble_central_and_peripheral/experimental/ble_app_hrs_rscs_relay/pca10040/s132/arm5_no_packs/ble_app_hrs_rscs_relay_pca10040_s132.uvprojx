@@ -467,6 +467,11 @@
               <FileType>1</FileType>
               <FilePath>.\slava_device_data.c</FilePath>
             </File>
+            <File>
+              <FileName>master_voice_hub.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\master_voice_hub.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4152,6 +4157,11 @@
               <FileName>slava_device_data.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\slava_device_data.c</FilePath>
+            </File>
+            <File>
+              <FileName>master_voice_hub.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\master_voice_hub.c</FilePath>
             </File>
           </Files>
         </Group>
