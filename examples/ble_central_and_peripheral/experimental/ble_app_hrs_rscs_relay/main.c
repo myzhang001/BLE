@@ -885,7 +885,7 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
                 scan_start();
             }
             
-            USER_DEBUG_printf();
+            USER_DEBUG_printf();                                             //打印设备总数
              
             NRF_LOG_INFO("LBS central link 0x%x disconnected (reason: 0x%x)",
                          p_gap_evt->conn_handle,
@@ -897,6 +897,11 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
 
             Del_Device_List(&System_08F.mac_index,mac_addr);                //删除设备信息
             
+			device_bond_status_clear(p_gap_evt->conn_handle);               //删除设备的绑定标志
+			device_del_type(p_gap_evt->conn_handle);                        //清除设备类型
+			device_total_del();                                             //断开后设备总数减一
+			
+			
         } break; // BLE_GAP_EVT_DISCONNECTED
 
         case BLE_GAP_EVT_ADV_REPORT:

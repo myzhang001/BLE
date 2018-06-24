@@ -110,7 +110,7 @@ void  device_bond_status_update(uint8_t conn_handle);
 
 void  device_bond_status_clear(uint8_t conn_handle);
 void device_add_type(uint8_t conn_handle ,_e_machine_model device_type);
-void device_del_type(uint8_t conn_handle ,_e_machine_model device_type);
+void device_del_type(uint8_t conn_handle );
 
 void device_total_add(void);
 void device_total_del(void);

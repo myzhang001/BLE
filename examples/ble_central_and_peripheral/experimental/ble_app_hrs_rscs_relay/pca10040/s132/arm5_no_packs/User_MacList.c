@@ -4,15 +4,16 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
-
 #include "Somputon_BLE_DataHandle.h"
+
+
 
 
 
 _t_dev_mac_match dev_info;    //连接设备的所有信息
 
 
-uint8_t mac_addr_list[6];    //mac 地址
+uint8_t mac_addr_list[6];     //mac 地址
 
 
 
@@ -51,8 +52,6 @@ uint8_t Device_Info_Connected_num(void)
 void USER_DEBUG_printf(void)
 {
     NRF_LOG_INFO("dev_info.device_num:%02x",dev_info.device_num);
-
-
 }
 
 
@@ -283,26 +282,29 @@ uint8_t check_bound_device(void)
    return ret; 
 }
 
-//更新设备的绑定标志
+//更新设备的绑定标志，收到绑定指令后调用
+
 void  device_bond_status_update(uint8_t conn_handle)
 {
     dev_info.ble_dev[conn_handle -1].bond_stauts = 1;
 }
 
-//清除绑定标志位
+//清除绑定标志位  ，收到主机设备清除绑定信息后调用
 void  device_bond_status_clear(uint8_t conn_handle)
 {
     dev_info.ble_dev[conn_handle -1].bond_stauts = 0;
 }
 
-//添加设备类型
+
+
+//添加设备类型,设备绑定的时候调用
 void device_add_type(uint8_t conn_handle ,_e_machine_model device_type)
 {
     dev_info.ble_dev[conn_handle - 1].model = device_type;
 }
 
-//删除设备类型
-void device_del_type(uint8_t conn_handle ,_e_machine_model device_type)
+//删除设备类型 ，设备断开连接或者删除绑定信息的时候调用
+void device_del_type(uint8_t conn_handle )
 {
     dev_info.ble_dev[conn_handle - 1].model = 0; 
 }
