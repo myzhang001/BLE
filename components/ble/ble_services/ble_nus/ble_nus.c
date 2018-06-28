@@ -260,8 +260,6 @@ void ble_nus_on_ble_evt(ble_evt_t const * p_ble_evt, void * p_context)
                     .p_nus = p_nus
             };
             p_nus->data_handler(&evt);
-			
-			
             break;
         }
         default:

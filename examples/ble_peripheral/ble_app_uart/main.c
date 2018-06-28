@@ -700,7 +700,7 @@ int main(void)
 
     printf("\r\nUART Start!\r\n");
     NRF_LOG_INFO("UART Start!");
-    err_code = ble_advertising_start(&m_advertising,BLE_ADV_MODE_FAST);
+    err_code = ble_advertising_start(&m_advertising, BLE_ADV_MODE_FAST);
     APP_ERROR_CHECK(err_code);
 
     // Enter main loop.

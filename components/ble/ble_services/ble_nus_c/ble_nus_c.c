@@ -48,9 +48,6 @@
 #include "ble_srv_common.h"
 #include "app_error.h"
 
-
-
-
 #define NRF_LOG_MODULE_NAME ble_nus
 #include "nrf_log.h"
 NRF_LOG_MODULE_REGISTER();
@@ -144,25 +141,6 @@ uint32_t ble_nus_c_init(ble_nus_c_t * p_ble_nus_c, ble_nus_c_init_t * p_ble_nus_
     return ble_db_discovery_evt_register(&uart_uuid);
 }
 
-static void on_disconnected(ble_nus_c_t * p_ble_nus_c, ble_evt_t const * p_ble_evt)
-{
-    if (p_ble_nus_c->conn_handle == p_ble_evt->evt.gap_evt.conn_handle)
-    {
-        p_ble_nus_c->conn_handle                    = BLE_CONN_HANDLE_INVALID;
-        p_ble_nus_c->evt_handler                    = NULL;
-        p_ble_nus_c->handles.nus_rx_handle  = BLE_CONN_HANDLE_INVALID;
-        p_ble_nus_c->handles.nus_tx_cccd_handle= BLE_CONN_HANDLE_INVALID;
-        p_ble_nus_c->handles.nus_rx_handle= BLE_CONN_HANDLE_INVALID;
-        #if 0
-        p_ble_nus_c->peer_nus_db.button_cccd_handle = BLE_GATT_HANDLE_INVALID;
-        p_ble_nus_c->peer_nus_db.button_handle      = BLE_GATT_HANDLE_INVALID;
-        p_ble_nus_c->peer_nus_db.led_handle         = BLE_GATT_HANDLE_INVALID;
-        #endif
-    }
-}
-
-
-
 void ble_nus_c_on_ble_evt(ble_evt_t const * p_ble_evt, void * p_context)
 {
     ble_nus_c_t * p_ble_nus_c = (ble_nus_c_t *)p_context;
@@ -186,7 +164,6 @@ void ble_nus_c_on_ble_evt(ble_evt_t const * p_ble_evt, void * p_context)
             break;
 
         case BLE_GAP_EVT_DISCONNECTED:
-            #if 1
             if (p_ble_evt->evt.gap_evt.conn_handle == p_ble_nus_c->conn_handle
                     && p_ble_nus_c->evt_handler != NULL)
             {
@@ -195,11 +172,8 @@ void ble_nus_c_on_ble_evt(ble_evt_t const * p_ble_evt, void * p_context)
                 nus_c_evt.evt_type = BLE_NUS_C_EVT_DISCONNECTED;
 
                 p_ble_nus_c->conn_handle = BLE_CONN_HANDLE_INVALID;
-               
                 p_ble_nus_c->evt_handler(p_ble_nus_c, &nus_c_evt);
             }
-            #endif
-           
             break;
 
         default:
