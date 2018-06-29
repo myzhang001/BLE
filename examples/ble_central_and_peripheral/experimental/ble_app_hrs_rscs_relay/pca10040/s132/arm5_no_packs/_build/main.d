@@ -2,6 +2,7 @@
 .\_build\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\_build\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\_build\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\_build\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\util\nordic_common.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\softdevice\common\nrf_sdh.h
 .\_build\main.o: ..\config\sdk_config.h
@@ -24,7 +25,6 @@
 .\_build\main.o: C:\Keil_v5\ARM\PACK\NordicSemiconductor\nRF_DeviceFamilyPack\8.15.0\Device\Include\nrf52_name_change.h
 .\_build\main.o: C:\Keil_v5\ARM\PACK\NordicSemiconductor\nRF_DeviceFamilyPack\8.15.0\Device\Include\compiler_abstraction.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\util\app_error.h
-.\_build\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\util\app_error_weak.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\util\app_util.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\softdevice\common\nrf_sdh_soc.h
@@ -86,3 +86,14 @@
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\balloc\nrf_balloc.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\nrf_log_default_backends.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\ble\ble_services\ble_nus_c\ble_nus_c.h
+.\_build\main.o: ..\..\..\..\..\..\..\components\ble\ble_services\ble_nus\ble_nus.h
+.\_build\main.o: ..\..\..\..\..\..\..\components\libraries\uart\app_uart.h
+.\_build\main.o: ..\arm5_no_packs\User_adv_func.h
+.\_build\main.o: ..\arm5_no_packs\User_MacList.h
+.\_build\main.o: ..\arm5_no_packs\user_common_func.h
+.\_build\main.o: ..\arm5_no_packs\Protocol_Analysis.h
+.\_build\main.o: ..\arm5_no_packs\Somputon_BLE_DataHandle.h
+.\_build\main.o: ..\arm5_no_packs\Nus_Master_DataHandle.h
+.\_build\main.o: ..\arm5_no_packs\Master_DataStruct.h
+.\_build\main.o: ..\arm5_no_packs\ble_sleep_nus_c.h
+.\_build\main.o: ..\arm5_no_packs\master_voice_hub.h

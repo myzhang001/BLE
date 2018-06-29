@@ -40,4 +40,3 @@
 .\_build\nrf_log_default_backends.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\_build\nrf_log_default_backends.o: ..\..\..\..\..\..\..\components\libraries\util\app_error_weak.h
 .\_build\nrf_log_default_backends.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\src\nrf_log_internal.h
-.\_build\nrf_log_default_backends.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\nrf_log_backend_uart.h
