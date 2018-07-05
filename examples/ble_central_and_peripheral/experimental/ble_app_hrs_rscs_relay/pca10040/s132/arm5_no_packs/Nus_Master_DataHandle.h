@@ -9,6 +9,13 @@
 #include "ble_db_discovery.h"
 
 
+typedef struct{
+
+	uint16_t  Data_Length;    //保存数据长度
+	uint16_t Common_World;    //保存命令字
+	uint8_t  Device_Type;     //设备类型
+	uint8_t  MacAddr_Device[6];	//设备mac 地址
+}_s_analsis_word;
 
 
 typedef enum{

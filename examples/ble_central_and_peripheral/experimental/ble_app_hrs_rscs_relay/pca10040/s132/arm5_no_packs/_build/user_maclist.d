@@ -39,7 +39,6 @@
 .\_build\user_maclist.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\util\sdk_macros.h
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\experimental_section_vars\nrf_section.h
-.\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\strerror\nrf_strerror.h
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\src\nrf_log_internal.h
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\nrf_log_ctrl.h
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\src\nrf_log_ctrl_internal.h
@@ -57,3 +56,13 @@
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\nrf_log_default_backends.h
 .\_build\user_maclist.o: Somputon_BLE_DataHandle.h
 .\_build\user_maclist.o: Protocol_Analysis.h
+.\_build\user_maclist.o: slave_device_data.h
+.\_build\user_maclist.o: uart_queue.h
+.\_build\user_maclist.o: NUS_Master_DataHandle.h
+.\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\uart\app_uart.h
+.\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\fifo\app_fifo.h
+.\_build\user_maclist.o: ..\..\..\..\..\..\..\components\drivers_nrf\uart\nrf_drv_uart.h
+.\_build\user_maclist.o: ..\..\..\..\..\..\..\components\drivers_nrf\hal\nrf_peripherals.h
+.\_build\user_maclist.o: C:\Keil_v5\ARM\PACK\NordicSemiconductor\nRF_DeviceFamilyPack\8.15.0\Device\Include\nrf52832_peripherals.h
+.\_build\user_maclist.o: ..\..\..\..\..\..\..\components\drivers_nrf\hal\nrf_uart.h
+.\_build\user_maclist.o: ..\..\..\..\..\..\..\components\drivers_nrf\hal\nrf_uarte.h

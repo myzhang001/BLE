@@ -17,7 +17,10 @@ _datastruct_rm661 rm661_data;    //661 分配设备
 
 _datastruct_rar312 rar312_data;  //rar312_data 分配设备
 
-_datastruct_curtain curtain_data;  //rar312_data 分配设备
+_datastruct_sleepmonitor sleepmonitor_data;    //睡眠监测
+
+
+_datastruct_curtain curtain_data;  //cuituain_data 分配设备
 
 _datastruct_pmi pmi_data;          //pmi 分配设备
 
@@ -412,7 +415,6 @@ void disconnect_del_info(uint16_t conn_handle, uint8_t mac_addr[6])
         return;
     }
     
-    
    switch(device_type)
 	{
 		case E_RAR312:
@@ -423,7 +425,8 @@ void disconnect_del_info(uint16_t conn_handle, uint8_t mac_addr[6])
             Del_Device_List(&rm661_data.mac_index,mac_addr);    //为设备添加匹配关系
         
 			break;
-		case E_03F:
+		case E_SLEEP_MONITER:
+            Del_Device_List(&sleepmonitor_data.mac_index,mac_addr);    //为设备添加匹配关系
 			break;
 		case E_CURTAIN:
              Del_Device_List(&curtain_data.mac_index,mac_addr);    //为设备添加匹配关系

@@ -6,8 +6,10 @@
 #include "nrf_log_default_backends.h"
 #include "Somputon_BLE_DataHandle.h"
 
-
-
+#include "slave_device_data.h"
+#include "app_uart.h"
+#include "app_fifo.h"
+#include "nrf_drv_uart.h"
 
 
 _t_dev_mac_match dev_info;    //连接设备的所有信息
@@ -51,6 +53,7 @@ uint8_t Device_Info_Connected_num(void)
 
 void USER_DEBUG_printf(void)
 {
+    
     NRF_LOG_INFO("dev_info.device_num:%02x",dev_info.device_num);
 }
 
@@ -377,6 +380,11 @@ void data_send_proc(void)
     
     //step = E_SEND_STATUS;
     
+    if(control_data.conn_data_flag == 1)
+    {
+        step = E_CONTROL_DATA;
+    }
+    
     switch(step)
     {
         case E_SEND_STATUS:                         //发送绑定认证指令
@@ -430,14 +438,43 @@ void data_send_proc(void)
         case E_CONTROL_DATA:
              
             #if 0
-             data_buffer[0]= 0x00;      //灯
-             data_buffer[1]= 0x01;      //aroma
-        
-             control_data_send(2,0x01,data_buffer,2);
+            data_buffer[0] = 0x00;      //灯
+            data_buffer[1] = 0x01;      //aroma
+            control_data_send(0,0x01,data_buffer,2);
             #endif
+              
+            //master_send_string(&control_data.data_buffer[0],2);
         
-             step = E_SEND_STATUS; 
-        
+            //app_uart_put(control_data.conn_handle);
+            //app_uart_put(control_data.conn_handle >> 8);
+        #if 1
+            if(control_data.conn_data_flag == 0)
+            {
+                step = E_SEND_STATUS;
+                return;
+            }
+        #endif
+            
+            if(control_data.conn_handle > 8)
+            {
+                control_data.conn_data_flag = 0;
+                step = E_SEND_STATUS; 
+            }
+            else
+            {
+                
+                //master_send_string(control_data.data_buffer,control_data.length);
+                #if 1
+                control_data_send(control_data.conn_handle - 1,0,
+                control_data.data_buffer,control_data.length);
+
+                control_data.conn_data_flag = 0;
+                
+                memset(control_data.data_buffer,0,control_data.length);
+                #endif
+                step = E_SEND_STATUS; 
+            }
+            
              break;
         default:
              break;

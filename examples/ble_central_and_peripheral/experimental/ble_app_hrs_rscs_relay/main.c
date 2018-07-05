@@ -123,6 +123,8 @@
 #include "master_voice_hub.h"
 
 
+#include "uart_queue.h"
+#include "slave_device_data.h"
 
 
 #define PERIPHERAL_ADVERTISING_LED      BSP_BOARD_LED_2
@@ -212,7 +214,7 @@ static ble_nus_c_t m_nus_c_test[4];
 
 NRF_BLE_GATT_DEF(m_gatt);                                           /**< GATT module instance. */
 BLE_ADVERTISING_DEF(m_advertising);                                 /**< Advertising module instance. */
-BLE_DB_DISCOVERY_ARRAY_DEF(m_db_discovery, NRF_SDH_BLE_CENTRAL_LINK_COUNT);                      /**< Database discovery module instances. */
+BLE_DB_DISCOVERY_ARRAY_DEF(m_db_discovery,NRF_SDH_BLE_CENTRAL_LINK_COUNT);                      /**< Database discovery module instances. */
 
 static uint16_t m_conn_handle_hrs_c  = BLE_CONN_HANDLE_INVALID;     /**< Connection handle for the HRS central application */
 static uint16_t m_conn_handle_rscs_c = BLE_CONN_HANDLE_INVALID;     /**< Connection handle for the RSC central application */
@@ -793,6 +795,7 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
 		case BLE_GAP_EVT_CONNECTED:
         {
             NRF_LOG_INFO("Central connected");
+            
             ble_gap_addr_t mac_peer_addr = adv_report_adv.peer_addr;     //保存下地址
             
             NRF_LOG_INFO("connected addr %02x %02x %02x %02x %02x %02x ",mac_peer_addr.addr[0],
@@ -804,18 +807,11 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
             
             Debug_Device_match_connected_mac(mac_peer_addr,p_gap_evt->conn_handle);
 
-            USER_DEBUG_printf();    
-            
-            #if 0
-            // start discovery of services. The NUS Client waits for a discovery result
-            err_code = ble_db_discovery_start(&m_db_discovery, p_ble_evt->evt.gap_evt.conn_handle);
-            APP_ERROR_CHECK(err_code);
-            #endif      
+            //USER_DEBUG_printf();    
             
             
             //sd_ble_gap_rssi_start(p_gap_evt->conn_handle,1,1);        //触发rssi 数据校准
             
-            //NRF_LOG_INFO("device_num  %02x",dev_info.device_num );
 
             //if(dev_check_empty()== true)
             {
@@ -860,39 +856,6 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
         case BLE_GAP_EVT_DISCONNECTED:
         {
            
-            
-            #if 0
-            if (p_gap_evt->conn_handle == m_conn_handle_hrs_c)
-            {
-                NRF_LOG_INFO("HRS central disconnected (reason: %d)",
-                             p_gap_evt->params.disconnected.reason);
-
-                m_conn_handle_hrs_c = BLE_CONN_HANDLE_INVALID;
-            }
-            if (p_gap_evt->conn_handle == m_conn_handle_rscs_c)
-            {
-                NRF_LOG_INFO("RSC central disconnected (reason: %d)",
-                             p_gap_evt->params.disconnected.reason);
-
-                m_conn_handle_rscs_c = BLE_CONN_HANDLE_INVALID;
-            }
-
-            if ((m_conn_handle_rscs_c == BLE_CONN_HANDLE_INVALID)
-                || (m_conn_handle_hrs_c  == BLE_CONN_HANDLE_INVALID))
-            {
-                // Start scanning
-                scan_start();
-
-                // Update LEDs status.
-                bsp_board_led_on(CENTRAL_SCANNING_LED);
-            }
-
-            if(ble_conn_state_n_centrals() == 0)
-            {
-                bsp_board_led_off(CENTRAL_CONNECTED_LED);
-            }
-            #endif
-            
             //if(dev_check_empty()== true)
             {
                 // Start scanning
@@ -909,18 +872,13 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
 
             Device_Disconnected_handle(p_gap_evt->conn_handle);             //对应设备的连接句柄清零
 
-            
             disconnect_del_info(p_gap_evt->conn_handle,mac_addr);           //删除设备信息
-            
-            //Del_Device_List(&System_08F.mac_index,mac_addr);                
             
 			device_bond_status_clear(p_gap_evt->conn_handle);               //删除设备的绑定标志
 			device_del_type(p_gap_evt->conn_handle);                        //清除设备类型
 			//device_total_del();                                           //断开后设备总数减一bug,前面已经减了一次了所以取消
 			
-            
-            
-			
+            	
         } break; // BLE_GAP_EVT_DISCONNECTED
 
         case BLE_GAP_EVT_ADV_REPORT:
@@ -1175,9 +1133,7 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
     }
     else if ((role == BLE_GAP_ROLE_CENTRAL) || (p_ble_evt->header.evt_id == BLE_GAP_EVT_ADV_REPORT))
     {
-        //ble_nus_c_on_ble_evt(p_ble_evt,&m_ble_nus_c[conn_handle]);   //根据不同初始化
         
-        //ble_sleep_nus_c_on_ble_evt(p_ble_evt,&sleep_nus);
         on_ble_central_evt(p_ble_evt);
     }
 }
@@ -1529,12 +1485,15 @@ static void battery_level_meas_timeout_handler(void * p_context)
     #endif
     
     //uart_send_all_data();            
-    uart_send_all_data_2();
+    //uart_send_all_data_2();
 }
 
 static void sys10ms_timeout_handler(void * p_context)
 { 
     Device_Update_Avaiable_Table();   //更新可用设备列表
+    
+    
+    
 }
 
 
@@ -1786,15 +1745,21 @@ static uint16_t m_ble_nus_max_data_len = BLE_GATT_ATT_MTU_DEFAULT - OPCODE_LENGT
 void uart_event_handle(app_uart_evt_t * p_event)
 {
     static uint8_t data_array[BLE_NUS_MAX_DATA_LEN];
+    static uint8_t data_temp;
     static uint16_t index = 0;
     uint32_t ret_val;
 
-    switch (p_event->evt_type)
+    switch(p_event->evt_type)
     {
         /**@snippet [Handling data from UART] */
         case APP_UART_DATA_READY:
-            UNUSED_VARIABLE(app_uart_get(&data_array[index]));
-            index++;
+           //UNUSED_VARIABLE(app_uart_get(&data_array[index]));
+           //index++;
+			UNUSED_VARIABLE(app_uart_get(&data_temp));
+
+            USART2_Write_Queue(data_temp);
+            
+            app_uart_put(data_temp);       //用于调试
 
             #if 0
             if ((data_array[index - 1] == '\n') || (index >= (m_ble_nus_max_data_len)))
@@ -1818,13 +1783,15 @@ void uart_event_handle(app_uart_evt_t * p_event)
 
         /**@snippet [Handling data from UART] */
         case APP_UART_COMMUNICATION_ERROR:
-            NRF_LOG_ERROR("Communication error occurred while handling UART.");
-            APP_ERROR_HANDLER(p_event->data.error_communication);
+            //NRF_LOG_ERROR("Communication error occurred while handling UART.");
+            //APP_ERROR_HANDLER(p_event->data.error_communication);
+            
+        
             break;
 
         case APP_UART_FIFO_ERROR:
-            NRF_LOG_ERROR("Error occurred in FIFO module used by UART.");
-            APP_ERROR_HANDLER(p_event->data.error_code);
+            //NRF_LOG_ERROR("Error occurred in FIFO module used by UART.");
+            //APP_ERROR_HANDLER(p_event->data.error_code);
             break;
 
         default:
@@ -1859,7 +1826,7 @@ static void uart_init(void)
     APP_ERROR_CHECK(err_code);
 }
 #define BATTERY_LEVEL_MEAS_INTERVAL         APP_TIMER_TICKS(2000)                   /**< Battery level measurement interval (ticks). */
-#define SYS10MS_INTERVAL                    APP_TIMER_TICKS(10)
+#define SYS10MS_INTERVAL                    APP_TIMER_TICKS(1)
 
 #define MIN_BATTERY_LEVEL                   81                                      /**< Minimum simulated battery level. */
 #define MAX_BATTERY_LEVEL                   100                                     /**< Maximum simulated 7battery level. */
@@ -1880,6 +1847,23 @@ static void application_timers_start(void)
 
 
 
+void crc_test(void)
+{
+    uint8_t temp;
+    static uint8_t buffer[20]={0x3a,0x00, 0x0d, 0x01, 0x01, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x00, 0x40, 0x01, 0x01};
+    
+    
+    temp = Crc8(&buffer[1],0x0d + 1);
+
+    __nop();
+}
+
+
+
+
+
+
+
 int main(void)
 {
     bool erase_bonds;
@@ -1888,9 +1872,9 @@ int main(void)
     timer_init();
     uart_init();
     
+    //crc_test();
     
-    
-    buttons_leds_init(&erase_bonds);
+    buttons_leds_init(&erase_bonds); 
     ble_stack_init();
     gap_params_init();
     gatt_init();
@@ -1908,8 +1892,10 @@ int main(void)
 
 	Somputon_Init(&App_RecvHandler);		    //somouton ble  平台初始化					
 	
-    
-    sys_avaiable_device_type();               //初始化可用设备列表的设备类型
+    master_cb_init(&Master_App_RecvHandler);    //处理voice 主机
+   
+   
+    sys_avaiable_device_type();                 //初始化可用设备列表的设备类型
     
     if(erase_bonds == true)
     {
@@ -1922,8 +1908,13 @@ int main(void)
         adv_scan_start();
     }
     
-    //app_uart_put(0x12);						//串口打印测试
-   
+    #if 0
+    app_uart_put(0x12);						//串口打印测试
+    app_uart_put(0x12);
+    app_uart_put(0x12);
+    app_uart_put(0x12);
+    app_uart_put(0x12);
+    #endif
     
     NRF_LOG_INFO("Relay example started.");
 
@@ -1935,8 +1926,12 @@ int main(void)
     {
         if(NRF_LOG_PROCESS() == false)
         {
-            // Wait for BLE events.
-            power_manage();
+            //Wait for BLE events.
+            //power_manage();
+            
+            //USART2_SendProc();
+            
+            WIFI_Decode();
         }
     }
 }

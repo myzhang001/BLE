@@ -22,6 +22,9 @@
 #define CONTROL_STA_COMMAND                    		    0x0041													
 #define CONTROL_STA_COMMAND_REPLY              		    0xA041
 
+#define CLEAR_BOND_COMMAND                              0X0042                                                     //清除绑定指令app  主动发起
+#define CLEAR_BOND_COMMAND_REPLY                        0XA042
+
 #define BOND_COMMAND                    	 		    0x0032
 #define BOND_COMMAND_REPLY               	 		    0xA032
 

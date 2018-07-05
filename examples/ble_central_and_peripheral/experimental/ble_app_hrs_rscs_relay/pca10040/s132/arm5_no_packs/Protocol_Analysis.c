@@ -57,13 +57,12 @@ void App_RecvHandler(uint16_t conn_handle,uint16_t command, uint8_t* data,uint16
 			case GET_REAL_TIME_DATA_COMMAND_REPLY:					 
                     get_real_time_data_cmd(conn_handle,device_type,mac_addr,data,len);	      //获取实时时间
 
-                    #if 1
+                    #if 0
                     for(i = 0; i < len ;i++)
                     {
                         NRF_LOG_INFO(" REALTIME DATA %d 0x%02x ",i,data[i]);
                     }
                     NRF_LOG_INFO(" device_type %d  ",device_type);
-                    
                     #endif  
 					 break;		
 			case BOND_COMMAND_REPLY:
@@ -72,16 +71,16 @@ void App_RecvHandler(uint16_t conn_handle,uint16_t command, uint8_t* data,uint16
                     device_bond_status_update(conn_handle);                                  //绑定标志位
                     device_add_type(conn_handle,device_type);                                //添加设备类型
 
-            #if 1
-                    #ifdef USER_UART_PRINT
-            
-                    NRF_LOG_INFO("BOND_COMMAND : conn_handle 0x%02x  device_type :0x%02x ",conn_handle,device_type);
-                    for(uint8_t i = 0; i<6;i++)
-                    {
-                        NRF_LOG_INFO("mac [%d]: 0x%02x",i,mac_addr[i]);
-                    }
-                    #endif
-            #endif
+                #if 0
+                        #ifdef USER_UART_PRINT
+                
+                        NRF_LOG_INFO("BOND_COMMAND : conn_handle 0x%02x  device_type :0x%02x ",conn_handle,device_type);
+                        for(uint8_t i = 0; i<6;i++)
+                        {
+                            NRF_LOG_INFO("mac [%d]: 0x%02x",i,mac_addr[i]);
+                        }
+                        #endif
+                #endif
 					 break;		
 												
 			case GET_HISTORY_DATA_TOTAL_PACKETS:
@@ -91,17 +90,19 @@ void App_RecvHandler(uint16_t conn_handle,uint16_t command, uint8_t* data,uint16
 					 break;
 			
 			case SET_DEVICE_TIME_COMMAND:			
-					 set_device_time_cmd(data);				//  先同步APP的时间					 
+					 set_device_time_cmd(data);				//先同步APP的时间					 
 					 break;		
 			
 			case GET_DEVICE_TIME_COMMAND:						 
-					  get_device_time_cmd(1);			    //  上传时间
+					  get_device_time_cmd(1);			    //上传时间
 					 break;
 			
 			case CONTROL_DATA_COMMAND:
 					 control_device_cmd(data);				//处理控制数据	   	
 					break;			
-															
+			case CLEAR_BOND_COMMAND_REPLY:                  //清除绑定数据 
+                    
+                    break;
 			default:				
 					break;
 		}		

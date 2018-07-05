@@ -477,6 +477,11 @@
               <FileType>1</FileType>
               <FilePath>.\ble_sleep_nus_c.c</FilePath>
             </File>
+            <File>
+              <FileName>uart_queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\uart_queue.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4172,6 +4177,11 @@
               <FileName>ble_sleep_nus_c.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ble_sleep_nus_c.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart_queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\uart_queue.c</FilePath>
             </File>
           </Files>
         </Group>

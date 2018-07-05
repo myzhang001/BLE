@@ -69,7 +69,25 @@ void get_real_time_data_cmd(uint16_t conn_handle,_e_machine_model device_type,ui
              #endif
         
 			break;
-		case E_03F:
+		case E_SLEEP_MONITER:
+            
+           
+            //接收sleep monitor 的实时数据    
+
+			 handle = mac_match_hanle(&sleepmonitor_data.mac_index,mac_addr);
+                
+            #if 0
+			 NRF_LOG_INFO("----------sleep handle %d",handle);
+            #endif
+	         if(handle > 8)return;		
+		
+			 memcpy(&sleepmonitor_data.Device_sleep_Array[handle].real_data,data,len);
+
+             #if 0
+             NRF_LOG_INFO("---------- --- handle sleepdata 0x%02x",sleepmonitor_data.Device_sleep_Array[handle].real_data);
+             NRF_LOG_INFO("---------- --- handle sleepdata 0x%02x",sleepmonitor_data.Device_sleep_Array[handle].real_data); 
+             #endif
+        
 			break;
 		case E_CURTAIN:
             //接收窗帘的实时数据
@@ -158,7 +176,11 @@ void bond_cmd(uint16_t conn_handle,_e_machine_model device_type,uint8_t mac_addr
             Add_Device_List(&rm661_data.mac_index,mac_addr);    //为设备添加匹配关系
         
 			break;
-		case E_03F:
+		case E_SLEEP_MONITER:
+            
+            Add_Device_List(&sleepmonitor_data.mac_index,mac_addr);    //为设备添加匹配关系
+        
+        
 			break;
 		case E_CURTAIN:
              Add_Device_List(&curtain_data.mac_index,mac_addr);    //为设备添加匹配关系
@@ -358,38 +380,10 @@ void control_data_send(uint8_t conn_handle,uint8_t device_type,uint8_t *data ,ui
     
     send_buffer[13+length] = Crc8(&send_buffer[1],CONTROL_CMD_INDEX + 1 + length);          //crc 校验
 
-    #if 0
-    switch(device_type)
-    {
-        case 0:
-            break;
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 6:
-            break;
-        case 7:
-            break;
-        default:
-            break;
-    }
-    #endif
+    
     
     send_string_c(conn_handle,send_buffer,CONTROL_CMD_INDEX_TOTAL + length);
 
-    #if 1
-    for(i = 0; i < 3+11+0+2; i++)
-    {
-        NRF_LOG_INFO("CONTROL  0x%02x ", send_buffer[i]);
-    }
-    #endif
 }
 
 
@@ -414,6 +408,32 @@ void send_real_time(uint8_t conn_handle)
 
     send_string_c(conn_handle,send_buffer,REAL_TIME_INDEX_TOTAL);  
 }
+
+
+
+//清除绑定后断开连接
+void send_clear_bond_status(uint8_t conn_handle)
+{
+    uint8_t  send_buffer[50];
+    
+    
+    send_buffer[0] = START_FLAG;                                //数据头
+    send_buffer[1] = 0x00;                                      //数据长度
+    send_buffer[2] = REAL_TIME_INDEX;
+    send_buffer[3] = PROTOCOL_VERSION;                          //协议版本号
+    send_buffer[4] = 0x00;                                      //设备类型 
+    memset(&send_buffer[5],0,6);                                //获取mac 地址
+  
+
+    send_buffer[11] =  (uint8_t)(CLEAR_BOND_COMMAND >> 8);      //命令控制字
+    send_buffer[12] =  (uint8_t)CLEAR_BOND_COMMAND;             //命令控制字
+
+    send_buffer[13] = Crc8(&send_buffer[1],BOND_CMD_INDEX + 1);  //crc 校验
+
+    send_string_c(conn_handle,send_buffer,BOND_CMD_INDEX_TOTAL);
+}
+
+
 
 
 

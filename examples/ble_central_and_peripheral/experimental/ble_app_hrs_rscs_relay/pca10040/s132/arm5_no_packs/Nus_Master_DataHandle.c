@@ -8,13 +8,7 @@
 #include "nrf_log_default_backends.h"
 
 
-typedef struct{
 
-	uint16_t  Data_Length;    //保存数据长度
-	uint16_t Common_World;    //保存命令字
-	uint8_t  Device_Type;    //设备类型
-	uint8_t  MacAddr_Device;	//设备mac 地址
-}_s_analsis_word;
 
 
 _s_analsis_word  Common_Word;
@@ -296,7 +290,7 @@ void nus_data_handle(uint32_t nus_c_conn_handle, uint8_t *data, uint8_t length)
             {
                 receive_data_from_app((uint16_t)nus_c_conn_handle,Common_Word.Common_World,
                 &s_data_buffer[DATA_CONTENT_INDEX],Common_Word.Data_Length - 11,
-                Common_Word.Device_Type,&Common_Word.MacAddr_Device);
+                Common_Word.Device_Type,Common_Word.MacAddr_Device);
             }
             
             //memset(,,);
@@ -346,7 +340,7 @@ void nus_data_handle(uint32_t nus_c_conn_handle, uint8_t *data, uint8_t length)
 		{
 			receive_data_from_app((uint16_t)nus_c_conn_handle,Common_Word.Common_World,
             &data_buffer[DATA_CONTENT_INDEX],Common_Word.Data_Length - 11,
-            Common_Word.Device_Type,&Common_Word.MacAddr_Device);
+            Common_Word.Device_Type,Common_Word.MacAddr_Device);
 		}
         
         

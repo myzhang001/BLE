@@ -213,6 +213,32 @@ typedef struct{
 
 
 
+//-------------------------< start >-------------------------------
+//------------------------------------------sleepmonitor
+typedef struct{
+	uint8_t      control_light;              //开关灯
+	uint8_t      control_aroma;              //开关香薰	
+}_contorl_sleep;
+
+typedef struct{
+	uint8_t      real_data[6];                 //实时数据
+    
+	                
+}_real_status_sleep;
+
+
+typedef struct{
+	uint8_t               Device_Num;                     			//总设备个数
+	_real_status_sleep    Device_sleep_Array[MAX_DEVICE_NUM];			//sleep 实时数据
+	_contorl_sleep    	  Device_Control_sleep_Array[MAX_DEVICE_NUM];	//sleep 控制数据
+    _mac_index_data       mac_index; 									//mac list index	
+    
+}_datastruct_sleepmonitor;
+
+
+//-------------------------< end >-------------------------------
+
+
 
 uint8_t Del_Device_List(_mac_index_data *device_list,uint8_t mac_addr[6]);
 uint8_t Add_Device_List(_mac_index_data *device_list,uint8_t mac_addr[6]);
@@ -224,7 +250,7 @@ extern _datastruct_rar312  rar312_data;      //rar312_data 分配设备
 extern _datastruct_curtain curtain_data;     //rar312_data 分配设备
 extern _datastruct_pmi     pmi_data;         //pmi 分配设备
 
-
+extern _datastruct_sleepmonitor sleepmonitor_data;    //睡眠监测
 
 extern void Debug_Device_Info(void);        //打印调试信息
 

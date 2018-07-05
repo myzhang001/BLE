@@ -98,7 +98,34 @@ _real_master_uart match_device_real_status(uint8_t device_type, uint16_t conn_ha
             
             
 			break;
-		case E_03F:
+		case E_SLEEP_MONITER:
+            
+            memcpy(mac_addr,dev_info.ble_dev[conn_handle - 1].mac_addr,6);  //获取到conn_handle  对应的mac 地址
+            
+            index = mac_match_hanle(&sleepmonitor_data.mac_index,mac_addr);
+
+            s_real_data.device_type = E_SLEEP_MONITER;
+            memcpy(&s_real_data.mac_addr[0],&mac_addr[0],6);
+            s_real_data.length      = 6;
+        
+            #if 0
+            for(uint8_t i = 0; i < 6;i++)
+            {
+                NRF_LOG_INFO("MAC[%d] 0x%02x",i,mac_addr[i]);
+            }
+            NRF_LOG_INFO("mac index --- %d",index);  
+            #endif
+        
+            memcpy(&s_real_data.p_data[0],&sleepmonitor_data.Device_sleep_Array[index].real_data,6);
+            
+            #if 1
+            for(uint8_t j = 0; j < 6;j++)
+            {
+                NRF_LOG_INFO("sleep--------------data[%d] 0x%02x",j,s_real_data.p_data[j]);
+            }
+            #endif
+        
+        
 			break;
 		case E_CURTAIN:
              //(&curtain_data.mac_index,mac_addr);    //为设备添加匹配关系
@@ -320,8 +347,18 @@ void  uart_send_all_data_2(void)
                         #endif
                     
                         break;
-                    case E_03F:
+                    case E_SLEEP_MONITER:
                         
+                        memcpy(&data_buffer[19],&real_uart_data.device_type,real_uart_data.length + 7);
+                    
+                         #if 0
+                        for(uint8_t j = 0; j < real_uart_data.length + 7;j++)
+                        {
+                            NRF_LOG_INFO("sleep----DATA[%d] 0x%02x",j,data_buffer[19+j]);
+                        }
+                        #endif
+                    
+                    
                         break;
                     case E_CURTAIN:
                         

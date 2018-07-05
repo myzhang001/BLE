@@ -13,7 +13,7 @@
 typedef enum{
 	E_RAR312 = 0X00,
 	E_RM661 = 0X01,
-	E_03F = 0X02,
+	E_SLEEP_MONITER = 0X02,
 	E_CURTAIN = 0X03,
 	E_06H = 0X04,
 	E_PMI = 0X05,

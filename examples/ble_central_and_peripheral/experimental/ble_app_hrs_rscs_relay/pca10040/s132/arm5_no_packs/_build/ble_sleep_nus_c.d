@@ -47,5 +47,4 @@
 .\_build\ble_sleep_nus_c.o: ..\..\..\..\..\..\..\components\ble\common\ble_srv_common.h
 .\_build\ble_sleep_nus_c.o: ble_sleep_nus_c.h
 .\_build\ble_sleep_nus_c.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\nrf_log.h
-.\_build\ble_sleep_nus_c.o: ..\..\..\..\..\..\..\components\libraries\strerror\nrf_strerror.h
 .\_build\ble_sleep_nus_c.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\src\nrf_log_internal.h
