@@ -274,6 +274,19 @@ void control_device_cmd(uint8_t *ctrl_data)
 }
 
 
+/**@brief respond      
+ *
+ *	Function for dealing with control command.
+ *
+ * @param[in]   ctrl_data   clife control word data
+ *
+ * @return      void
+ */
+
+
+
+
+
 /**@brief Clife_GetHisData     
  *
  *	Function for dealing with the process of getting history data command.

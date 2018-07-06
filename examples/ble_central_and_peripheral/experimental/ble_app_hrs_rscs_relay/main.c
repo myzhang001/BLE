@@ -910,6 +910,9 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
             }
             #endif
            
+           
+  
+            
             //if(Ret_Device_Bind_status != E_BIND_NONE)
             {
                 on_adv_report(p_ble_evt);
@@ -1365,7 +1368,7 @@ static void db_disc_handler(ble_db_discovery_evt_t * p_evt)
     ble_nus_c_on_db_disc_evt(&m_nus_c_test[p_evt->conn_handle], p_evt); 
     #endif
     
-    ble_sleep_nus_c_on_db_disc_evt(&sleep_nus,p_evt);
+    //ble_sleep_nus_c_on_db_disc_evt(&sleep_nus,p_evt);
 }
 
 
@@ -1845,12 +1848,12 @@ static void application_timers_start(void)
     APP_ERROR_CHECK(err_code);
 }
 
-
+uint8_t temp;
 
 void crc_test(void)
 {
-    uint8_t temp;
-    static uint8_t buffer[20]={0x3a,0x00, 0x0d, 0x01, 0x01, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x00, 0x40, 0x01, 0x01};
+    
+    static uint8_t buffer[20]={0x3a,0x00, 0x0d, 0x01, 0x01, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x00, 0x37, 0x01, 0x01};
     
     
     temp = Crc8(&buffer[1],0x0d + 1);
@@ -1872,7 +1875,7 @@ int main(void)
     timer_init();
     uart_init();
     
-    //crc_test();
+    crc_test();
     
     buttons_leds_init(&erase_bonds); 
     ble_stack_init();
@@ -1908,7 +1911,7 @@ int main(void)
         adv_scan_start();
     }
     
-    #if 0
+    #if 1
     app_uart_put(0x12);						//´®¿Ú´òÓ¡²âÊÔ
     app_uart_put(0x12);
     app_uart_put(0x12);

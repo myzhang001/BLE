@@ -94,6 +94,24 @@ typedef struct{
 
 
 
+typedef struct{
+    uint8_t mac_addr[6];         //mac 地址
+    _e_machine_model device_type;
+}_bond_device;
+
+
+
+//保存已绑定设备信息
+
+typedef struct{
+     uint8_t       device_num;              //设备总数
+    _bond_device   bond_device[8];          //绑定设备信息
+}_bond_device_info;
+
+
+
+
+
 #define  BIND_TIMEOUT_CNT           60      //绑定超时时间
 
 //复位超时时间
@@ -104,8 +122,11 @@ dev_info.bing_timeout_cnt = BIND_TIMEOUT_CNT;\
 
 
 
-extern  _t_dev_mac_match dev_info;    //连接设备的所有信息
+extern  _t_dev_mac_match     dev_info;                 //连接设备的所有信息
 extern  _s_avaiable_device   sys_avaiable_table;   //可用设备列表全局
+
+extern _bond_device_info     bond_device_info;        //绑定设备信息
+
 
 
 bool dev_check_empty(void);
@@ -133,6 +154,11 @@ void device_total_del(void);
 void printf_all_dev_info(void);
 void sys_avaiable_device_type(void);
 
+uint8_t bond_info_del(_bond_device_info *bond_info , uint8_t mac_addr[6],_e_machine_model device_type);
+
+
+void connected_bond_list_device(_bond_device_info *bond_info,
+    ble_gap_evt_adv_report_t *adv_report);
 
 
 #endif

@@ -30,6 +30,15 @@ typedef enum{
 }data_indix;
 
 
+typedef struct
+{
+	bool 	  receive_start_flag;
+	uint8_t   data_index;
+	uint16_t  total_len;
+	uint8_t   rece_data[180];
+}somputon_data_recv_t;
+
+
 
 
 

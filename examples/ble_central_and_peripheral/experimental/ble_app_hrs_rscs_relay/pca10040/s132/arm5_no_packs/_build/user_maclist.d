@@ -66,3 +66,5 @@
 .\_build\user_maclist.o: C:\Keil_v5\ARM\PACK\NordicSemiconductor\nRF_DeviceFamilyPack\8.15.0\Device\Include\nrf52832_peripherals.h
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\drivers_nrf\hal\nrf_uart.h
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\drivers_nrf\hal\nrf_uarte.h
+.\_build\user_maclist.o: ..\..\..\..\..\..\..\components\ble\common\ble_advdata.h
+.\_build\user_maclist.o: ..\..\..\..\..\..\..\components\ble\ble_advertising\ble_advertising.h

@@ -11,8 +11,16 @@
 #include "app_fifo.h"
 #include "nrf_drv_uart.h"
 
+#include "ble_gap.h"
+#include "ble_advdata.h"
+#include "ble_advertising.h"
 
-_t_dev_mac_match dev_info;    //连接设备的所有信息
+
+_t_dev_mac_match dev_info;              //连接设备的所有信息
+
+_bond_device_info  bond_device_info;    //绑定设备信息
+
+
 
 
 uint8_t mac_addr_list[6];     //mac 地址
@@ -364,6 +372,186 @@ void printf_all_dev_info(void)
     }
    
 }
+
+//绑定设备数据添加
+uint8_t  bond_info_add(_bond_device_info *bond_info , uint8_t mac_addr[6],_e_machine_model device_type)
+{
+   
+    uint8_t i = 0;
+    
+    if(bond_info == NULL )return 0;
+
+    
+    
+    if( bond_info->device_num == 0)
+    {
+        memcpy(&bond_info->bond_device[0].mac_addr[0],&mac_addr[0],6);
+        bond_info->bond_device[0].device_type   = device_type;
+        bond_info->device_num = 1;
+    }
+    else
+    {
+        for(i = 0 ;  i < bond_info->device_num;i++)
+        {
+            if(memcmp(&bond_info->bond_device[i].mac_addr[0],&mac_addr[0],6) == 0)   //设备已经添加
+			{
+                return 0;                                                            //设备已经添加直接退出
+            }
+            else
+            {
+                break;  
+            }
+        }
+        
+        bond_info->device_num += 1;
+
+        memcpy(&bond_info->bond_device[bond_info->device_num].mac_addr[0],mac_addr,6);
+        bond_info->bond_device[bond_info->device_num].device_type = device_type;
+        
+    }   
+}
+
+
+
+//删除绑定设备
+uint8_t bond_info_del(_bond_device_info *bond_info , uint8_t mac_addr[6],_e_machine_model device_type)
+{
+    uint8_t i = 0;
+    
+    if(bond_info == NULL )return 0;
+
+    _bond_device_info *s_bond = bond_info;
+    
+    
+    
+    if(s_bond->device_num == 0)
+    {
+        NRF_LOG_INFO("ERROR ");
+       
+    }
+    else
+    {
+        for(i = 0; i < s_bond->device_num; i++)
+        {
+            if(memcmp(&s_bond->bond_device[i].mac_addr[0],&mac_addr[0],6) == 0) //找到相同设备
+			{
+                NRF_LOG_INFO("------------------------已经匹配相同设备");
+				memset(&s_bond->bond_device[i],0,sizeof(_bond_device));       //清除设备
+                
+                s_bond->device_num -= 1;                                           //设备断开，设备总数减一
+				break;
+			}
+            
+        }
+    
+    }
+}
+
+
+#define SCAN_INTERVAL                   0x00A0                                      /**< Determines scan interval in units of 0.625 millisecond. */
+#define SCAN_WINDOW                     0x0050                                      /**< Determines scan window in units of 0.625 millisecond. */
+#define SCAN_TIMEOUT                    0
+
+
+/**@brief Parameters used when scanning. */
+static ble_gap_scan_params_t const mscan_params =
+{
+    .active   = 1,
+    .interval = SCAN_INTERVAL,
+    .window   = SCAN_WINDOW,
+    .timeout  = SCAN_TIMEOUT,
+    #if (NRF_SD_BLE_API_VERSION <= 2)
+        .selective   = 0,
+        .p_whitelist = NULL,
+    #endif
+    #if (NRF_SD_BLE_API_VERSION >= 3)
+        .use_whitelist = 0,
+    #endif
+};
+
+#define MIN_CONNECTION_INTERVAL         (uint16_t) MSEC_TO_UNITS(7.5, UNIT_1_25_MS) /**< Determines minimum connection interval in milliseconds. */
+#define MAX_CONNECTION_INTERVAL         (uint16_t) MSEC_TO_UNITS(30, UNIT_1_25_MS)  /**< Determines maximum connection interval in milliseconds. */
+#define SLAVE_LATENCY                   0                                           /**< Determines slave latency in terms of connection events. */
+#define SUPERVISION_TIMEOUT             (uint16_t) MSEC_TO_UNITS(4000, UNIT_10_MS)  /**< Determines supervision time-out in units of 10 milliseconds. */
+
+
+/**@brief Connection parameters requested for connection. */
+ ble_gap_conn_params_t const mconnection_param =
+{
+    MIN_CONNECTION_INTERVAL,
+    MAX_CONNECTION_INTERVAL,
+    SLAVE_LATENCY,
+    SUPERVISION_TIMEOUT
+};
+#define APP_BLE_CONN_CFG_TAG            1                                           /**< A tag identifying the SoftDevice BLE configuration. */
+
+
+//连接绑定设备列表里的设备
+
+void connected_bond_list_device(_bond_device_info *bond_info,
+    ble_gap_evt_adv_report_t *adv_report)
+{
+    if( bond_info == NULL)
+        return;
+    
+    uint8_t i = 0;
+    uint32_t err_code;
+    uint8_t status;
+    
+    
+    static uint8_t mac_addr[6];
+    
+    mac_addr[5]  = adv_report->peer_addr.addr[0];
+    mac_addr[4]  = adv_report->peer_addr.addr[1];
+    mac_addr[3]  = adv_report->peer_addr.addr[2];
+    mac_addr[2]  = adv_report->peer_addr.addr[3];
+    mac_addr[1]  = adv_report->peer_addr.addr[4];
+    mac_addr[0]  = adv_report->peer_addr.addr[5];
+    
+    
+    for(i = 0; i < bond_info->device_num;i++)
+    {
+        if(memcmp(&bond_info->bond_device[i].mac_addr[0],mac_addr,6) != 0)  //找到设备
+        {
+            err_code = sd_ble_gap_connect(&adv_report->peer_addr,
+                                  &mscan_params,
+                                  &mconnection_param,
+                                  APP_BLE_CONN_CFG_TAG);
+
+            if (err_code == NRF_SUCCESS)
+            {
+                // scan is automatically stopped by the connect
+                //err_code = bsp_indication_set(BSP_INDICATE_IDLE);
+               // APP_ERROR_CHECK(err_code);
+                NRF_LOG_INFO("Connecting to target %02x%02x%02x%02x%02x%02x",
+                         adv_report->peer_addr.addr[0],
+                         adv_report->peer_addr.addr[1],
+                         adv_report->peer_addr.addr[2],
+                         adv_report->peer_addr.addr[3],
+                         adv_report->peer_addr.addr[4],
+                         adv_report->peer_addr.addr[5]
+                         );
+            }
+            
+           
+        }
+    }
+    
+   
+
+           
+     
+
+}
+
+
+
+
+
+
+
+
+
 
 extern uint8_t s_complete_flag ;
 

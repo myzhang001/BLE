@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\_build\nrf52832_xxaa.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\_build\nrf52832_xxaa.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Wed Jul 04 19:18:15 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Fri Jul 06 15:51:54 2018
 <BR><P>
 <H3>Maximum Stack Usage =        520 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -396,7 +396,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsr
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsl
 </UL>
-<BR>[Called By]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
+<BR>[Called By]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
 </UL>
 
 <P><STRONG><a name="[249]"></a>___aeabi_memcpy8$move</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, memmovea.o(.text), UNUSED)
@@ -408,7 +408,7 @@ Global Symbols
 <LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Master_App_RecvHandler
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;on_ble_peripheral_evt
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_real_time_data_cmd
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_data_send
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_data_send
 <LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;discovery_complete_evt_trigger
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_data_encode
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;manuf_specific_data_encode
@@ -425,19 +425,19 @@ Global Symbols
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_uart_init
 <LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;on_ble_central_evt
-<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_send_in_evt
-<LI><a href="#[1a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_unexpected_error
-<LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
 <LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;discovery_error_evt_trigger
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdk_mapped_flags_key_list_get
 <LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_evt_handler
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peer_data_delete
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_ble_evt_handler
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
+<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_send_in_evt
+<LI><a href="#[1a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_unexpected_error
+<LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
 <LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_ble_evt_handler
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_unexpected_error
 <LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_proc_start
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conn_sec_failure
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conn_sec_failure
 </UL>
 
 <P><STRONG><a name="[24a]"></a>__aeabi_memmove</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, memmovea.o(.text), UNUSED)
@@ -468,16 +468,15 @@ Global Symbols
 
 <P><STRONG><a name="[a6]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[1b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peers_delete
-<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_sleep_nus_c_on_db_disc_evt
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_nus_c_on_db_disc_evt
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_advertising_init
 <LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;advertising_init
-<LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_apply_in_evt
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_pdb_evt_handler
 <LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fds_init
 <LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fds_evt_handler
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ah
+<LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_apply_in_evt
 <LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;events_send_from_err_code
 <LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_params_reply
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_config_req
@@ -545,21 +544,21 @@ Global Symbols
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BubbleSort1
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memcmp
 </UL>
-<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bond_cmd
+<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bond_cmd
 </UL>
 
-<P><STRONG><a name="[42]"></a>App_RecvHandler</STRONG> (Thumb, 162 bytes, Stack size 24 bytes, protocol_analysis.o(i.App_RecvHandler))
+<P><STRONG><a name="[42]"></a>App_RecvHandler</STRONG> (Thumb, 168 bytes, Stack size 24 bytes, protocol_analysis.o(i.App_RecvHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = App_RecvHandler &rArr; get_real_time_data_cmd &rArr; mac_match_hanle &rArr; memcmp
 </UL>
-<BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_device_time_cmd
+<BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_device_time_cmd
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_real_time_data_cmd
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_device_time_cmd
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_device_cmd
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_history_data_cmd
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bond_cmd
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clife_GetHisData
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;device_bond_status_update
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;device_add_type
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_device_time_cmd
+<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_device_cmd
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_history_data_cmd
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bond_cmd
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clife_GetHisData
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;device_bond_status_update
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;device_add_type
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.main)
 </UL>
@@ -574,7 +573,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mac_match_hanle
 </UL>
 
-<P><STRONG><a name="[83]"></a>Clife_GetHisData</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, somputon_ble_datahandle.o(i.Clife_GetHisData))
+<P><STRONG><a name="[82]"></a>Clife_GetHisData</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, somputon_ble_datahandle.o(i.Clife_GetHisData))
 <BR><BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_RecvHandler
 </UL>
 
@@ -583,9 +582,10 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nus_data_handle
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WIFI_Decode
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;crc_test
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;real_data_send
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_data_send
-<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bond_data_send
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_data_send
+<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bond_data_send
 </UL>
 
 <P><STRONG><a name="[85]"></a>Debug_Device_match_connected_mac</STRONG> (Thumb, 46 bytes, Stack size 24 bytes, user_maclist.o(i.Debug_Device_match_connected_mac))
@@ -708,7 +708,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;on_ble_central_evt
 </UL>
 
-<P><STRONG><a name="[98]"></a>WIFI_Decode</STRONG> (Thumb, 224 bytes, Stack size 32 bytes, slava_device_data.o(i.WIFI_Decode))
+<P><STRONG><a name="[98]"></a>WIFI_Decode</STRONG> (Thumb, 250 bytes, Stack size 32 bytes, slava_device_data.o(i.WIFI_Decode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = WIFI_Decode &rArr; Crc8
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Crc8
@@ -761,7 +761,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_gpiote_in_event_enable
 </UL>
-<BR>[Called By]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_init
+<BR>[Called By]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_init
 </UL>
 
 <P><STRONG><a name="[af]"></a>app_button_init</STRONG> (Thumb, 96 bytes, Stack size 24 bytes, app_button.o(i.app_button_init))
@@ -772,7 +772,7 @@ Global Symbols
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_gpiote_init
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_gpiote_in_init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_init
+<BR>[Called By]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_init
 </UL>
 
 <P><STRONG><a name="[44]"></a>app_error_fault_handler</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, app_error_weak.o(i.app_error_fault_handler))
@@ -801,15 +801,15 @@ Global Symbols
 <LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;on_adv_evt
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gap_params_init
 <LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conn_params_error_handler
-<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_stack_init
+<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_stack_init
 <LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_nus_c_evt_handler
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;advertising_init
 <LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_evt_handler
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_soc_evts_poll
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_ble_evts_poll
 <LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;swi_interrupt_priority_workaround
 <LI><a href="#[1dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;softdevices_evt_irq_enable
 <LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;softdevice_evt_irq_disable
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_soc_evts_poll
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_ble_evts_poll
 </UL>
 
 <P><STRONG><a name="[b4]"></a>app_error_save_and_stop</STRONG> (Thumb, 96 bytes, Stack size 8 bytes, app_error.o(i.app_error_save_and_stop))
@@ -842,7 +842,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b3]"></a>app_timer_create</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, app_timer.o(i.app_timer_create))
-<BR><BR>[Called By]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_init
+<BR><BR>[Called By]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_init
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_params_init
 <LI><a href="#[1ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_init
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_button_init
@@ -868,9 +868,9 @@ Global Symbols
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_SetPendingIRQ
 </UL>
 <BR>[Called By]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
-<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_button_event_handler
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conn_params_negotiation
+<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
+<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_button_event_handler
 <LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpiote_event_handler
 </UL>
 
@@ -879,9 +879,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_stop_op_schedule
 </UL>
-<BR>[Called By]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
+<BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_evt_handler
+<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
 <LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_button_event_handler
-<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_evt_handler
 <LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpiote_event_handler
 </UL>
 
@@ -916,6 +916,7 @@ Global Symbols
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_fifo_get
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_event_handle
+<LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[bf]"></a>app_util_critical_region_enter</STRONG> (Thumb, 64 bytes, Stack size 12 bytes, app_util_platform.o(i.app_util_critical_region_enter))
@@ -1015,8 +1016,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdk_mapped_flags_key_list_get
 </UL>
-<BR>[Called By]<UL><LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
-<LI><a href="#[175]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_local_database_has_changed
+<BR>[Called By]<UL><LI><a href="#[175]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_local_database_has_changed
+<LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
 <LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;params_reply_pending_process
 <LI><a href="#[1a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;link_secure_pending_process
 </UL>
@@ -1077,9 +1078,9 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdk_mapped_flags_get_by_key
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;user_flag_is_acquired
 </UL>
-<BR>[Called By]<UL><LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
-<LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_free_connection
+<BR>[Called By]<UL><LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_free_connection
 <LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_connection_by_conn_handle
+<LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
 <LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;params_reply_pending_process
 <LI><a href="#[1a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;link_secure_pending_process
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peer_created
@@ -1094,15 +1095,15 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdk_mapped_flags_update_by_key
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;user_flag_is_acquired
 </UL>
-<BR>[Called By]<UL><LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_send_in_evt
-<LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_update
-<LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_apply_in_evt
-<LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_im_evt_handler
+<BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_im_evt_handler
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;new_connection
 <LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_pdb_evt_handler
 <LI><a href="#[175]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_local_database_has_changed
 <LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_im_evt_handler
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
+<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_send_in_evt
+<LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_update
+<LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_apply_in_evt
 <LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;link_secure
 <LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flags_set_from_err_code
 <LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_params_reply
@@ -1111,7 +1112,7 @@ Global Symbols
 <LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_ble_evt_handler
 <LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_proc_start
 <LI><a href="#[19e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_proc_housekeeping
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conn_sec_failure
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conn_sec_failure
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;auth_status_success_process
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_sm_evt_handler
 </UL>
@@ -1175,7 +1176,7 @@ Global Symbols
 <P><STRONG><a name="[22e]"></a>ble_nus_c_string_send</STRONG> (Thumb, 58 bytes, Stack size 24 bytes, ble_nus_c.o(i.ble_nus_c_string_send))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = ble_nus_c_string_send
 </UL>
-<BR>[Called By]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_string_c
+<BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_string_c
 </UL>
 
 <P><STRONG><a name="[10a]"></a>ble_nus_c_tx_notif_enable</STRONG> (Thumb, 66 bytes, Stack size 24 bytes, ble_nus_c.o(i.ble_nus_c_tx_notif_enable))
@@ -1200,20 +1201,12 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(sdh_ble_observers2)
 </UL>
-<P><STRONG><a name="[111]"></a>ble_sleep_nus_c_on_db_disc_evt</STRONG> (Thumb, 136 bytes, Stack size 40 bytes, ble_sleep_nus_c.o(i.ble_sleep_nus_c_on_db_disc_evt))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = ble_sleep_nus_c_on_db_disc_evt
-</UL>
-<BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
-</UL>
-<BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;db_disc_handler
-</UL>
-
 <P><STRONG><a name="[fe]"></a>ble_srv_is_notification_enabled</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, ble_srv_common.o(i.ble_srv_is_notification_enabled))
 <BR><BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_nus_on_ble_evt
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_evt_handler
 </UL>
 
-<P><STRONG><a name="[80]"></a>bond_cmd</STRONG> (Thumb, 58 bytes, Stack size 0 bytes, somputon_ble_datahandle.o(i.bond_cmd))
+<P><STRONG><a name="[7f]"></a>bond_cmd</STRONG> (Thumb, 58 bytes, Stack size 0 bytes, somputon_ble_datahandle.o(i.bond_cmd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = bond_cmd &rArr; Add_Device_List &rArr; BubbleSort1
 </UL>
 <BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Add_Device_List
@@ -1221,112 +1214,112 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_RecvHandler
 </UL>
 
-<P><STRONG><a name="[116]"></a>bond_data_send</STRONG> (Thumb, 80 bytes, Stack size 64 bytes, somputon_ble_datahandle.o(i.bond_data_send))
+<P><STRONG><a name="[115]"></a>bond_data_send</STRONG> (Thumb, 80 bytes, Stack size 64 bytes, somputon_ble_datahandle.o(i.bond_data_send))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = bond_data_send &rArr; send_string_c &rArr; ble_nus_c_string_send
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Crc8
-<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_string_c
+<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_string_c
 </UL>
 <BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_send_proc
 </UL>
 
-<P><STRONG><a name="[121]"></a>bsp_board_button_state_get</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, boards.o(i.bsp_board_button_state_get))
-<BR><BR>[Called By]<UL><LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_button_is_pressed
+<P><STRONG><a name="[120]"></a>bsp_board_button_state_get</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, boards.o(i.bsp_board_button_state_get))
+<BR><BR>[Called By]<UL><LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_button_is_pressed
 </UL>
 
 <P><STRONG><a name="[aa]"></a>bsp_board_led_invert</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, boards.o(i.bsp_board_led_invert))
-<BR><BR>[Called By]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
+<BR><BR>[Called By]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;alert_timer_handler
 </UL>
 
-<P><STRONG><a name="[118]"></a>bsp_board_led_off</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, boards.o(i.bsp_board_led_off))
-<BR><BR>[Calls]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_gpio_pin_write
+<P><STRONG><a name="[117]"></a>bsp_board_led_off</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, boards.o(i.bsp_board_led_off))
+<BR><BR>[Calls]<UL><LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_gpio_pin_write
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;on_ble_peripheral_evt
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;on_ble_central_evt
-<LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;leds_off
-<LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
-<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_leds_off
+<LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;leds_off
+<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
+<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_leds_off
 </UL>
 
 <P><STRONG><a name="[9f]"></a>bsp_board_led_on</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, boards.o(i.bsp_board_led_on))
-<BR><BR>[Calls]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_gpio_pin_write
+<BR><BR>[Calls]<UL><LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_gpio_pin_write
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;on_ble_peripheral_evt
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;on_ble_central_evt
 <LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;on_adv_evt
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adv_scan_start
-<LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
-<LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_leds_on
+<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
+<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_leds_on
 </UL>
 
-<P><STRONG><a name="[125]"></a>bsp_board_led_state_get</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, boards.o(i.bsp_board_led_state_get))
-<BR><BR>[Called By]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
+<P><STRONG><a name="[124]"></a>bsp_board_led_state_get</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, boards.o(i.bsp_board_led_state_get))
+<BR><BR>[Called By]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
 </UL>
 
-<P><STRONG><a name="[11a]"></a>bsp_board_leds_init</STRONG> (Thumb, 38 bytes, Stack size 24 bytes, boards.o(i.bsp_board_leds_init))
+<P><STRONG><a name="[119]"></a>bsp_board_leds_init</STRONG> (Thumb, 38 bytes, Stack size 24 bytes, boards.o(i.bsp_board_leds_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = bsp_board_leds_init &rArr; nrf_gpio_cfg
 </UL>
-<BR>[Calls]<UL><LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_leds_off
-<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_gpio_cfg
+<BR>[Calls]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_gpio_cfg
+<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_leds_off
 </UL>
-<BR>[Called By]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_init
+<BR>[Called By]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_init
 </UL>
 
-<P><STRONG><a name="[11c]"></a>bsp_board_leds_off</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, boards.o(i.bsp_board_leds_off))
+<P><STRONG><a name="[11b]"></a>bsp_board_leds_off</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, boards.o(i.bsp_board_leds_off))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_board_leds_off
 </UL>
-<BR>[Calls]<UL><LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_off
+<BR>[Calls]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_off
 </UL>
-<BR>[Called By]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;leds_off
-<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_leds_init
+<BR>[Called By]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;leds_off
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_leds_init
 </UL>
 
-<P><STRONG><a name="[11d]"></a>bsp_board_leds_on</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, boards.o(i.bsp_board_leds_on))
+<P><STRONG><a name="[11c]"></a>bsp_board_leds_on</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, boards.o(i.bsp_board_leds_on))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_board_leds_on
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_on
 </UL>
-<BR>[Called By]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
+<BR>[Called By]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
 </UL>
 
-<P><STRONG><a name="[120]"></a>bsp_board_pin_to_button_idx</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, boards.o(i.bsp_board_pin_to_button_idx))
+<P><STRONG><a name="[11f]"></a>bsp_board_pin_to_button_idx</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, boards.o(i.bsp_board_pin_to_button_idx))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bsp_board_pin_to_button_idx
 </UL>
 <BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_button_event_handler
 </UL>
 
-<P><STRONG><a name="[11e]"></a>bsp_btn_ble_init</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, bsp_btn_ble.o(i.bsp_btn_ble_init))
+<P><STRONG><a name="[11d]"></a>bsp_btn_ble_init</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, bsp_btn_ble.o(i.bsp_btn_ble_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = bsp_btn_ble_init &rArr; advertising_buttons_configure &rArr; bsp_event_to_button_action_assign
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;advertising_buttons_configure
-<LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_button_is_pressed
+<LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_button_is_pressed
 </UL>
 <BR>[Called By]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[11f]"></a>bsp_button_is_pressed</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, bsp.o(i.bsp_button_is_pressed))
-<BR><BR>[Calls]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_button_state_get
+<P><STRONG><a name="[11e]"></a>bsp_button_is_pressed</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, bsp.o(i.bsp_button_is_pressed))
+<BR><BR>[Calls]<UL><LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_button_state_get
 </UL>
-<BR>[Called By]<UL><LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_btn_ble_init
+<BR>[Called By]<UL><LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_btn_ble_init
 </UL>
 
 <P><STRONG><a name="[a4]"></a>bsp_event_to_button_action_assign</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, bsp.o(i.bsp_event_to_button_action_assign))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = bsp_event_to_button_action_assign
 </UL>
-<BR>[Called By]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_init
+<BR>[Called By]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_init
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_evt_handler
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;advertising_buttons_configure
 </UL>
 
-<P><STRONG><a name="[122]"></a>bsp_init</STRONG> (Thumb, 126 bytes, Stack size 16 bytes, bsp.o(i.bsp_init))
+<P><STRONG><a name="[121]"></a>bsp_init</STRONG> (Thumb, 126 bytes, Stack size 16 bytes, bsp.o(i.bsp_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = bsp_init &rArr; app_button_init &rArr; nrf_drv_gpiote_in_init &rArr; channel_port_alloc
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_timer_create
-<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_leds_init
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_button_init
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_button_enable
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_event_to_button_action_assign
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_leds_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1335,36 +1328,44 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Debug_Device_match_connected_mac
 </UL>
 
-<P><STRONG><a name="[7f]"></a>clear_history_data_cmd</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, somputon_ble_datahandle.o(i.clear_history_data_cmd))
+<P><STRONG><a name="[7d]"></a>clear_history_data_cmd</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, somputon_ble_datahandle.o(i.clear_history_data_cmd))
 <BR><BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_RecvHandler
 </UL>
 
-<P><STRONG><a name="[12c]"></a>control_data_send</STRONG> (Thumb, 104 bytes, Stack size 72 bytes, somputon_ble_datahandle.o(i.control_data_send))
+<P><STRONG><a name="[12b]"></a>control_data_send</STRONG> (Thumb, 104 bytes, Stack size 72 bytes, somputon_ble_datahandle.o(i.control_data_send))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = control_data_send &rArr; send_string_c &rArr; ble_nus_c_string_send
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Crc8
-<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_string_c
+<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_string_c
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_send_proc
 </UL>
 
-<P><STRONG><a name="[7d]"></a>control_device_cmd</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, somputon_ble_datahandle.o(i.control_device_cmd))
+<P><STRONG><a name="[84]"></a>control_device_cmd</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, somputon_ble_datahandle.o(i.control_device_cmd))
 <BR><BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_RecvHandler
+</UL>
+
+<P><STRONG><a name="[12c]"></a>crc_test</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, main.o(i.crc_test))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = crc_test &rArr; Crc8
+</UL>
+<BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Crc8
+</UL>
+<BR>[Called By]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[df]"></a>data_send_proc</STRONG> (Thumb, 188 bytes, Stack size 24 bytes, user_maclist.o(i.data_send_proc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = data_send_proc &rArr; control_data_send &rArr; send_string_c &rArr; ble_nus_c_string_send
 </UL>
 <BR>[Calls]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;real_data_send
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_data_send
-<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bond_data_send
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_data_send
+<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bond_data_send
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;battery_level_meas_timeout_handler
 </UL>
 
-<P><STRONG><a name="[82]"></a>device_add_type</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, user_maclist.o(i.device_add_type))
+<P><STRONG><a name="[81]"></a>device_add_type</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, user_maclist.o(i.device_add_type))
 <BR><BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_RecvHandler
 </UL>
 
@@ -1372,7 +1373,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;on_ble_central_evt
 </UL>
 
-<P><STRONG><a name="[81]"></a>device_bond_status_update</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, user_maclist.o(i.device_bond_status_update))
+<P><STRONG><a name="[80]"></a>device_bond_status_update</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, user_maclist.o(i.device_bond_status_update))
 <BR><BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_RecvHandler
 </UL>
 
@@ -1535,13 +1536,13 @@ Global Symbols
 <P><STRONG><a name="[106]"></a>gcm_ble_evt_handler</STRONG> (Thumb, 142 bytes, Stack size 32 bytes, gatt_cache_manager.o(i.gcm_ble_evt_handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 448<LI>Call Chain = gcm_ble_evt_handler &rArr; pending_flags_check &rArr; gscm_local_db_cache_update &rArr; pdb_write_buf_store &rArr; write_buf_store &rArr; pds_peer_data_store &rArr; fds_record_write_reserved &rArr; write_enqueue &rArr; queue_start &rArr; queue_process &rArr; gc_execute &rArr; gc_next_page &rArr; gc_record_find_next &rArr; gc_record_copy &rArr; nrf_fstorage_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_peer_id_get_by_conn_handle
+<LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_db_change_notification_done
+<LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_update
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_apply_in_evt
 <LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_peer_id_get_by_conn_handle
-<LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_db_change_notification_done
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_evt_handler
@@ -1550,9 +1551,9 @@ Global Symbols
 <P><STRONG><a name="[4b]"></a>gcm_im_evt_handler</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, gatt_cache_manager.o(i.gcm_im_evt_handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = gcm_im_evt_handler &rArr; local_db_apply_in_evt &rArr; gscm_local_db_cache_apply &rArr; pdb_peer_data_ptr_get &rArr; pds_peer_data_read &rArr; peer_data_find &rArr; fds_record_find &rArr; record_find &rArr; record_find_next
 </UL>
-<BR>[Calls]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_apply_in_evt
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
 <LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_service_changed_ind_needed
+<LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_apply_in_evt
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> id_manager.o(.constdata)
 </UL>
@@ -1568,11 +1569,11 @@ Global Symbols
 <P><STRONG><a name="[175]"></a>gcm_local_database_has_changed</STRONG> (Thumb, 74 bytes, Stack size 96 bytes, gatt_cache_manager.o(i.gcm_local_database_has_changed))
 <BR><BR>[Stack]<UL><LI>Max Depth = 512<LI>Call Chain = gcm_local_database_has_changed &rArr; pending_flags_check &rArr; gscm_local_db_cache_update &rArr; pdb_write_buf_store &rArr; write_buf_store &rArr; pds_peer_data_store &rArr; fds_record_write_reserved &rArr; write_enqueue &rArr; queue_start &rArr; queue_process &rArr; gc_execute &rArr; gc_next_page &rArr; gc_record_find_next &rArr; gc_record_copy &rArr; nrf_fstorage_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_conn_handles
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_peer_id_get_by_conn_handle
 <LI><a href="#[176]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_database_has_changed
+<LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
 </UL>
 <BR>[Called By]<UL><LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_local_database_has_changed
 </UL>
@@ -1580,12 +1581,12 @@ Global Symbols
 <P><STRONG><a name="[50]"></a>gcm_pdb_evt_handler</STRONG> (Thumb, 118 bytes, Stack size 24 bytes, gatt_cache_manager.o(i.gcm_pdb_evt_handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 440<LI>Call Chain = gcm_pdb_evt_handler &rArr; pending_flags_check &rArr; gscm_local_db_cache_update &rArr; pdb_write_buf_store &rArr; write_buf_store &rArr; pds_peer_data_store &rArr; fds_record_write_reserved &rArr; write_enqueue &rArr; queue_start &rArr; queue_process &rArr; gc_execute &rArr; gc_next_page &rArr; gc_record_find_next &rArr; gc_record_copy &rArr; nrf_fstorage_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
-<LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_update
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
 <LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_mutex_unlock
 <LI><a href="#[178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_peer_data_ptr_get
 <LI><a href="#[177]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_conn_handle_get
+<LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
+<LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_update
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> peer_database.o(.constdata)
 </UL>
@@ -1600,7 +1601,7 @@ Global Symbols
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_peer_id_get_by_conn_handle
 </UL>
 
-<P><STRONG><a name="[7c]"></a>get_device_time_cmd</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, somputon_ble_datahandle.o(i.get_device_time_cmd))
+<P><STRONG><a name="[83]"></a>get_device_time_cmd</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, somputon_ble_datahandle.o(i.get_device_time_cmd))
 <BR><BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_RecvHandler
 </UL>
 
@@ -1626,8 +1627,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_raw_store
 </UL>
-<BR>[Called By]<UL><LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_send_in_evt
-<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
+<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
+<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_send_in_evt
 </UL>
 
 <P><STRONG><a name="[21e]"></a>gscm_init</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, gatts_cache_manager.o(i.gscm_init))
@@ -1794,13 +1795,13 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_connection_by_conn_handle
 </UL>
-<BR>[Called By]<UL><LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_send_in_evt
-<LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
-<LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_service_changed_ind_needed
+<BR>[Called By]<UL><LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_service_changed_ind_needed
 <LI><a href="#[181]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_update
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_apply
 <LI><a href="#[175]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_local_database_has_changed
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
+<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_send_in_evt
+<LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
 <LI><a href="#[19a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;params_req_send
 <LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;events_send_from_err_code
 <LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_params_reply
@@ -1834,7 +1835,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_real_time_data_cmd
 </UL>
 
-<P><STRONG><a name="[31]"></a>main</STRONG> (Thumb, 424 bytes, Stack size 40 bytes, main.o(i.main))
+<P><STRONG><a name="[31]"></a>main</STRONG> (Thumb, 458 bytes, Stack size 40 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 440<LI>Call Chain = main &rArr; advertising_init &rArr; ble_advertising_init &rArr; ble_advdata_set &rArr; ble_advdata_encode &rArr; uuid_list_encode &rArr; uuid_list_sized_encode
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_avaiable_device_type
@@ -1842,22 +1843,24 @@ Global Symbols
 <LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_ble_gatt_init
 <LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_ble_gatt_att_mtu_central_set
 <LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;master_cb_init
-<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_init
-<LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_btn_ble_init
+<LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_init
+<LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_btn_ble_init
 <LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_nus_init
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_nus_c_init
 <LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_db_discovery_init
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_params_init
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_uart_put
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_uart_init
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_timer_start
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_error_handler
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WIFI_Decode
 <LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Somputon_Init
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;crc_test
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adv_start
 <LI><a href="#[1ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_init
 <LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peer_manager_init
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gap_params_init
-<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_stack_init
+<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_stack_init
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;advertising_init
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;adv_scan_start
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
@@ -1988,10 +1991,10 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[197]"></a>nrf_drv_common_irq_enable</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, nrf_drv_common.o(i.nrf_drv_common_irq_enable))
-<BR><BR>[Called By]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;interrupts_enable
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_gpiote_init
+<BR><BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_gpiote_init
 <LI><a href="#[1bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_clock_init
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_state_evt_handler
+<LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;interrupts_enable
 </UL>
 
 <P><STRONG><a name="[ae]"></a>nrf_drv_gpiote_in_event_enable</STRONG> (Thumb, 156 bytes, Stack size 24 bytes, nrf_drv_gpiote.o(i.nrf_drv_gpiote_in_event_enable))
@@ -2037,8 +2040,8 @@ Global Symbols
 <P><STRONG><a name="[ca]"></a>nrf_drv_uart_init</STRONG> (Thumb, 98 bytes, Stack size 24 bytes, nrf_drv_uart.o(i.nrf_drv_uart_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = nrf_drv_uart_init &rArr; apply_config &rArr; nrf_gpio_cfg_output &rArr; nrf_gpio_cfg
 </UL>
-<BR>[Calls]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;interrupts_enable
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;apply_config
+<BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;apply_config
+<LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;interrupts_enable
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_uart_init
 </UL>
@@ -2066,13 +2069,13 @@ Global Symbols
 <P><STRONG><a name="[ce]"></a>nrf_drv_uart_tx</STRONG> (Thumb, 262 bytes, Stack size 32 bytes, nrf_drv_uart.o(i.nrf_drv_uart_tx))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = nrf_drv_uart_tx &rArr; tx_byte &rArr; nrf_uart_event_clear
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tx_byte
+<BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_tx_in_progress
+<LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tx_byte
 <LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_uarte_event_clear
 <LI><a href="#[1cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_uarte_event_check
 <LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_uart_event_clear
 <LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_uart_event_check
 <LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_is_in_RAM
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_tx_in_progress
 </UL>
 <BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_uart_put
 <LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_event_handler
@@ -2140,19 +2143,19 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1d4]"></a>nrf_sdh_ble_app_ram_start_get</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, nrf_sdh_ble.o(i.nrf_sdh_ble_app_ram_start_get))
-<BR><BR>[Called By]<UL><LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_ble_default_cfg_set
+<BR><BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_ble_default_cfg_set
 </UL>
 
-<P><STRONG><a name="[114]"></a>nrf_sdh_ble_default_cfg_set</STRONG> (Thumb, 160 bytes, Stack size 32 bytes, nrf_sdh_ble.o(i.nrf_sdh_ble_default_cfg_set))
+<P><STRONG><a name="[113]"></a>nrf_sdh_ble_default_cfg_set</STRONG> (Thumb, 160 bytes, Stack size 32 bytes, nrf_sdh_ble.o(i.nrf_sdh_ble_default_cfg_set))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = nrf_sdh_ble_default_cfg_set
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_ble_app_ram_start_get
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_stack_init
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_stack_init
 </UL>
 
-<P><STRONG><a name="[115]"></a>nrf_sdh_ble_enable</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, nrf_sdh_ble.o(i.nrf_sdh_ble_enable))
-<BR><BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_stack_init
+<P><STRONG><a name="[114]"></a>nrf_sdh_ble_enable</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, nrf_sdh_ble.o(i.nrf_sdh_ble_enable))
+<BR><BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_stack_init
 </UL>
 
 <P><STRONG><a name="[1d7]"></a>nrf_sdh_disable_request</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, nrf_sdh.o(i.nrf_sdh_disable_request))
@@ -2165,7 +2168,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_request_continue
 </UL>
 
-<P><STRONG><a name="[113]"></a>nrf_sdh_enable_request</STRONG> (Thumb, 72 bytes, Stack size 16 bytes, nrf_sdh.o(i.nrf_sdh_enable_request))
+<P><STRONG><a name="[112]"></a>nrf_sdh_enable_request</STRONG> (Thumb, 72 bytes, Stack size 16 bytes, nrf_sdh.o(i.nrf_sdh_enable_request))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = nrf_sdh_enable_request &rArr; swi_interrupt_priority_workaround &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; app_error_save_and_stop
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;swi_interrupt_priority_workaround
@@ -2173,7 +2176,7 @@ Global Symbols
 <LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdh_state_observer_notify
 <LI><a href="#[1d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdh_request_observer_notify
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_stack_init
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_stack_init
 <LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_request_continue
 </UL>
 
@@ -2194,18 +2197,18 @@ Global Symbols
 <P><STRONG><a name="[1d1]"></a>nrf_sdh_request_continue</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, nrf_sdh.o(i.nrf_sdh_request_continue))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = nrf_sdh_request_continue &rArr; nrf_sdh_enable_request &rArr; swi_interrupt_priority_workaround &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; app_error_save_and_stop
 </UL>
-<BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_enable_request
+<BR>[Calls]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_enable_request
 <LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_disable_request
 </UL>
 <BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_fstorage_sys_evt_handler
 </UL>
 
 <P><STRONG><a name="[1d5]"></a>nrf_section_iter_init</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, nrf_section_iter.o(i.nrf_section_iter_init))
-<BR><BR>[Called By]<UL><LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdh_state_observer_notify
-<LI><a href="#[1d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdh_request_observer_notify
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_soc_evts_poll
+<BR><BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_soc_evts_poll
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_ble_evts_poll
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_evts_poll
+<LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdh_state_observer_notify
+<LI><a href="#[1d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdh_request_observer_notify
 </UL>
 
 <P><STRONG><a name="[1d6]"></a>nrf_section_iter_next</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, nrf_section_iter.o(i.nrf_section_iter_next))
@@ -2213,11 +2216,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_section_iter_item_set
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdh_state_observer_notify
-<LI><a href="#[1d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdh_request_observer_notify
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_soc_evts_poll
+<BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_soc_evts_poll
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_ble_evts_poll
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_evts_poll
+<LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdh_state_observer_notify
+<LI><a href="#[1d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdh_request_observer_notify
 </UL>
 
 <P><STRONG><a name="[108]"></a>nus_data_handle</STRONG> (Thumb, 312 bytes, Stack size 144 bytes, nus_master_datahandle.o(i.nus_data_handle))
@@ -2498,7 +2501,7 @@ Global Symbols
 <P><STRONG><a name="[20a]"></a>peer_id_allocate</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, peer_id.o(i.peer_id_allocate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = peer_id_allocate &rArr; claim &rArr; pm_mutex_lock_first_available &rArr; lock_by_mask &rArr; app_util_critical_region_enter
 </UL>
-<BR>[Calls]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;claim
+<BR>[Calls]<UL><LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;claim
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pds_peer_id_allocate
 <LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pds_init
@@ -2507,7 +2510,7 @@ Global Symbols
 <P><STRONG><a name="[210]"></a>peer_id_delete</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, peer_id.o(i.peer_id_delete))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = peer_id_delete &rArr; claim &rArr; pm_mutex_lock_first_available &rArr; lock_by_mask &rArr; app_util_critical_region_enter
 </UL>
-<BR>[Calls]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;claim
+<BR>[Calls]<UL><LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;claim
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pds_peer_id_free
 </UL>
@@ -2564,7 +2567,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = pm_buffer_block_acquire &rArr; pm_buffer_release &rArr; pm_mutex_unlock &rArr; app_util_critical_region_enter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_buffer_release
-<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_mutex_lock
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_mutex_lock
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_write_buf_get
 </UL>
@@ -2652,22 +2655,22 @@ Global Symbols
 <LI><a href="#[173]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_init
 </UL>
 
-<P><STRONG><a name="[128]"></a>pm_mutex_lock</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, pm_mutex.o(i.pm_mutex_lock))
+<P><STRONG><a name="[127]"></a>pm_mutex_lock</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, pm_mutex.o(i.pm_mutex_lock))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = pm_mutex_lock &rArr; lock_by_mask &rArr; app_util_critical_region_enter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lock_by_mask
 </UL>
-<BR>[Called By]<UL><LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
-<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;claim
-<LI><a href="#[200]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_buffer_block_acquire
+<BR>[Called By]<UL><LI><a href="#[200]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_buffer_block_acquire
+<LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
+<LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;claim
 </UL>
 
-<P><STRONG><a name="[127]"></a>pm_mutex_lock_first_available</STRONG> (Thumb, 54 bytes, Stack size 24 bytes, pm_mutex.o(i.pm_mutex_lock_first_available))
+<P><STRONG><a name="[126]"></a>pm_mutex_lock_first_available</STRONG> (Thumb, 54 bytes, Stack size 24 bytes, pm_mutex.o(i.pm_mutex_lock_first_available))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = pm_mutex_lock_first_available &rArr; lock_by_mask &rArr; app_util_critical_region_enter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lock_by_mask
 </UL>
-<BR>[Called By]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;claim
+<BR>[Called By]<UL><LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;claim
 </UL>
 
 <P><STRONG><a name="[1b5]"></a>pm_mutex_lock_status_get</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, pm_mutex.o(i.pm_mutex_lock_status_get))
@@ -2684,10 +2687,10 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_util_critical_region_exit
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_util_critical_region_enter
 </UL>
-<BR>[Called By]<UL><LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
-<LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;release
-<LI><a href="#[1ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_buffer_release
+<BR>[Called By]<UL><LI><a href="#[1ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_buffer_release
 <LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_pdb_evt_handler
+<LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
+<LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;release
 </UL>
 
 <P><STRONG><a name="[4d]"></a>pm_pdb_evt_handler</STRONG> (Thumb, 276 bytes, Stack size 48 bytes, peer_manager.o(i.pm_pdb_evt_handler))
@@ -2754,7 +2757,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = real_data_send &rArr; send_string_c &rArr; ble_nus_c_string_send
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Crc8
-<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_string_c
+<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_string_c
 </UL>
 <BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_send_proc
 </UL>
@@ -2811,17 +2814,17 @@ Global Symbols
 <LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_evt_handler
 </UL>
 
-<P><STRONG><a name="[117]"></a>send_string_c</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, main.o(i.send_string_c))
+<P><STRONG><a name="[116]"></a>send_string_c</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, main.o(i.send_string_c))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = send_string_c &rArr; ble_nus_c_string_send
 </UL>
 <BR>[Calls]<UL><LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_nus_c_string_send
 </UL>
 <BR>[Called By]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;real_data_send
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_data_send
-<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bond_data_send
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control_data_send
+<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bond_data_send
 </UL>
 
-<P><STRONG><a name="[84]"></a>set_device_time_cmd</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, somputon_ble_datahandle.o(i.set_device_time_cmd))
+<P><STRONG><a name="[7c]"></a>set_device_time_cmd</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, somputon_ble_datahandle.o(i.set_device_time_cmd))
 <BR><BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_RecvHandler
 </UL>
 
@@ -3018,12 +3021,12 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.main)
 </UL>
-<P><STRONG><a name="[112]"></a>ble_stack_init</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, main.o(i.ble_stack_init))
+<P><STRONG><a name="[111]"></a>ble_stack_init</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, main.o(i.ble_stack_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = ble_stack_init &rArr; nrf_sdh_enable_request &rArr; swi_interrupt_priority_workaround &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; app_error_save_and_stop
 </UL>
-<BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_enable_request
-<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_ble_enable
-<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_ble_default_cfg_set
+<BR>[Calls]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_enable_request
+<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_ble_enable
+<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_ble_default_cfg_set
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_error_handler
 </UL>
 <BR>[Called By]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -3036,11 +3039,10 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.main)
 </UL>
-<P><STRONG><a name="[3f]"></a>db_disc_handler</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, main.o(i.db_disc_handler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = db_disc_handler &rArr; ble_sleep_nus_c_on_db_disc_evt
+<P><STRONG><a name="[3f]"></a>db_disc_handler</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, main.o(i.db_disc_handler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = db_disc_handler &rArr; ble_nus_c_on_db_disc_evt
 </UL>
-<BR>[Calls]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_sleep_nus_c_on_db_disc_evt
-<LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_nus_c_on_db_disc_evt
+<BR>[Calls]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_nus_c_on_db_disc_evt
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.main)
 </UL>
@@ -3071,7 +3073,7 @@ Local Symbols
 <LI><a href="#[1e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;device_del_type
 <LI><a href="#[1e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;device_bond_status_clear
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_on
-<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_off
+<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_off
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_nus_c_handles_assign
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_db_discovery_start
 <LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_n_centrals
@@ -3091,7 +3093,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = on_ble_peripheral_evt &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; app_error_save_and_stop
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_on
-<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_off
+<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_off
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_error_handler
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
@@ -3146,15 +3148,15 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[11b]"></a>nrf_gpio_cfg</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, boards.o(i.nrf_gpio_cfg))
+<P><STRONG><a name="[11a]"></a>nrf_gpio_cfg</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, boards.o(i.nrf_gpio_cfg))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = nrf_gpio_cfg
 </UL>
-<BR>[Called By]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_leds_init
+<BR>[Called By]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_leds_init
 </UL>
 
-<P><STRONG><a name="[119]"></a>nrf_gpio_pin_write</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, boards.o(i.nrf_gpio_pin_write))
+<P><STRONG><a name="[118]"></a>nrf_gpio_pin_write</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, boards.o(i.nrf_gpio_pin_write))
 <BR><BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_on
-<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_off
+<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_off
 </UL>
 
 <P><STRONG><a name="[3b]"></a>alert_timer_handler</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp.o(i.alert_timer_handler))
@@ -3166,24 +3168,24 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = bsp_button_event_handler &rArr; app_timer_start &rArr; app_util_critical_region_enter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_timer_start
-<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_pin_to_button_idx
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_timer_stop
+<LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_pin_to_button_idx
 </UL>
 <BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_timer_handler
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> bsp.o(.constdata)
 </UL>
-<P><STRONG><a name="[123]"></a>bsp_led_indication</STRONG> (Thumb, 432 bytes, Stack size 40 bytes, bsp.o(i.bsp_led_indication))
+<P><STRONG><a name="[122]"></a>bsp_led_indication</STRONG> (Thumb, 432 bytes, Stack size 40 bytes, bsp.o(i.bsp_led_indication))
 <BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = bsp_led_indication &rArr; app_timer_start &rArr; app_util_critical_region_enter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_on
-<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_off
+<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_off
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_timer_start
-<LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;leds_off
-<LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_leds_on
-<LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_state_get
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_invert
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_timer_stop
+<LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;leds_off
+<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_leds_on
+<LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_state_get
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_invert
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;leds_timer_handler
@@ -3196,19 +3198,19 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> bsp.o(i.bsp_init)
 </UL>
-<P><STRONG><a name="[124]"></a>leds_off</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, bsp.o(i.leds_off))
+<P><STRONG><a name="[123]"></a>leds_off</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, bsp.o(i.leds_off))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = leds_off &rArr; bsp_board_leds_off
 </UL>
-<BR>[Calls]<UL><LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_off
-<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_leds_off
+<BR>[Calls]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_led_off
+<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_board_leds_off
 </UL>
-<BR>[Called By]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
+<BR>[Called By]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
 </UL>
 
 <P><STRONG><a name="[3a]"></a>leds_timer_handler</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, bsp.o(i.leds_timer_handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = leds_timer_handler &rArr; bsp_led_indication &rArr; app_timer_start &rArr; app_util_critical_region_enter
 </UL>
-<BR>[Calls]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
+<BR>[Calls]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_led_indication
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> bsp.o(i.bsp_init)
 </UL>
@@ -3217,7 +3219,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_event_to_button_action_assign
 </UL>
-<BR>[Called By]<UL><LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_btn_ble_init
+<BR>[Called By]<UL><LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_btn_ble_init
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_evt_handler
 </UL>
 
@@ -3464,26 +3466,26 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_peer_id_get_by_conn_handle
 </UL>
-<BR>[Called By]<UL><LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_send_in_evt
+<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
+<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_send_in_evt
 <LI><a href="#[1a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_unexpected_error
 <LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_apply_in_evt
-<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
 </UL>
 
 <P><STRONG><a name="[16e]"></a>local_db_apply_in_evt</STRONG> (Thumb, 98 bytes, Stack size 32 bytes, gatt_cache_manager.o(i.local_db_apply_in_evt))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = local_db_apply_in_evt &rArr; gscm_local_db_cache_apply &rArr; pdb_peer_data_ptr_get &rArr; pds_peer_data_read &rArr; peer_data_find &rArr; fds_record_find &rArr; record_find &rArr; record_find_next
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_unexpected_error
-<LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_apply
+<LI><a href="#[1a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_unexpected_error
+<LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_send_in_evt
-<LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
-<LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_im_evt_handler
+<BR>[Called By]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_im_evt_handler
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
+<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_send_in_evt
+<LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
 </UL>
 
 <P><STRONG><a name="[170]"></a>local_db_update</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, gatt_cache_manager.o(i.local_db_update))
@@ -3491,25 +3493,25 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
 </UL>
-<BR>[Called By]<UL><LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
-<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_pdb_evt_handler
+<BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_pdb_evt_handler
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
+<LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
 </UL>
 
 <P><STRONG><a name="[171]"></a>pending_flags_check</STRONG> (Thumb, 206 bytes, Stack size 112 bytes, gatt_cache_manager.o(i.pending_flags_check))
 <BR><BR>[Stack]<UL><LI>Max Depth = 416<LI>Call Chain = pending_flags_check &rArr; gscm_local_db_cache_update &rArr; pdb_write_buf_store &rArr; write_buf_store &rArr; pds_peer_data_store &rArr; fds_record_write_reserved &rArr; write_enqueue &rArr; queue_start &rArr; queue_process &rArr; gc_execute &rArr; gc_next_page &rArr; gc_record_find_next &rArr; gc_record_copy &rArr; nrf_fstorage_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_send_in_evt
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_get
+<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_collection
+<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_conn_handles
+<LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_mutex_unlock
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_mutex_lock
+<LI><a href="#[181]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_update
+<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_send_in_evt
 <LI><a href="#[1a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_unexpected_error
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_update
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_apply_in_evt
 <LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
-<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_get
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_collection
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_conn_handles
-<LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_mutex_unlock
-<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_mutex_lock
-<LI><a href="#[181]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_update
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_pdb_evt_handler
@@ -3531,13 +3533,13 @@ Local Symbols
 <P><STRONG><a name="[217]"></a>service_changed_send_in_evt</STRONG> (Thumb, 130 bytes, Stack size 40 bytes, gatt_cache_manager.o(i.service_changed_send_in_evt))
 <BR><BR>[Stack]<UL><LI>Max Depth = 296<LI>Call Chain = service_changed_send_in_evt &rArr; gscm_db_change_notification_done &rArr; pdb_raw_store &rArr; pds_peer_data_store &rArr; fds_record_write_reserved &rArr; write_enqueue &rArr; queue_start &rArr; queue_process &rArr; gc_execute &rArr; gc_next_page &rArr; gc_record_find_next &rArr; gc_record_copy &rArr; nrf_fstorage_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_unexpected_error
-<LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_apply_in_evt
-<LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_peer_id_get_by_conn_handle
 <LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_service_changed_ind_send
 <LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_db_change_notification_done
+<LI><a href="#[1a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_unexpected_error
+<LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_apply_in_evt
+<LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pending_flags_check
@@ -3696,11 +3698,11 @@ Local Symbols
 <LI><a href="#[182]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_write_buf_release
 </UL>
 
-<P><STRONG><a name="[126]"></a>claim</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, peer_id.o(i.claim))
+<P><STRONG><a name="[125]"></a>claim</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, peer_id.o(i.claim))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = claim &rArr; pm_mutex_lock_first_available &rArr; lock_by_mask &rArr; app_util_critical_region_enter
 </UL>
-<BR>[Calls]<UL><LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_mutex_lock
-<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_mutex_lock_first_available
+<BR>[Calls]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_mutex_lock
+<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_mutex_lock_first_available
 </UL>
 <BR>[Called By]<UL><LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peer_id_delete
 <LI><a href="#[20a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peer_id_allocate
@@ -3747,8 +3749,8 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_util_critical_region_exit
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_util_critical_region_enter
 </UL>
-<BR>[Called By]<UL><LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_mutex_lock
-<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_mutex_lock_first_available
+<BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_mutex_lock
+<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_mutex_lock_first_available
 </UL>
 
 <P><STRONG><a name="[ab]"></a>allow_repairing</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, security_dispatcher.o(i.allow_repairing))
@@ -3780,7 +3782,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_ble_evt_handler
 </UL>
 
-<P><STRONG><a name="[12b]"></a>conn_sec_failure</STRONG> (Thumb, 60 bytes, Stack size 40 bytes, security_dispatcher.o(i.conn_sec_failure))
+<P><STRONG><a name="[12a]"></a>conn_sec_failure</STRONG> (Thumb, 60 bytes, Stack size 40 bytes, security_dispatcher.o(i.conn_sec_failure))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = conn_sec_failure &rArr; evt_send &rArr; im_peer_id_get_by_conn_handle &rArr; get_connection_by_conn_handle &rArr; ble_conn_state_user_flag_get &rArr; sdk_mapped_flags_get_by_key
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
@@ -3794,7 +3796,7 @@ Local Symbols
 <P><STRONG><a name="[138]"></a>encryption_failure</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, security_dispatcher.o(i.encryption_failure))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = encryption_failure &rArr; conn_sec_failure &rArr; evt_send &rArr; im_peer_id_get_by_conn_handle &rArr; get_connection_by_conn_handle &rArr; ble_conn_state_user_flag_get &rArr; sdk_mapped_flags_get_by_key
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conn_sec_failure
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conn_sec_failure
 </UL>
 <BR>[Called By]<UL><LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_ble_evt_handler
 <LI><a href="#[22c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_info_request_process
@@ -3810,7 +3812,7 @@ Local Symbols
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_unexpected_error
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_config_req
 <LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_proc_start
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conn_sec_failure
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conn_sec_failure
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;auth_status_success_process
 </UL>
 
@@ -3857,7 +3859,7 @@ Local Symbols
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peer_created
 <LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pairing
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;encryption_failure
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conn_sec_failure
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conn_sec_failure
 </UL>
 <BR>[Called By]<UL><LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_ble_evt_handler
 </UL>
@@ -4181,10 +4183,10 @@ Local Symbols
 <P><STRONG><a name="[193]"></a>interrupts_enable</STRONG> (Thumb, 106 bytes, Stack size 16 bytes, nrf_drv_uart.o(i.interrupts_enable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = interrupts_enable &rArr; nrf_uarte_event_clear
 </UL>
-<BR>[Calls]<UL><LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_uarte_event_clear
+<BR>[Calls]<UL><LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_common_irq_enable
+<LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_uarte_event_clear
 <LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_uart_event_clear
 <LI><a href="#[196]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_get_IRQn
-<LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_common_irq_enable
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_init
 </UL>
@@ -4242,21 +4244,21 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[1cb]"></a>nrf_uart_event_check</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, nrf_drv_uart.o(i.nrf_uart_event_check))
-<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_irq_handler
+<BR><BR>[Called By]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_tx
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_irq_handler
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_rx_for_uart
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_tx
 </UL>
 
 <P><STRONG><a name="[195]"></a>nrf_uart_event_clear</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, nrf_drv_uart.o(i.nrf_uart_event_clear))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = nrf_uart_event_clear
 </UL>
-<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_irq_handler
+<BR>[Called By]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_tx
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_irq_handler
 <LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tx_byte
 <LI><a href="#[1ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rx_enable
 <LI><a href="#[1cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rx_byte
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_rx_for_uart
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;interrupts_enable
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_tx
 </UL>
 
 <P><STRONG><a name="[237]"></a>nrf_uart_int_enable_check</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, nrf_drv_uart.o(i.nrf_uart_int_enable_check))
@@ -4264,18 +4266,18 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[1cd]"></a>nrf_uarte_event_check</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, nrf_drv_uart.o(i.nrf_uarte_event_check))
-<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uarte_irq_handler
+<BR><BR>[Called By]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_tx
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uarte_irq_handler
 <LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_rx_for_uarte
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_tx
 </UL>
 
 <P><STRONG><a name="[194]"></a>nrf_uarte_event_clear</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, nrf_drv_uart.o(i.nrf_uarte_event_clear))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = nrf_uarte_event_clear
 </UL>
-<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uarte_irq_handler
+<BR>[Called By]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_tx
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uarte_irq_handler
 <LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_rx_for_uarte
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;interrupts_enable
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_tx
 </UL>
 
 <P><STRONG><a name="[1cc]"></a>rx_byte</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, nrf_drv_uart.o(i.rx_byte))
@@ -4299,8 +4301,8 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_uart_event_clear
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_rx_for_uart
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_rx_enable
+<BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_rx_enable
+<LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_rx_for_uart
 </UL>
 
 <P><STRONG><a name="[1ce]"></a>tx_byte</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, nrf_drv_uart.o(i.tx_byte))
@@ -4308,8 +4310,8 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_uart_event_clear
 </UL>
-<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_irq_handler
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_tx
+<BR>[Called By]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_tx
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_irq_handler
 </UL>
 
 <P><STRONG><a name="[239]"></a>tx_done_event</STRONG> (Thumb, 28 bytes, Stack size 24 bytes, nrf_drv_uart.o(i.tx_done_event))
@@ -4362,30 +4364,30 @@ Local Symbols
 </UL>
 <P><STRONG><a name="[bb]"></a>NVIC_ClearPendingIRQ</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, app_timer.o(i.NVIC_ClearPendingIRQ))
 <BR><BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_timer_init
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;compare_reg_update
+<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;compare_reg_update
 </UL>
 
 <P><STRONG><a name="[bd]"></a>NVIC_EnableIRQ</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, app_timer.o(i.NVIC_EnableIRQ))
 <BR><BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_timer_init
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;compare_reg_update
+<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;compare_reg_update
 </UL>
 
 <P><STRONG><a name="[c2]"></a>NVIC_SetPendingIRQ</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, app_timer.o(i.NVIC_SetPendingIRQ))
 <BR><BR>[Called By]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_timer_start
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_timeouts_check
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_stop_op_schedule
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;compare_reg_update
+<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;compare_reg_update
 </UL>
 
 <P><STRONG><a name="[bc]"></a>NVIC_SetPriority</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, app_timer.o(i.NVIC_SetPriority))
 <BR><BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_timer_init
 </UL>
 
-<P><STRONG><a name="[129]"></a>compare_reg_update</STRONG> (Thumb, 160 bytes, Stack size 40 bytes, app_timer.o(i.compare_reg_update))
+<P><STRONG><a name="[128]"></a>compare_reg_update</STRONG> (Thumb, 160 bytes, Stack size 40 bytes, app_timer.o(i.compare_reg_update))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = compare_reg_update &rArr; rtc1_stop
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtc1_stop
-<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_delay_us
+<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_delay_us
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_SetPendingIRQ
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_EnableIRQ
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_ClearPendingIRQ
@@ -4408,19 +4410,19 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_list_handler
 </UL>
 
-<P><STRONG><a name="[12a]"></a>nrf_delay_us</STRONG> (Thumb, 132 bytes, Stack size 0 bytes, app_timer.o(i.nrf_delay_us))
+<P><STRONG><a name="[129]"></a>nrf_delay_us</STRONG> (Thumb, 132 bytes, Stack size 0 bytes, app_timer.o(i.nrf_delay_us))
 <BR><BR>[Called By]<UL><LI><a href="#[1a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_list_remove
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtc1_stop
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;compare_reg_update
+<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;compare_reg_update
 </UL>
 
 <P><STRONG><a name="[ba]"></a>rtc1_stop</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, app_timer.o(i.rtc1_stop))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = rtc1_stop
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_delay_us
+<BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_delay_us
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_timer_init
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;compare_reg_update
+<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;compare_reg_update
 </UL>
 
 <P><STRONG><a name="[94]"></a>timer_list_handler</STRONG> (Thumb, 122 bytes, Stack size 40 bytes, app_timer.o(i.timer_list_handler))
@@ -4428,7 +4430,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_insertions_handler
 <LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;elapsed_ticks_acquire
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;compare_reg_update
+<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;compare_reg_update
 </UL>
 <BR>[Called By]<UL><LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SWI0_EGU0_IRQHandler
 </UL>
@@ -4442,7 +4444,7 @@ Local Symbols
 <P><STRONG><a name="[1a6]"></a>timer_list_remove</STRONG> (Thumb, 88 bytes, Stack size 24 bytes, app_timer.o(i.timer_list_remove))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = timer_list_remove
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_delay_us
+<BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_delay_us
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_insertions_handler
 </UL>
@@ -4920,7 +4922,7 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[1d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_section_iter_next
 <LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_section_iter_init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_enable_request
+<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_enable_request
 <LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_disable_request
 </UL>
 
@@ -4930,7 +4932,7 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[1d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_section_iter_next
 <LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_section_iter_init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_enable_request
+<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_enable_request
 <LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_disable_request
 </UL>
 
@@ -4950,7 +4952,7 @@ Local Symbols
 <LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sd_nvic_is_app_accessible_priority
 <LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sd_nvic_app_accessible_irq
 </UL>
-<BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_enable_request
+<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_enable_request
 </UL>
 
 <P><STRONG><a name="[1db]"></a>swi_interrupt_priority_workaround</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, nrf_sdh.o(i.swi_interrupt_priority_workaround))
@@ -4959,7 +4961,7 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_error_handler
 <LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_nvic_SetPriority
 </UL>
-<BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_enable_request
+<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_enable_request
 </UL>
 
 <P><STRONG><a name="[69]"></a>nrf_sdh_ble_evts_poll</STRONG> (Thumb, 78 bytes, Stack size 176 bytes, nrf_sdh_ble.o(i.nrf_sdh_ble_evts_poll))

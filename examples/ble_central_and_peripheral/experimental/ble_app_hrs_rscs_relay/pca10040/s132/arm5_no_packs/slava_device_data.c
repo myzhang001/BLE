@@ -44,7 +44,6 @@ void WIFI_Decode(void)
     if(UART2_Read_Queue(&RxData)==0) 
     {
         return;
-        
     }
     
     //app_uart_put(RxData);
@@ -90,7 +89,11 @@ void WIFI_Decode(void)
                     gHeadflag = 0;
                     return;
                 }
-                if(Common_Word.Common_World == 0x0040)
+                if(Common_Word.Common_World == CONTROL_DATA_COMMAND || Common_Word.Common_World == CONTROL_STA_COMMAND ||
+                    Common_Word.Common_World == CLEAR_BOND_COMMAND || Common_Word.Common_World == BOND_COMMAND ||
+                Common_Word.Common_World == ENCRYPTION_REQ_REPLY || Common_Word.Common_World == GET_DEVICE_TIME_COMMAND ||
+                Common_Word.Common_World == SET_DEVICE_TIME_COMMAND || Common_Word.Common_World == GET_HISTORY_DATA_TOTAL_PACKETS ||
+                Common_Word.Common_World == GET_REAL_TIME_DATA_COMMAND )
                 {
                     lenflag = 1;
                 }
@@ -101,13 +104,13 @@ void WIFI_Decode(void)
             }
  
         }
-        else if( Common_Word.Common_World == 0x0040)
+        //else if( Common_Word.Common_World == 0x0040)
+        else
         {
             if(RxCnt >= Common_Word.Data_Length + 2)
             {
                 if(UART_ReceiveBuffer[Common_Word.Data_Length + 2] == Crc8(&UART_ReceiveBuffer[1],Common_Word.Data_Length + 1))
                 {
-                    
                     //app_uart_put(0xaa); 
                     if(master_receive_data_from_app != NULL)
                     {
@@ -128,10 +131,12 @@ void WIFI_Decode(void)
                 }
             }
         }
+        #if 0
         else
         {
             gHeadflag = 0;
-        }            
+        }
+        #endif        
     }  
     
     #endif

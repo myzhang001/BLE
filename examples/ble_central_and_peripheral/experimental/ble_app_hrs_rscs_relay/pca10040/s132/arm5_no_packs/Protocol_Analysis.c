@@ -47,15 +47,16 @@ void App_RecvHandler(uint16_t conn_handle,uint16_t command, uint8_t* data,uint16
     
 		switch(command)
 		{			
-			case ENCRYPTION_REQ_REPLY:
-					control_device_cmd(NULL);			      												
+			case ENCRYPTION_REQ_COMMAND:                                                //收到认证指令
+					control_device_cmd(NULL);			      		
+            
 					break;
 			case CLEAR_HISTORY_DATA_COMMAND:
-					 clear_history_data_cmd();                //清除历史数据
+					 clear_history_data_cmd();                                          //清除历史数据
 					 break;			
 			
 			case GET_REAL_TIME_DATA_COMMAND_REPLY:					 
-                    get_real_time_data_cmd(conn_handle,device_type,mac_addr,data,len);	      //获取实时时间
+                    get_real_time_data_cmd(conn_handle,device_type,mac_addr,data,len);	 //获取实时时间
 
                     #if 0
                     for(i = 0; i < len ;i++)
@@ -101,7 +102,7 @@ void App_RecvHandler(uint16_t conn_handle,uint16_t command, uint8_t* data,uint16
 					 control_device_cmd(data);				//处理控制数据	   	
 					break;			
 			case CLEAR_BOND_COMMAND_REPLY:                  //清除绑定数据 
-                    
+                    //bond_info_del(&bond_device_info,mac_addr,device_type);
                     break;
 			default:				
 					break;

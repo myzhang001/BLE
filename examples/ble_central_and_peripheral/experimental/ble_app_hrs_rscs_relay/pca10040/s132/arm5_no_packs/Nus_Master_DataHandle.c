@@ -8,7 +8,7 @@
 #include "nrf_log_default_backends.h"
 
 
-
+somputon_data_recv_t  data_recv; 
 
 
 _s_analsis_word  Common_Word;
@@ -82,7 +82,15 @@ static uint8_t s_data_buffer[100];  //存放临时变量
 
 static uint8_t step_status = 0;
 
-
+uint16_t turn_to_u16(uint8_t high, uint8_t low)
+{
+	uint16_t data_all = 0;
+	data_all = high;
+	data_all = data_all<<8;
+	data_all |= low&0x00FF;
+	
+	return data_all;
+}
 
 //处理串口数据
 void nus_data_handle(uint32_t nus_c_conn_handle, uint8_t *data, uint8_t length)
@@ -103,116 +111,59 @@ void nus_data_handle(uint32_t nus_c_conn_handle, uint8_t *data, uint8_t length)
     }
     #endif
 
-    #if 0
-    if(data_buffer[0] == START_FLAG  && length == 20)   //第一包起始
-    {
-        step = E_MULTI_DATA_START;
-    }
-    else if(data_buffer[0] != START_FLAG  && length < 20 )  //连续多包最后一包
-    {
-        step = E_MULTI_DATA_END;
+        #if 0
+        if((data[0]== 0x3a)&&(data_recv.receive_start_flag== false))
+		{
+            //printf("Flag OK!\r\n");
+			memcpy(&data_recv.rece_data[data_recv.data_index],data,length);
+			data_recv.data_index += length;			
+			data_recv.total_len= turn_to_u16(data_recv.rece_data[1],data_recv.rece_data[2])+3;						
+			data_recv.receive_start_flag = true;			
+		}
+		else if((data_recv.rece_data[0] == 0x3a)&&(data_recv.receive_start_flag == true))
+		{
+			
+			if(data_recv.data_index<data_recv.total_len)
+			{
+//								printf("still recv\r\n");
+				memcpy(&data_recv.rece_data[data_recv.data_index],data,length);
+				data_recv.data_index += length; 
+			}
+
+		}
+		else
+		{
+//								printf("other data\r\n");
+				data_recv.data_index = 0;
+				data_recv.receive_start_flag = false;
+				data_recv.total_len = 0;
+				memset(data_recv.rece_data,0,sizeof(data_recv.rece_data));
+		}
+
+		if(data_recv.data_index >= data_recv.total_len)										//receive data end					
+		{				
+//			for(uint8_t i=0;i<clife_data_recv.data_index;i++)
+//				printf("0x%02x ",clife_data_recv.rece_data[i]);
+//			printf("\r\n");		
+			if( data_recv.rece_data[data_recv.data_index - 1] != Crc8( &data_recv.rece_data[1], data_recv.data_index - 2 ) )
+			{
+				//printf("APP->BT: crc error\r\n");
+				memset(data_recv.rece_data,0,sizeof(data_recv.rece_data));
+				data_recv.receive_start_flag = false;
+				data_recv.total_len = 0;
+				data_recv.data_index = 0;				
+				return;
+			}
+			//handle_clife_data(data_recv.rece_data,data_recv.data_index);
+			memset(data_recv.rece_data,0,sizeof(data_recv.rece_data));
+			data_recv.receive_start_flag = false;
+			data_recv.total_len = 0;
+			data_recv.data_index = 0;
+		}
     
-    }
-    else if(data_buffer[0] != START_FLAG && length == 20) //连续多包 中间N 包
-    {
-         step = E_MULTI_DATA_MIDDLE;   
-        
-    }
-    else if(data_buffer[0] == START_FLAG && length < 20  )  //正常所有低于20字节的数据包
-    {
-        step = E_ONLY_DATA;
-    }    
-    else
-    {
-        return ;
-    }
     
-    switch(step)
-    {
-        case E_MULTI_DATA_START:
-            
-            Common_Word.Data_Length  = data_buffer[DATA_LENGTH_INDIX_LOW];    //获取数据包长度
-            Common_Word.Data_Length = Common_Word.Data_Length>>8;
-            Common_Word.Data_Length |= data_buffer[DATA_LENGTH_INDIX_HIGH];
-
-            //NRF_LOG_INFO("DATA LENGHT : %d",Common_Word.Data_Length);
-
-            Common_Word.Common_World = data_buffer[DATA_COMMOND_WORD ];	   //获取命令字
-            Common_Word.Common_World = Common_Word.Common_World << 8;
-            Common_Word.Common_World |= data_buffer[DATA_COMMOND_WORD +1 ];        
-
-            //NRF_LOG_INFO("COMMAND WORLD:  0X%04x",Common_Word.Common_World);
-
-
-            Common_Word.Device_Type = data_buffer[DATA_DEVICE_TYPE_INDEX];     //获取设备类型
-
-            memcpy(&Common_Word.MacAddr_Device,&data_buffer[DATA_DEVICE_MAC_INDEX],6);  //拷贝mac 地址	
-
-            if( ( Common_Word.Data_Length - 11 - 6 ) > 0 )   //有多包数据
-            {
-                
-               total_num  = (Common_Word.Data_Length - 11 - 6)/20 ;
-               if( (Common_Word.Data_Length - 11 - 6)%20 != 0)
-               {
-                    total_num += 1;
-                    end_num = (Common_Word.Data_Length - 11 - 6)%20;
-               }
-               s_cnt_data = 1;
-               memcpy(s_data_buffer,data_buffer,6);       //拷贝第一包数据
-
-               step_status = 1;
-               
-            }
-            else if( ( Common_Word.Data_Length - 11 - 6 ) ==  0 ) //只有一包数据
-            {
-                
-                
-            }
-            break;
-        case E_MULTI_DATA_END: 
-            if( step_status == 1)
-            {
-                s_cnt_data++;
-                
-                if( end_num == 0)  //最后一包为0
-                {
-                    if( s_cnt_data >= total_num )
-                    {
-                        
-                    }
-                    memcpy(&s_data_buffer[6],data_buffer,20);       //拷贝第一包数据 
-                    
-                }
-                else               //最后一包数据不为0
-                {
-                
-                    
-                }
-                
-                
-
-                
-            }
-            else
-            {
-            
-                return ;
-            }
-        
-            break;
-        case E_MULTI_DATA_MIDDLE:
-                
-        
-        
-        
-            break;
-        case E_ONLY_DATA:
-            
-            break;
-        default:
-            break;
-  
-    }
+    
+    
     #endif
     
   
@@ -342,8 +293,6 @@ void nus_data_handle(uint32_t nus_c_conn_handle, uint8_t *data, uint8_t length)
             &data_buffer[DATA_CONTENT_INDEX],Common_Word.Data_Length - 11,
             Common_Word.Device_Type,Common_Word.MacAddr_Device);
 		}
-        
-        
         
     }    
     else
