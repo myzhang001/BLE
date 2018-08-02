@@ -422,6 +422,11 @@
               <FileType>5</FileType>
               <FilePath>..\config\sdk_config.h</FilePath>
             </File>
+            <File>
+              <FileName>common_include.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\common_include.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -486,6 +491,16 @@
               <FileName>Dynamic_distruct.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Dynamic_distruct.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>data_send_handle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\data_send_handle.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3086,6 +3101,11 @@
               <FileName>app_uart_fifo.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\..\components\libraries\uart\app_uart_fifo.c</FilePath>
+            </File>
+            <File>
+              <FileName>retarget.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\..\components\libraries\uart\retarget.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4128,6 +4148,11 @@
               <FileType>5</FileType>
               <FilePath>..\config\sdk_config.h</FilePath>
             </File>
+            <File>
+              <FileName>common_include.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\common_include.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4192,6 +4217,16 @@
               <FileName>Dynamic_distruct.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Dynamic_distruct.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>data_send_handle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\data_send_handle.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6792,6 +6827,11 @@
               <FileName>app_uart_fifo.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\..\..\components\libraries\uart\app_uart_fifo.c</FilePath>
+            </File>
+            <File>
+              <FileName>retarget.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\..\components\libraries\uart\retarget.c</FilePath>
             </File>
           </Files>
         </Group>

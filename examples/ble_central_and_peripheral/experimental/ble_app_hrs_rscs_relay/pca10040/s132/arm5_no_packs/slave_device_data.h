@@ -39,8 +39,6 @@ extern _data_struct_control control_data;  //下发控制数据结构
 
 
 
-
-
 void WIFI_Decode(void);
 void master_cb_init(appRecvHandler_Cb cb);
 void Master_App_RecvHandler(uint16_t conn_handle,uint16_t command, uint8_t* data,uint16_t len,_e_machine_model device_type,uint8_t mac_addr[6]);

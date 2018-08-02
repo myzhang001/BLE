@@ -32,8 +32,10 @@
 .\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\ble\common\ble_gatt_db.h
 .\_build\somputon_ble_datahandle.o: Protocol_Analysis.h
 .\_build\somputon_ble_datahandle.o: User_MacList.h
+.\_build\somputon_ble_datahandle.o: slave_device_data.h
+.\_build\somputon_ble_datahandle.o: uart_queue.h
+.\_build\somputon_ble_datahandle.o: NUS_Master_DataHandle.h
 .\_build\somputon_ble_datahandle.o: Master_DataStruct.h
-.\_build\somputon_ble_datahandle.o: Nus_Master_DataHandle.h
 .\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\nrf_log.h
 .\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\libraries\util\sdk_common.h
 .\_build\somputon_ble_datahandle.o: ..\config\sdk_config.h
@@ -43,6 +45,7 @@
 .\_build\somputon_ble_datahandle.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\libraries\util\sdk_macros.h
 .\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\libraries\experimental_section_vars\nrf_section.h
+.\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\libraries\strerror\nrf_strerror.h
 .\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\src\nrf_log_internal.h
 .\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\nrf_log_ctrl.h
 .\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\src\nrf_log_ctrl_internal.h
@@ -61,3 +64,10 @@
 .\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\ble\ble_services\ble_nus_c\ble_nus_c.h
 .\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\softdevice\common\nrf_sdh_ble.h
 .\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\libraries\experimental_section_vars\nrf_section_iter.h
+.\_build\somputon_ble_datahandle.o: common_include.h
+.\_build\somputon_ble_datahandle.o: timer.h
+.\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\ble\common\ble_advdata.h
+.\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\ble\ble_advertising\ble_advertising.h
+.\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\ble\common\ble_conn_params.h
+.\_build\somputon_ble_datahandle.o: ..\..\..\..\..\..\..\components\ble\common\ble_srv_common.h
+.\_build\somputon_ble_datahandle.o: data_send_handle.h

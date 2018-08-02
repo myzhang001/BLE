@@ -111,7 +111,10 @@ void WIFI_Decode(void)
             {
                 if(UART_ReceiveBuffer[Common_Word.Data_Length + 2] == Crc8(&UART_ReceiveBuffer[1],Common_Word.Data_Length + 1))
                 {
-                    //app_uart_put(0xaa); 
+                    app_uart_put(0xaa); 
+                    app_uart_put(0xaa); 
+                    app_uart_put(0xaa); 
+                    
                     if(master_receive_data_from_app != NULL)
                     {
                         master_receive_data_from_app((uint16_t)0,Common_Word.Common_World,
@@ -139,96 +142,7 @@ void WIFI_Decode(void)
         #endif        
     }  
     
-    #endif
-    
-    #if 0
-    switch(step_recv)
-    {
-        case 0:
-              if(RxData == 0x3A)
-              {
-                RxCnt = 0;
-                UART_ReceiveBuffer[RxCnt] = RxData; 
-                step_recv = 1;
-              }
-               
-            break;
-        
-        case 1:
-               RxCnt++; 
-               UART_ReceiveBuffer[RxCnt] = RxData;
-        
-               if(RxCnt == 12)
-               {
-                    ssCommon_Word.Common_World =  UART_ReceiveBuffer[11];	                 //获取命令字
-                    ssCommon_Word.Common_World =  ssCommon_Word.Common_World >> 8;
-                    ssCommon_Word.Common_World |= UART_ReceiveBuffer[11 + 1];     
-
-                    ssCommon_Word.Data_Length  = UART_ReceiveBuffer[DATA_LENGTH_INDIX_LOW];  //获取数据包长度
-                    ssCommon_Word.Data_Length = ssCommon_Word.Data_Length>>8;
-                    ssCommon_Word.Data_Length |= UART_ReceiveBuffer[DATA_LENGTH_INDIX_HIGH];
-                   
-                    if(UART_ReceiveBuffer[3] != PROTOCOL_VERSION)                       //协议版本号
-                    {
-                        step_recv = 0;
-                       
-                    }
-                    if(ssCommon_Word.Common_World == 0x0040)
-                    {
-                      step_recv = 2;
-                    }
-                    else
-                    {
-                        step_recv = 0;
-                    }
-               }
-               else if(RxCnt > 12)
-               {
-                    step_recv = 0;
-               }
-       
-            break;
-        case 2:
-            if(RxCnt < 12)
-            {
-                step_recv = 0;
-            }
-                
-            RxCnt++; 
-            UART_ReceiveBuffer[RxCnt] = RxData;
-            if(RxCnt >= ssCommon_Word.Data_Length + 2)
-            {
-                if(UART_ReceiveBuffer[ssCommon_Word.Data_Length + 2] == Crc8(&UART_ReceiveBuffer[1],ssCommon_Word.Data_Length + 1))
-                {
-                    ssCommon_Word.Common_World = 0;
-                   
-                    step_recv = 0;
-                    
-                    app_uart_put(0xaa); 
-                    UART_ReceiveBuffer[ssCommon_Word.Data_Length + 2]  = 0;
-  
-                    memset(UART_ReceiveBuffer,0,20);
-                }
-                else
-                {
-                    step_recv = 0;
-                }
-            }
-        
-        
-            break;  
-        default:
-            step_recv = 0;
-            break;
-    
-    
-    }
-    #endif
-    
-    
-    
-    
-    
+    #endif 
 }
 
 
@@ -304,8 +218,7 @@ void Master_App_RecvHandler(uint16_t conn_handle,uint16_t command, uint8_t* data
                 control_data.length   = len;
 
                 //master_send_string(control_data.data_buffer,len);
-                
-                 
+              
 					break;			
 			case CLEAR_BOND_COMMAND_REPLY:                  
                     

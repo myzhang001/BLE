@@ -77,6 +77,7 @@
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\fstorage\nrf_fstorage.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\fds\fds.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\nrf_log.h
+.\_build\main.o: ..\..\..\..\..\..\..\components\libraries\strerror\nrf_strerror.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\src\nrf_log_internal.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\nrf_log_ctrl.h
 .\_build\main.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\src\nrf_log_ctrl_internal.h
@@ -92,9 +93,12 @@
 .\_build\main.o: ..\arm5_no_packs\user_common_func.h
 .\_build\main.o: ..\arm5_no_packs\Protocol_Analysis.h
 .\_build\main.o: ..\arm5_no_packs\Somputon_BLE_DataHandle.h
-.\_build\main.o: ..\arm5_no_packs\Nus_Master_DataHandle.h
+.\_build\main.o: ..\arm5_no_packs\slave_device_data.h
+.\_build\main.o: ..\arm5_no_packs\uart_queue.h
+.\_build\main.o: ..\arm5_no_packs\NUS_Master_DataHandle.h
 .\_build\main.o: ..\arm5_no_packs\Master_DataStruct.h
 .\_build\main.o: ..\arm5_no_packs\ble_sleep_nus_c.h
 .\_build\main.o: ..\arm5_no_packs\master_voice_hub.h
-.\_build\main.o: ..\arm5_no_packs\uart_queue.h
-.\_build\main.o: ..\arm5_no_packs\slave_device_data.h
+.\_build\main.o: ..\arm5_no_packs\common_include.h
+.\_build\main.o: ..\arm5_no_packs\timer.h
+.\_build\main.o: ..\arm5_no_packs\data_send_handle.h

@@ -105,26 +105,20 @@
 
 #include "ble_nus_c.h"
 #include "ble_nus.h"
-
-
 #include "app_uart.h"
 #include "User_adv_func.h"
 #include "User_MacList.h"
-
 #include "user_common_func.h"
 #include "Protocol_Analysis.h"
 #include "Somputon_BLE_DataHandle.h"
-
 #include "Nus_Master_DataHandle.h"
 #include "Master_DataStruct.h"
-
 #include "ble_sleep_nus_c.h"
-
 #include "master_voice_hub.h"
-
-
 #include "uart_queue.h"
 #include "slave_device_data.h"
+#include "common_include.h"
+
 
 
 #define PERIPHERAL_ADVERTISING_LED      BSP_BOARD_LED_2
@@ -168,15 +162,12 @@
 
 BLE_NUS_C_ARRAY_DEF(m_ble_nus_c,NRF_SDH_BLE_CENTRAL_LINK_COUNT);  
 BLE_NUS_DEF(m_nus);   
-
-
-
-
-//BLE_SLEEP_NUS_C_ARRAY_DEF(m_sleep_ble_nus_c,LINK_COUNT_SD);  
- BLE_NUS_C_DEF(sleep_nus);
+BLE_NUS_C_DEF(sleep_nus);
 
 APP_TIMER_DEF(m_battery_timer_id); 
 APP_TIMER_DEF(m_sys10ms_timer_id); 
+
+uint8_t Tick10msFlag ;	          //10ms时钟基准	
 
 
 
@@ -787,6 +778,9 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
     
     int8_t         rssi_value;
     
+    static uint8_t send_data[20]={0xff};
+    
+    
     switch(p_ble_evt->header.evt_id)
     {
         // Upon connection, check which peripheral has connected (HR or RSC), initiate DB
@@ -978,8 +972,15 @@ static void on_ble_central_evt(ble_evt_t const * p_ble_evt)
             NRF_LOG_INFO("\r\n handle rssi%d %02d",p_gap_evt->conn_handle,rssi_value);
 
             break;
+        case BLE_GATTC_EVT_WRITE_CMD_TX_COMPLETE:     //发送数据完成
+            
+             //NRF_LOG_INFO("zmy_test  tx complete");
         
-        
+            #if 1
+                data_send();
+            #endif
+
+            break;
         default:
             // No implementation needed.
             break;
@@ -1355,20 +1356,12 @@ static void db_disc_handler(ble_db_discovery_evt_t * p_evt)
     NRF_LOG_INFO("call to ble_lbs_on_db_disc_evt for instance %d and link 0x%x!",
                   p_evt->conn_handle,
                   p_evt->conn_handle);
-    
-    
-    //ble_hrs_on_db_disc_evt(&m_hrs_c, p_evt);
-    //ble_rscs_on_db_disc_evt(&m_rscs_c, p_evt);
-    
+       
+
     #if 1
     ble_nus_c_on_db_disc_evt(&m_ble_nus_c[p_evt->conn_handle - 1], p_evt); 
     #endif
     
-    #if 0
-    ble_nus_c_on_db_disc_evt(&m_nus_c_test[p_evt->conn_handle], p_evt); 
-    #endif
-    
-    //ble_sleep_nus_c_on_db_disc_evt(&sleep_nus,p_evt);
 }
 
 
@@ -1475,16 +1468,20 @@ static void log_init(void)
 static void battery_level_meas_timeout_handler(void * p_context)
 {
     UNUSED_PARAMETER(p_context);
-
-
+    
     #if 0
-    Debug_Device_Info();
+    static uint8_t send_data[50]={0x3a, 0x00, 0x17, 0x01, 0x00,
+    0x0a, 0xEA, 0x40, 0x06, 0x94, 0x50, 0x00, 0x40, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01 ,0x01, 0x01, 0x01, 0x20, 0x00, 0xEE};
     #endif
     
-    data_send_proc();                 //设备通信数据流程
-    
     #if 0
-    printf_all_dev_info();           //打印所有设备信息
+    Debug_Device_Info();              //8个相同设备下所有设备信息
+    #endif
+    
+    //big_data_send_proc(0,&send_data[0],26);
+    
+    #if 1
+    printf_all_dev_info();            //打印所有设备信息
     #endif
     
     //uart_send_all_data();            
@@ -1493,13 +1490,10 @@ static void battery_level_meas_timeout_handler(void * p_context)
 
 static void sys10ms_timeout_handler(void * p_context)
 { 
-    Device_Update_Avaiable_Table();   //更新可用设备列表
+    Device_Update_Avaiable_Table();   //更新可用设备列表 
     
-    
-    
+    Tick10msFlag = true;              //提供系统时钟基准
 }
-
-
 
 
 
@@ -1510,7 +1504,7 @@ static void timer_init(void)
     ret_code_t err_code = app_timer_init();
     APP_ERROR_CHECK(err_code);
     
-     // Create timers.
+     // Create timers.            用于测试
     err_code = app_timer_create(&m_battery_timer_id,
                                 APP_TIMER_MODE_REPEATED,
                                 battery_level_meas_timeout_handler);
@@ -1521,7 +1515,6 @@ static void timer_init(void)
                                 APP_TIMER_MODE_REPEATED,
                                 sys10ms_timeout_handler);
     APP_ERROR_CHECK(err_code);
-    
     
     
 }
@@ -1535,7 +1528,7 @@ static void power_manage(void)
     APP_ERROR_CHECK(err_code);
 }
 
-uint8_t s_complete_flag ;
+
 
 
 static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t const * p_ble_nus_evt)
@@ -1546,14 +1539,14 @@ static void ble_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt_t con
     {
         case BLE_NUS_C_EVT_DISCOVERY_COMPLETE:
             NRF_LOG_INFO("Discovery complete.");
-            err_code = ble_nus_c_handles_assign(p_ble_nus_c, p_ble_nus_evt->conn_handle , &p_ble_nus_evt->handles);
+            err_code = ble_nus_c_handles_assign(p_ble_nus_c,p_ble_nus_evt->conn_handle,&p_ble_nus_evt->handles);
             APP_ERROR_CHECK(err_code);
 
             err_code = ble_nus_c_tx_notif_enable(p_ble_nus_c);
             APP_ERROR_CHECK(err_code);
             NRF_LOG_INFO("Connected to device with Nordic UART Service.");
         
-            s_complete_flag = 1;
+           
             device_total_add();                         //连接上设备总设备个数增加
         
             break;
@@ -1626,7 +1619,6 @@ static void nus_c_init(void)
 
     init.evt_handler = ble_nus_c_evt_handler;
     
-    
     for(uint8_t i = 0; i < NRF_SDH_BLE_CENTRAL_LINK_COUNT;i++)
     {
         err_code = ble_nus_c_init(&m_ble_nus_c[i], &init);
@@ -1663,7 +1655,7 @@ static void ble_sleep_nus_c_evt_handler(ble_nus_c_t * p_ble_nus_c, ble_nus_c_evt
         case BLE_NUS_C_EVT_DISCONNECTED:
             NRF_LOG_INFO("Disconnected.");
        
-            NRF_LOG_INFO("disconnected conn_handle %d ",p_ble_nus_c->conn_handle);
+            NRF_LOG_INFO("disconnected conn_handle %d ",p_ble_nus_c->conn_handle);      //异常断开连接时候 这个handle  会出现oxffff 情况
             break;
     }
 }
@@ -1762,7 +1754,7 @@ void uart_event_handle(app_uart_evt_t * p_event)
 
             USART2_Write_Queue(data_temp);
             
-            app_uart_put(data_temp);       //用于调试
+            //app_uart_put(data_temp);       //用于调试
 
             #if 0
             if ((data_array[index - 1] == '\n') || (index >= (m_ble_nus_max_data_len)))
@@ -1829,7 +1821,7 @@ static void uart_init(void)
     APP_ERROR_CHECK(err_code);
 }
 #define BATTERY_LEVEL_MEAS_INTERVAL         APP_TIMER_TICKS(2000)                   /**< Battery level measurement interval (ticks). */
-#define SYS10MS_INTERVAL                    APP_TIMER_TICKS(1)
+#define SYS10MS_INTERVAL                    APP_TIMER_TICKS(10)
 
 #define MIN_BATTERY_LEVEL                   81                                      /**< Minimum simulated battery level. */
 #define MAX_BATTERY_LEVEL                   100                                     /**< Maximum simulated 7battery level. */
@@ -1873,7 +1865,7 @@ int main(void)
 
     log_init();									//log 打印初始化
     timer_init();
-    uart_init();
+    //uart_init();
     
     crc_test();
     
@@ -1883,13 +1875,10 @@ int main(void)
     gatt_init();
     conn_params_init();
     db_discovery_init();
-    peer_manager_init();
+    peer_manager_init();  
     
     nus_c_init();							    //主机端 服务初始化
 
-    //sleep_nus_c_init();                       //注册带子服务
-    
-    //services_init();
     services_nus_init();						//从机端服务初始化
     advertising_init();
 
@@ -1911,39 +1900,33 @@ int main(void)
         adv_scan_start();
     }
     
-    #if 1
-    app_uart_put(0x12);						//串口打印测试
-    app_uart_put(0x12);
-    app_uart_put(0x12);
-    app_uart_put(0x12);
-    app_uart_put(0x12);
-    #endif
-    
     NRF_LOG_INFO("Relay example started.");
 
+    //printf("app start \r\n");
+    
     adv_start();        						//开启广播
 	
     application_timers_start();			    	//开启定时器
     
-    for (;;)
+    for(;;)
     {
         if(NRF_LOG_PROCESS() == false)
         {
             //Wait for BLE events.
             //power_manage();
-            
             //USART2_SendProc();
             
             WIFI_Decode();
+            
+            sys_tick_handle();    
         }
     }
 }
 
 
 //发送数据接口
-void send_string_c(uint8_t conn_handle, uint8_t * p_string, uint16_t length)
+uint32_t send_string_c(uint8_t conn_handle, uint8_t * p_string, uint16_t length)
 {
-    ble_nus_c_string_send(&m_ble_nus_c[conn_handle], p_string,length);
+    return ble_nus_c_string_send(&m_ble_nus_c[conn_handle], p_string,length);
 }
-
 

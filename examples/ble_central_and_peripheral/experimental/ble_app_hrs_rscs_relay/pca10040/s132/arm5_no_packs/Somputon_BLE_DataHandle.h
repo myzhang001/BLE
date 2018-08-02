@@ -11,7 +11,7 @@
 #include "Protocol_Analysis.h"
 #include "User_MacList.h"
 
-
+#include "slave_device_data.h"
 
 
 void get_real_time_data_cmd(uint16_t conn_handle,_e_machine_model device_type,uint8_t mac_addr[6],uint8_t* data,uint16_t len);
@@ -27,7 +27,9 @@ void Clife_GenerateHisData(void);
 
 void bond_data_send(uint8_t conn_handle);
 void real_data_send(uint8_t conn_handle);
-void control_data_send(uint8_t conn_handle,uint8_t device_type,uint8_t *data ,uint8_t length);
+
+void control_data_send(uint8_t conn_handle,uint8_t device_type,uint8_t *data ,
+    uint8_t length,_data_struct_control *control_data);
 void send_real_time(uint8_t conn_handle);
 
 

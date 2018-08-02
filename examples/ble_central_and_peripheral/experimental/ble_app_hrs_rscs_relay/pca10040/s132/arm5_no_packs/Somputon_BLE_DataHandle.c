@@ -8,11 +8,9 @@
 #include "nrf_log_default_backends.h"
 
 #include "ble_nus_c.h"
+#include "slave_device_data.h"
+#include "common_include.h"
 
-
-
-
-extern void send_string_c(uint8_t conn_handle, uint8_t * p_string, uint16_t length);
 
 
 
@@ -40,15 +38,16 @@ void get_real_time_data_cmd(uint16_t conn_handle,_e_machine_model device_type,ui
             //接收rar312 的实时数据
         
 			 handle = mac_match_hanle(&rar312_data.mac_index,mac_addr);
-			
+			#if 0
 			 NRF_LOG_INFO("----------rar312 handle %d",handle);
-
+            #endif
 	         if(handle > 8)return;		
 		
 			 memcpy(&rar312_data.Device_rar312_Array[handle].real_temp,data,len);
-
+            
+             #if 0
 			 NRF_LOG_INFO("----------rar312data 0x%02x",rar312_data.Device_rar312_Array[handle].real_temp);
-
+             #endif
 			break;
 		case E_RM661:
             
@@ -338,7 +337,10 @@ void bond_data_send(uint8_t conn_handle)
   
     send_buffer[13] = Crc8(&send_buffer[1],BOND_CMD_INDEX + 1);                 //crc 校验
 
-    send_string_c(conn_handle,send_buffer,BOND_CMD_INDEX_TOTAL);
+    //send_string_c(conn_handle,send_buffer,BOND_CMD_INDEX_TOTAL);
+    big_data_send_proc(conn_handle,send_buffer,BOND_CMD_INDEX_TOTAL);
+    
+    
 }
 
 //获取设备状态数据
@@ -361,14 +363,16 @@ void real_data_send(uint8_t conn_handle)
 
     send_buffer[13] = Crc8(&send_buffer[1],REAL_TIME_INDEX + 1);                 //crc 校验
 
-    send_string_c(conn_handle,send_buffer,REAL_TIME_INDEX_TOTAL);
+    //send_string_c(conn_handle,send_buffer,REAL_TIME_INDEX_TOTAL);
+    big_data_send_proc(conn_handle,send_buffer,REAL_TIME_INDEX_TOTAL);
 }
 
 
 
 //控制数据下发，拷贝整个下发数据长度和内容下发
 
-void control_data_send(uint8_t conn_handle,uint8_t device_type,uint8_t *data ,uint8_t length)
+void control_data_send(uint8_t conn_handle,uint8_t device_type,uint8_t *data ,
+    uint8_t length,_data_struct_control *control_data)
 {
     uint8_t  send_buffer[50];
     uint8_t  i = 0;
@@ -392,11 +396,14 @@ void control_data_send(uint8_t conn_handle,uint8_t device_type,uint8_t *data ,ui
     memcpy(&send_buffer[13],data,length);                      //拷贝数据内容
     
     send_buffer[13+length] = Crc8(&send_buffer[1],CONTROL_CMD_INDEX + 1 + length);          //crc 校验
-
+    
+    memcpy(&control_data->data_buffer[0],send_buffer,CONTROL_CMD_INDEX_TOTAL + length);
+     
+    control_data->length   = CONTROL_CMD_INDEX_TOTAL + length;
     
     
-    send_string_c(conn_handle,send_buffer,CONTROL_CMD_INDEX_TOTAL + length);
-
+    //send_string_c(conn_handle,send_buffer,CONTROL_CMD_INDEX_TOTAL + length);
+    //big_data_send_proc(conn_handle,send_buffer,CONTROL_CMD_INDEX_TOTAL + length);
 }
 
 
@@ -419,7 +426,9 @@ void send_real_time(uint8_t conn_handle)
 
     send_buffer[13] = Crc8(&send_buffer[1],REAL_TIME_INDEX + 1);                 //crc 校验
 
-    send_string_c(conn_handle,send_buffer,REAL_TIME_INDEX_TOTAL);  
+    //send_string_c(conn_handle,send_buffer,REAL_TIME_INDEX_TOTAL);  
+    
+    big_data_send_proc(conn_handle,send_buffer,REAL_TIME_INDEX_TOTAL); 
 }
 
 
@@ -443,7 +452,8 @@ void send_clear_bond_status(uint8_t conn_handle)
 
     send_buffer[13] = Crc8(&send_buffer[1],BOND_CMD_INDEX + 1);  //crc 校验
 
-    send_string_c(conn_handle,send_buffer,BOND_CMD_INDEX_TOTAL);
+    //send_string_c(conn_handle,send_buffer,BOND_CMD_INDEX_TOTAL);
+    big_data_send_proc(conn_handle,send_buffer,BOND_CMD_INDEX_TOTAL);
 }
 
 

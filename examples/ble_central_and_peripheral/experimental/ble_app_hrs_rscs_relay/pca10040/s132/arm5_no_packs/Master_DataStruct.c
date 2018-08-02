@@ -1,10 +1,7 @@
 #include "Master_DataStruct.h"
-
-
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
-
 #include "User_MacList.h"
 
 
@@ -524,7 +521,7 @@ void Debug_Device_Info(void)
 
     NRF_LOG_INFO("System_08F STRUCT  DATA =======");
 
-    NRF_LOG_INFO("总设备个数:%d ",rm661_data.Device_Num);
+    NRF_LOG_INFO("总设备个数:%d ",rar312_data.Device_Num);
     
     #if 0
     for(uint8_t i = 0; i < ;i++)
@@ -533,25 +530,25 @@ void Debug_Device_Info(void)
     }
     #endif
     
-    NRF_LOG_INFO("总设备个数:%d ",rm661_data.mac_index.device_num);
+    NRF_LOG_INFO("总设备个数:%d ",rar312_data.mac_index.device_num);
     
-    NRF_LOG_INFO("最大索引:%d ",rm661_data.mac_index.max_index_decice);
+    NRF_LOG_INFO("最大索引:%d ",rar312_data.mac_index.max_index_decice);
     
-    for(uint8_t i = 0; i < MAX_DEVICE_NUM;i++)
+    for(uint8_t i = 0; i < MAX_DEVICE_NUM - 4;i++)
     {
-        NRF_LOG_INFO("索引排序:%d  %d ",i,rm661_data.mac_index.index_sort[i]);
+        NRF_LOG_INFO("索引排序:%d  %d ",i,rar312_data.mac_index.index_sort[i]);
     }
 
-    for(uint8_t i = 0; i < 8;i++)
+    for(uint8_t i = 0; i < MAX_DEVICE_NUM - 4;i++)
     {
-        NRF_LOG_INFO("mac 地址 和索引: 0x%02x :0x%02x :0x%02x :0x%02x :0x%02x :0x%02x   ",rm661_data.mac_index.mac_list_array[i].mac_addr[0],
-        rm661_data.mac_index.mac_list_array[i].mac_addr[1],
-        rm661_data.mac_index.mac_list_array[i].mac_addr[2],
-        rm661_data.mac_index.mac_list_array[i].mac_addr[3],
-        rm661_data.mac_index.mac_list_array[i].mac_addr[4],
-        rm661_data.mac_index.mac_list_array[i].mac_addr[5]);
+        NRF_LOG_INFO("mac 地址 和索引: 0x%02x :0x%02x :0x%02x :0x%02x :0x%02x :0x%02x   ",rar312_data.mac_index.mac_list_array[i].mac_addr[0],
+        rar312_data.mac_index.mac_list_array[i].mac_addr[1],
+        rar312_data.mac_index.mac_list_array[i].mac_addr[2],
+        rar312_data.mac_index.mac_list_array[i].mac_addr[3],
+        rar312_data.mac_index.mac_list_array[i].mac_addr[4],
+        rar312_data.mac_index.mac_list_array[i].mac_addr[5]);
 
-        NRF_LOG_INFO("对应index :%d",rm661_data.mac_index.mac_list_array[i].index);
+        NRF_LOG_INFO("对应index :%d",rar312_data.mac_index.mac_list_array[i].index);
     }    
 }
 

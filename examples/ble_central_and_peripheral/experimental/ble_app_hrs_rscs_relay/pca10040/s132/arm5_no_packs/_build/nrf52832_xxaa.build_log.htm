@@ -22,70 +22,13 @@ Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
 D:\work\smart_demo\BLE\examples\ble_central_and_peripheral\experimental\ble_app_hrs_rscs_relay\pca10040\s132\arm5_no_packs\ble_app_hrs_rscs_relay_pca10040_s132.uvprojx
-Project File Date:  07/06/2018
+Project File Date:  07/30/2018
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'nrf52832_xxaa'
-compiling main.c...
-..\..\..\main.c(349): warning:  #177-D: variable "err_code" was declared but never referenced
-      ret_code_t err_code;
-..\..\..\main.c(785): warning:  #177-D: variable "adv_report" was declared but never referenced
-      ble_gap_evt_adv_report_t const *adv_report = &p_ble_evt->evt.gap_evt.params.adv_report;
-..\..\..\main.c(1678): warning:  #223-D: function "ble_sleep_nus_c_init" declared implicitly
-      err_code = ble_sleep_nus_c_init(&sleep_nus,&init);
-..\..\..\main.c(1689): warning:  #177-D: variable "err_code" was declared but never referenced
-          uint32_t err_code;
-..\..\..\main.c(1750): warning:  #177-D: variable "data_array" was declared but never referenced
-      static uint8_t data_array[BLE_NUS_MAX_DATA_LEN];
-..\..\..\main.c(1752): warning:  #177-D: variable "index" was declared but never referenced
-      static uint16_t index = 0;
-..\..\..\main.c(1753): warning:  #177-D: variable "ret_val" was declared but never referenced
-      uint32_t ret_val;
-..\..\..\main.c(209): warning:  #177-D: variable "m_hrs_c" was declared but never referenced
-  static ble_hrs_c_t m_hrs_c;                                         /**< Heart rate service client instance. */
-..\..\..\main.c(210): warning:  #177-D: variable "m_rscs_c" was declared but never referenced
-  static ble_rscs_c_t m_rscs_c;                                       /**< Running speed and cadence service client instance. */
-..\..\..\main.c(212): warning:  #177-D: variable "m_nus_c_test" was declared but never referenced
-  static ble_nus_c_t m_nus_c_test[4];
-..\..\..\main.c(480): warning:  #177-D: function "hrs_c_evt_handler" was declared but never referenced
-  static void hrs_c_evt_handler(ble_hrs_c_t * p_hrs_c, ble_hrs_c_evt_t * p_hrs_c_evt)
-..\..\..\main.c(536): warning:  #177-D: function "rscs_c_evt_handler" was declared but never referenced
-  static void rscs_c_evt_handler(ble_rscs_c_t * p_rscs_c, ble_rscs_c_evt_t * p_rscs_c_evt)
-..\..\..\main.c(1389): warning:  #177-D: function "services_init" was declared but never referenced
-  static void services_init(void)
-..\..\..\main.c(1532): warning:  #177-D: function "power_manage" was declared but never referenced
-  static void power_manage(void)
-..\..\..\main.c(1671): warning:  #177-D: function "sleep_nus_c_init" was declared but never referenced
-  static void sleep_nus_c_init(void)
-..\..\..\main.c(1745): warning:  #177-D: variable "m_ble_nus_max_data_len" was declared but never referenced
-  static uint16_t m_ble_nus_max_data_len = BLE_GATT_ATT_MTU_DEFAULT - OPCODE_LENGTH - HANDLE_LENGTH; /**< Maximum length of data (in bytes) that can be transmitted to the peer by the Nordic UART service module. */
-..\..\..\main.c: 16 warnings, 0 errors
-compiling User_MacList.c...
-User_MacList.c(138): warning:  #940-D: missing return statement at end of non-void function "change_array_index"
-  }
-User_MacList.c(170): warning:  #188-D: enumerated type mixed with another type
-          else{dev_info.scan_bind_flag = 0;}
-User_MacList.c(247): warning:  #177-D: variable "time_cnt" was declared but never referenced
-      static uint8_t time_cnt = 0;
-User_MacList.c(311): warning:  #188-D: enumerated type mixed with another type
-      dev_info.ble_dev[conn_handle -1].bond_stauts = 1;
-User_MacList.c(319): warning:  #188-D: enumerated type mixed with another type
-      dev_info.ble_dev[conn_handle -1].bond_stauts = 0;
-User_MacList.c(412): warning:  #940-D: missing return statement at end of non-void function "bond_info_add"
-  }
-User_MacList.c(448): warning:  #940-D: missing return statement at end of non-void function "bond_info_del"
-  }
-User_MacList.c(499): warning:  #177-D: variable "status" was declared but never referenced
-      uint8_t status;
-User_MacList.c(564): warning:  #177-D: variable "data_buffer" was declared but never referenced
-      uint8_t data_buffer[5] = {0};
-User_MacList.c: 9 warnings, 0 errors
-linking...
-Program Size: Code=38468 RO-data=1696 RW-data=6076 ZI-data=13788  
-FromELF: creating hex file...
 After Build - User command #1: fromelf.exe  --bin -o "D:\work\smart_demo\BLE\examples\ble_central_and_peripheral\experimental\ble_app_hrs_rscs_relay\pca10040\s132\arm5_no_packs\_build\nrf52832_xxaa.bin" "D:\work\smart_demo\BLE\examples\ble_central_and_peripheral\experimental\ble_app_hrs_rscs_relay\pca10040\s132\arm5_no_packs\_build\nrf52832_xxaa.axf"
-".\_build\nrf52832_xxaa.axf" - 0 Error(s), 25 Warning(s).
+".\_build\nrf52832_xxaa.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 

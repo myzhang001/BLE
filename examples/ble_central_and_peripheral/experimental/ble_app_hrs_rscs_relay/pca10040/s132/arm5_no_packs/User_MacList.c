@@ -6,7 +6,7 @@
 #include "nrf_log_default_backends.h"
 #include "Somputon_BLE_DataHandle.h"
 
-#include "slave_device_data.h"
+
 #include "app_uart.h"
 #include "app_fifo.h"
 #include "nrf_drv_uart.h"
@@ -14,16 +14,22 @@
 #include "ble_gap.h"
 #include "ble_advdata.h"
 #include "ble_advertising.h"
+#include "common_include.h"
+
+#include "Master_DataStruct.h"
+
 
 
 _t_dev_mac_match dev_info;              //连接设备的所有信息
 
 _bond_device_info  bond_device_info;    //绑定设备信息
 
-
-
-
 uint8_t mac_addr_list[6];     //mac 地址
+
+
+extern uint32_t send_string_c(uint8_t conn_handle, uint8_t * p_string, uint16_t length);
+
+
 
 
 
@@ -55,13 +61,10 @@ void Device_Info_Reset(_t_ble_status *s_ble_info)
 uint8_t Device_Info_Connected_num(void)
 {
     return dev_info.device_num;
-
 }
-
 
 void USER_DEBUG_printf(void)
 {
-    
     NRF_LOG_INFO("dev_info.device_num:%02x",dev_info.device_num);
 }
 
@@ -246,8 +249,18 @@ void Device_Update_Avaiable_Table(void)
     
     static uint8_t time_cnt = 0;
     
+
     
-    for(i = 0; i < 8;i++)
+    
+    
+    for(i = 0; i< MAX_DEVICE_NUM;i++)
+    {
+        sys_avaiable_table.dev_info[i].conn_handle = 0;             //保存handle
+        sys_avaiable_table.dev_info[i].device_type = E_INVALID;     //保存类型
+    }
+    
+    
+    for(i = 0; i < MAX_DEVICE_NUM;i++)
     {
         if(dev_info.ble_dev[i].conn_handle != 0 && dev_info.ble_dev[i].conn_handle != 0xFFFF)
         {
@@ -266,12 +279,14 @@ void Device_Update_Avaiable_Table(void)
     
     sys_avaiable_table.total_avaiable_num = num;
     
-    #if 0
+    #if 1
     if( time_cnt++ > 200)
     {
+        NRF_LOG_INFO("\r\n ----------------------------------------- 可用设备列表--------------------------");
+        
         NRF_LOG_INFO("可用设备列表总数 %d ",sys_avaiable_table.total_avaiable_num);
         
-        for(i = 0; i < 8;i++)
+        for(i = 0; i < MAX_DEVICE_NUM - 4;i++)
         {
             NRF_LOG_INFO("可用设备列表 %d  conn_handle %d   device_type %d  ",i,sys_avaiable_table.dev_info[i].conn_handle,
             sys_avaiable_table.dev_info[i].device_type);  
@@ -309,8 +324,6 @@ uint8_t check_bound_device(void)
 void  device_bond_status_update(uint8_t conn_handle)
 {
     dev_info.ble_dev[conn_handle -1].bond_stauts = 1;
-    
-    
 }
 
 //清除绑定标志位  ，收到主机设备清除绑定信息后调用
@@ -325,8 +338,6 @@ void  device_bond_status_clear(uint8_t conn_handle)
 void device_add_type(uint8_t conn_handle ,_e_machine_model device_type)
 {
     dev_info.ble_dev[conn_handle - 1].model = device_type;
-    
-    
     
 }
 
@@ -354,8 +365,8 @@ void device_total_del(void)
 //打印所有连接的数据
 void printf_all_dev_info(void)
 {
-  
-    for(uint8_t i = 0; i < 8;i++)
+    NRF_LOG_INFO(" \r\n   --------------------------all info " );
+    for(uint8_t i = 0; i < MAX_DEVICE_NUM-4;i++)
     {
     
         NRF_LOG_INFO(" device conn_handle %d " , dev_info.ble_dev[i].conn_handle);
@@ -381,8 +392,6 @@ uint8_t  bond_info_add(_bond_device_info *bond_info , uint8_t mac_addr[6],_e_mac
     
     if(bond_info == NULL )return 0;
 
-    
-    
     if( bond_info->device_num == 0)
     {
         memcpy(&bond_info->bond_device[0].mac_addr[0],&mac_addr[0],6);
@@ -547,14 +556,8 @@ void connected_bond_list_device(_bond_device_info *bond_info,
 
 
 
-
-
-
-
-
-
-extern uint8_t s_complete_flag ;
-
+static _data_struct_control scontrol_data_send;
+               
 
 void data_send_proc(void)
 {
@@ -562,57 +565,61 @@ void data_send_proc(void)
     static uint8_t i = 0;
     uint8_t conn_handle = 0;
     uint8_t data_buffer[5] = {0};
+    static uint8_t send_step = 0;      //发送数据状态
+    static uint8_t start_falg = 0;
     
-    
-    NRF_LOG_INFO("连接设备总数 %d \r\n",dev_info.device_num);
-    
-    //step = E_SEND_STATUS;
-    
+    //NRF_LOG_INFO("连接设备总数 %d \r\n",dev_info.device_num);
+   
     if(control_data.conn_data_flag == 1)
     {
-        step = E_CONTROL_DATA;
+        if( start_falg == 0)
+        {
+            start_falg = 1;
+            
+            step = E_CONTROL_DATA;
+            send_step  = 0;
+            
+            control_data_send(control_data.conn_handle - 1,0,
+            control_data.data_buffer,control_data.length,&scontrol_data_send);
+        }
     }
+   
     
     switch(step)
     {
-        case E_SEND_STATUS:                         //发送绑定认证指令
-           // if(s_complete_flag == 1)   
-            //bond_data_send(0);
-            //bond_data_send(1);
+        case E_SEND_STATUS:                                     //发送绑定认证指令
+           
+            if(Device_Info_Connected_num() != 0)
+            {
+                if( i < dev_info.device_num)
+                {
+                    conn_handle = sys_avaiable_table.dev_info[i].conn_handle;  //获取conn_handle
+                    i++;
+                    //NRF_LOG_INFO("-----------index  : %d",conn_handle);
 
-            #if 1
-               if(dev_info.device_num != 0)  
-               {
-                   if( i < dev_info.device_num)
+                    if(dev_info.ble_dev[conn_handle - 1].bond_stauts == 0)   
                     {
-                        conn_handle = sys_avaiable_table.dev_info[i].conn_handle;  //获取conn_handle
-                        i++;
-                        NRF_LOG_INFO("-----------index  : %d",conn_handle);
-                        
-                        if(dev_info.ble_dev[conn_handle - 1].bond_stauts == 0)   
-                        {
-                            bond_data_send(conn_handle - 1 );
-                        }  
-                    }
-                    else
-                    {
-                        step = E_REAL_TIME_DATA;
-                        i = 0;
-                    }
-               }
-            #endif
-               
+                        bond_data_send(conn_handle - 1 );
+                    }  
+                }
+                else
+                { 
+                    step = E_REAL_TIME_DATA;
+                    i = 0;
+                }
+            }
+      
              break;
-        case E_REAL_TIME_DATA:
+        case E_REAL_TIME_DATA:               //获取设备运行数据
             
-            NRF_LOG_INFO("------------------real time data send ------------");
+            //NRF_LOG_INFO("------------------real time data send ------------");
             
             if(dev_info.device_num != 0)  
             {
                 if( i < dev_info.device_num)
                 {
                     conn_handle = sys_avaiable_table.dev_info[i].conn_handle;  //获取conn_handle
-                    NRF_LOG_INFO("----conn_handle %d",conn_handle);
+                    //NRF_LOG_INFO("----conn_handle %d",conn_handle);
                     real_data_send(conn_handle - 1);
                     i++;
                 } 
@@ -623,25 +630,19 @@ void data_send_proc(void)
                 }
             }
              break;
-        case E_CONTROL_DATA:
+        case E_CONTROL_DATA:                                   //下发控制数据
              
-            #if 0
-            data_buffer[0] = 0x00;      //灯
-            data_buffer[1] = 0x01;      //aroma
-            control_data_send(0,0x01,data_buffer,2);
-            #endif
-              
-            //master_send_string(&control_data.data_buffer[0],2);
-        
-            //app_uart_put(control_data.conn_handle);
-            //app_uart_put(control_data.conn_handle >> 8);
-        #if 1
+            #if 1
             if(control_data.conn_data_flag == 0)
             {
                 step = E_SEND_STATUS;
                 return;
             }
-        #endif
+            #endif
+            
+            
+            uint8_t ssbuffer[30]={0x3a, 0x00,0x17, 0x01, 0x00, 0x0a,0xea, 0x40 ,0x06 ,0x94 ,0x50 ,\
+            0x00, 0x40, 0x01, 0x01 ,0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x20, 0x00, 0xee};
             
             if(control_data.conn_handle > 8)
             {
@@ -650,20 +651,46 @@ void data_send_proc(void)
             }
             else
             {
-                
-                //master_send_string(control_data.data_buffer,control_data.length);
-                #if 1
-                control_data_send(control_data.conn_handle - 1,0,
-                control_data.data_buffer,control_data.length);
+                big_data_send_proc(control_data.conn_handle - 1,&scontrol_data_send.data_buffer[0],26);
 
+                //printf("------------ok handle %d",control_data.conn_handle);
+
+                step = E_SEND_STATUS;
                 control_data.conn_data_flag = 0;
                 
-                memset(control_data.data_buffer,0,control_data.length);
+                #if 0
+                switch(send_step)
+                {   
+                    case 0:
+                        if(scontrol_data_send.length >= 20)
+                        {
+                            send_string_c(control_data.conn_handle - 1,&scontrol_data_send.data_buffer[0] ,20);
+                            send_step = 1;
+                        }
+                        break;
+                    case 1:
+                        
+                        send_string_c(control_data.conn_handle - 1,&scontrol_data_send.data_buffer[20],6);
+                        control_data.conn_data_flag = 0;
+                        memset(control_data.data_buffer,0,control_data.length);
+                        start_falg = 0;
+                        send_step = 0;
+                        step = E_SEND_STATUS;
+                        
+                        break;
+                    default:
+                        break;
+                }
+                
                 #endif
-                step = E_SEND_STATUS; 
+                
+                
             }
-            
              break;
+            
+          
+                        
+            
         default:
              break;
 

@@ -33,6 +33,8 @@
 .\_build\nus_master_datahandle.o: Protocol_Analysis.h
 .\_build\nus_master_datahandle.o: User_MacList.h
 .\_build\nus_master_datahandle.o: Somputon_BLE_DataHandle.h
+.\_build\nus_master_datahandle.o: slave_device_data.h
+.\_build\nus_master_datahandle.o: uart_queue.h
 .\_build\nus_master_datahandle.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\nrf_log.h
 .\_build\nus_master_datahandle.o: ..\..\..\..\..\..\..\components\libraries\util\sdk_common.h
 .\_build\nus_master_datahandle.o: ..\config\sdk_config.h
@@ -42,6 +44,7 @@
 .\_build\nus_master_datahandle.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\_build\nus_master_datahandle.o: ..\..\..\..\..\..\..\components\libraries\util\sdk_macros.h
 .\_build\nus_master_datahandle.o: ..\..\..\..\..\..\..\components\libraries\experimental_section_vars\nrf_section.h
+.\_build\nus_master_datahandle.o: ..\..\..\..\..\..\..\components\libraries\strerror\nrf_strerror.h
 .\_build\nus_master_datahandle.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\src\nrf_log_internal.h
 .\_build\nus_master_datahandle.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\nrf_log_ctrl.h
 .\_build\nus_master_datahandle.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\src\nrf_log_ctrl_internal.h

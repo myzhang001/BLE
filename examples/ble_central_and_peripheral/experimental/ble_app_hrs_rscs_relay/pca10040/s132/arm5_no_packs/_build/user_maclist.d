@@ -39,6 +39,7 @@
 .\_build\user_maclist.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\util\sdk_macros.h
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\experimental_section_vars\nrf_section.h
+.\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\strerror\nrf_strerror.h
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\src\nrf_log_internal.h
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\nrf_log_ctrl.h
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\libraries\experimental_log\src\nrf_log_ctrl_internal.h
@@ -68,3 +69,9 @@
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\drivers_nrf\hal\nrf_uarte.h
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\ble\common\ble_advdata.h
 .\_build\user_maclist.o: ..\..\..\..\..\..\..\components\ble\ble_advertising\ble_advertising.h
+.\_build\user_maclist.o: common_include.h
+.\_build\user_maclist.o: timer.h
+.\_build\user_maclist.o: ..\..\..\..\..\..\..\components\ble\common\ble_conn_params.h
+.\_build\user_maclist.o: ..\..\..\..\..\..\..\components\ble\common\ble_srv_common.h
+.\_build\user_maclist.o: data_send_handle.h
+.\_build\user_maclist.o: Master_DataStruct.h

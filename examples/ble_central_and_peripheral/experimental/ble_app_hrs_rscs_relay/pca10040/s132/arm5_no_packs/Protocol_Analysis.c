@@ -72,6 +72,9 @@ void App_RecvHandler(uint16_t conn_handle,uint16_t command, uint8_t* data,uint16
                     device_bond_status_update(conn_handle);                                  //绑定标志位
                     device_add_type(conn_handle,device_type);                                //添加设备类型
 
+                    NRF_LOG_INFO("-------------------conn_handle %d device_type: %d",conn_handle,device_type);
+            
+            
                 #if 0
                         #ifdef USER_UART_PRINT
                 

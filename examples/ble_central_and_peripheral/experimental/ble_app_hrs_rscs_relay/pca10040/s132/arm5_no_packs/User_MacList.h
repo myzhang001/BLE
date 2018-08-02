@@ -70,9 +70,12 @@ typedef struct{
 
 
 typedef enum{
-    E_SEND_STATUS = 0x00,
-    E_REAL_TIME_DATA = 0X01,
-    E_CONTROL_DATA   = 0X02
+    E_SEND_STATUS = 0x00,               //发起绑定
+    E_REAL_TIME_DATA = 0X01,            //获取设备实时数据
+    E_CONTROL_DATA   = 0X02,             //下发控制数据
+    E_RSP_REAL_TIME  = 0X03,             //应答控运行数据
+    E_RSP_CONTROL_DATA = 0x04,           //应答控制数据
+    
 }_data_step;
 
 
